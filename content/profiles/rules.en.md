@@ -197,13 +197,67 @@ In this example, a patient's study falls within the scope of two different proje
 
 If the patient pseudonym is used as patient identification and the data is reconciled, the birthdate will be leaked.
 
-![Pseudonymization](/profiles/pseudonymization_karnak.png)
+```mermaid {align="center" zoom="true"}
+flowchart TB
+    patient["Patient's original<br>DICOM study<br><i>(contains birthdate)</i>"]
+    gateway["Karnak<br>Gateway"]:::karnak
+    table[("Pseudonym<br>mapping table<br>patient &harr; pseudonym")]
+    p1["<b>Project 1</b><br>Profile:<br><b>remove</b> birthdate"]
+    p2["<b>Project 2</b><br>Profile:<br><b>keep</b> birthdate"]
+    s1["De-identified study<br>birthdate <b>removed</b>"]
+    s2["De-identified study<br>birthdate <b>kept</b>"]
+    pm["<b>Patient Module</b><br>the <b>same pseudonym</b> identifies the<br>patient in both studies &rarr; the kept<br>birthdate leaks when they are reconciled"]:::leak
+
+    patient -->|"(1) DICOM send"| gateway
+    gateway <-->|"(2) Look up the<br>patient's pseudonym"| table
+    gateway -->|"(3) Route to Project 1"| p1
+    gateway -->|"(5) Route to Project 2"| p2
+    p1 -->|"(4) Apply Profile 1"| s1
+    p2 -->|"(6) Apply Profile 2"| s2
+    s1 -->|"Identification"| pm
+    s2 -->|"Identification"| pm
+
+    classDef karnak fill:#f9a825,stroke:#e08e00,color:#000;
+    classDef leak fill:#ffe0e0,stroke:#e03e3e,color:#000;
+```
+
+Because both studies are identified by the **same pseudonym**, reconciling them re-associates the kept birthdate (Project 2) with the patient whose birthdate Project 1 removed.
 
 ### The Solution: Project-Specific Patient IDs
 
 Karnak generates a unique Patient ID based on the pseudonym and project-specific characteristics. This prevents reconciliation across projects and eliminates data leakage.
 
-![Generate PatientID](/profiles/pseudonymization_patientIDGenerated_karnak.png)
+```mermaid {align="center" zoom="true"}
+flowchart TB
+    patient["Patient's original<br>DICOM study<br><i>(contains birthdate)</i>"]
+    gateway["Karnak<br>Gateway"]:::karnak
+    table[("Pseudonym<br>mapping table<br>patient &harr; pseudonym")]
+    p1["<b>Project 1</b><br>Profile:<br><b>remove</b> birthdate"]
+    p2["<b>Project 2</b><br>Profile:<br><b>keep</b> birthdate"]
+    id1["Patient ID<br>specific to Project 1"]:::idbox
+    id2["Patient ID<br>specific to Project 2"]:::idbox
+    s1["De-identified study<br>birthdate <b>removed</b>"]
+    s2["De-identified study<br>birthdate <b>kept</b>"]
+    pm1["<b>Patient Module</b><br>Patient ID unique to Project 1<br>&rarr; cannot be reconciled"]:::safe
+    pm2["<b>Patient Module</b><br>Patient ID unique to Project 2<br>&rarr; cannot be reconciled"]:::safe
+
+    patient -->|"(1) DICOM send"| gateway
+    gateway <-->|"(2) Look up the<br>patient's pseudonym"| table
+    gateway -->|"(3) Route to Project 1"| p1
+    gateway -->|"(6) Route to Project 2"| p2
+    p1 -->|"(4) Derive a project-<br>specific Patient ID"| id1
+    p2 -->|"(7) Derive a project-<br>specific Patient ID"| id2
+    id1 -->|"(5) Apply Profile 1"| s1
+    id2 -->|"(8) Apply Profile 2"| s2
+    s1 -->|"Identification"| pm1
+    s2 -->|"Identification"| pm2
+
+    classDef karnak fill:#f9a825,stroke:#e08e00,color:#000;
+    classDef safe fill:#e0f5e0,stroke:#2ab218,color:#000;
+    classDef idbox fill:#eef3ff,stroke:#5b7cc2,color:#000;
+```
+
+Each project derives its **own Patient ID** from the pseudonym and the project's secret, so the two studies can no longer be reconciled — the kept birthdate stays isolated to Project 2.
 
 ### PatientID Generation
 

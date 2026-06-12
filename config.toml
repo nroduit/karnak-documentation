@@ -38,11 +38,10 @@ disableXML = false
 minifyOutput = false
 [minify.tdewolff]
 [minify.tdewolff.css]
-keepCSS2 = true
+version = 2
 precision = 0
 [minify.tdewolff.html]
-keepComments = false
-keepConditionalComments = true
+keepSpecialComments = true
 keepDefaultAttrVals = true
 keepDocumentTags = true
 keepEndTags = true
@@ -66,11 +65,13 @@ keepWhitespace = false
 # consult this documentation for explanation
 [params]
   editURL = "https://github.com/OsiriX-Foundation/karnak-documentation/edit/main/content/"
-  logo = "images/karnak.png"
+  logo = { src = '/images/logo.png' }
+  linkTitle = ""
   # Author of the site, will be used in meta information
   author.name = "Karnak Team"
   # Description of the site, will be used in meta information
   showVisitedLinks = true
+  externalLinkTarget = '_blank'
   disableBreadcrumb = false
   disableTOC = false
   disableGeneratorVersion = true
@@ -85,6 +86,10 @@ keepWhitespace = false
   # security reasons
   mermaidInitialize = "{ \"securityLevel\": \"loose\" }"
   disableInlineCopyToClipBoard = true
+
+  # Broken internal links (relref/ref) surface as build warnings instead of being silently emitted.
+  [params.link]
+    errorlevel = 'warning'
 
 [outputs]
   # add JSON to the home page to support lunr search; This is a mandatory setting
@@ -114,6 +119,10 @@ keepWhitespace = false
     # activated for this showcase to use HTML and JavaScript; decide on your own needs;
     # if in doubt, remove this line
     unsafe = true
+
+  [markup.goldmark.parser.attribute]
+    # allow `{ ... }` attribute lists on block elements (headings, images, tables)
+    block = true
 
 
 [Languages]
