@@ -1,6 +1,6 @@
 # this is a required setting for this theme to appear on https://themes.gohugo.io/
 # change this to a value appropriate for you
-baseurl = "https://osirix-foundation.github.io/karnak-documentation/"
+baseurl = "https://nroduit.github.io/karnak-documentation/"
 # as the official Hugo documentation recommends, we turn this off for this
 # showcase; this allows the published site to be served by both http and https
 canonifyURLs = true
@@ -64,7 +64,7 @@ keepWhitespace = false
 # settings specific to this theme's features; choose to your likings and
 # consult this documentation for explanation
 [params]
-  editURL = "https://github.com/OsiriX-Foundation/karnak-documentation/edit/main/content/"
+  editURL = "https://github.com/nroduit/karnak-documentation/edit/main/content/"
   logo = { src = '/images/logo.png' }
   linkTitle = ""
   # Author of the site, will be used in meta information
