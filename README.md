@@ -2,9 +2,9 @@
 
 [![Hugo](https://img.shields.io/badge/Built%20with-Hugo-FF4088?logo=hugo)](https://gohugo.io/)
 [![Theme](https://img.shields.io/badge/Theme-Relearn-blue)](https://github.com/McShelby/hugo-theme-relearn)
-[![License](https://img.shields.io/github/license/OsiriX-Foundation/karnak-documentation)](LICENSE)
+[![License](https://img.shields.io/github/license/nroduit/karnak-documentation)](LICENSE)
 
-Source repository for the **[Karnak documentation website](https://osirix-foundation.github.io/karnak-documentation/)** — covering installation, configuration, profiles, gateway setup, and user guides for the [Karnak](https://github.com/OsiriX-Foundation/karnak) DICOM gateway.
+Source repository for the **[Karnak documentation website](https://weasis.org/karnak-documentation/)** — covering installation, configuration, profiles, gateway setup, and user guides for the [Karnak](https://github.com/OsiriX-Foundation/karnak) DICOM gateway.
 
 ---
 
@@ -22,7 +22,7 @@ Before getting started, make sure the following tools are installed:
 Clone the repository **with its submodules** (the Relearn theme):
 
 ```shell
-git clone --recurse-submodules https://github.com/OsiriX-Foundation/karnak-documentation.git
+git clone --recurse-submodules https://github.com/nroduit/karnak-documentation.git
 cd karnak-documentation
 ```
 
