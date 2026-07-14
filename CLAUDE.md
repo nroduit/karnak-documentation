@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Source for the **[Karnak documentation site](https://osirix-foundation.github.io/karnak-documentation/)** — the docs for the [Karnak](https://github.com/OsiriX-Foundation/karnak) DICOM gateway (de-identification + DICOM attribute normalization). It is a Hugo static site using the [Relearn theme](https://github.com/McShelby/hugo-theme-relearn), pulled in as a git submodule at `themes/hugo-theme-relearn`. Content is authored in Markdown; there is no application code.
+Source for the **[Karnak documentation site](https://weasis.org/karnak-documentation/)** — the docs for the [Karnak](https://github.com/nroduit/karnak) DICOM gateway (de-identification + DICOM attribute normalization). It is a Hugo static site using the [Relearn theme](https://github.com/McShelby/hugo-theme-relearn), pulled in as a git submodule at `themes/hugo-theme-relearn`. Content is authored in Markdown; there is no application code.
 
 ## Common commands
 

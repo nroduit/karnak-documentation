@@ -24,7 +24,7 @@ The following variables can be used in your custom Logback configuration file to
 | **ProfileName** | Profile name used for de-identification |
 | **ProfileCodenames** | Concatenated list of profile items applied during de-identification |
 
-For usage examples, see the [default Logback configuration](https://github.com/OsiriX-Foundation/karnak/blob/master/src/main/resources/logback.xml#L112-L114).
+For usage examples, see the [default Logback configuration](https://github.com/nroduit/karnak/blob/master/src/main/resources/logback.xml#L112-L114).
 
 ## Inject the Logback Configuration File
 
@@ -43,7 +43,7 @@ If you create a custom configuration file named `my-logback.xml` in the same dir
 services:
   karnak:
     container_name: karnak
-    image: osirixfoundation/karnak:v0.9.7
+    image: nroduit/karnak:latest
     volumes:
       - ./my-logback.yml:/logs/my-logback.xml
     environment:
@@ -56,7 +56,7 @@ If you run Karnak directly from the JAR file, add the following parameter at sta
 
 ## Default Logback Configuration
 
-The default [logback configuration file](https://github.com/OsiriX-Foundation/karnak/blob/master/src/main/resources/logback.xml) supports two operating modes:
+The default [logback configuration file](https://github.com/nroduit/karnak/blob/master/src/main/resources/logback.xml) supports two operating modes:
 
 ### Development Mode
 

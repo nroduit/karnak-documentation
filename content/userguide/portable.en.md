@@ -67,4 +67,4 @@ This button automatically configures a DICOM destination for local storage. For 
 
 ###### Upload local folder
 
-Click the **Upload Local Folder** button {{% badge style="red" %}}B{{% /badge %}} to select a local folder containing DICOM instances that you want to forward through the selected forward node destinations.
+Click the **Upload local folder** button {{% badge style="red" %}}B{{% /badge %}} to send DICOM instances from a local folder through the forward node's **active** destinations. The forward node must already have at least one active destination — otherwise a notification is shown and nothing happens. The button opens a dialog titled *Upload DICOM files from a local folder* where you type the **absolute path** to the folder in the **Folder Path** field.

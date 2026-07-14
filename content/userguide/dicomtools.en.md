@@ -1,148 +1,244 @@
 ---
-title: DICOM Tools
+title: DICOM Web Tools
 weight: 70
-description: DICOM tools for testing connectivity and querying DICOM servers
+description: Tools for testing, managing and diagnosing DICOM and DICOMweb endpoints
 ---
 
-This page provides an overview of utility tools available in the DICOM Tools module, designed to assist with connectivity testing, querying, and status monitoring of DICOM servers. These tools enable users to:
+The **DICOM Web Tools** module groups the utilities used to test connectivity, query
+servers, manage reusable endpoint configurations, and diagnose DICOM and DICOMweb
+nodes. The modules are accessed through tabs at the top of the page:
 
-- Test DICOM node availability using **DICOM Echo**
-- Query a **DICOM Worklist** and display results
-- **Monitor** multiple DICOM nodes using DICOM Echo and WADO protocols
-
-The different modules are accessed through tabs at the top of the page.
+- **DICOM Echo** — test a single DICOM node and probe its capabilities
+- **DICOM Worklist** — query a Modality Worklist server and display the results
+- **Manage DICOM Nodes** — store, group and import/export DICOM node configurations
+- **DICOMweb** — test a single DICOMweb (STOW-RS / QIDO-RS / WADO-RS …) endpoint
+- **Manage DICOMweb** — store, group and import/export DICOMweb endpoints
+- **Monitor** — run health checks against a whole group of DICOM nodes or DICOMweb destinations at once
 
 > [!INFO]
-> Currently, the persistence of DICOM nodes and worklists is not supported. Configured nodes and worklists come from [CSV files](https://github.com/OsiriX-Foundation/karnak/tree/master/src/main/resources/config) that are loaded when the Karnak server starts.
+> DICOM nodes and DICOMweb endpoints are now **persisted in the database** and managed
+> directly from the web interface (the *Manage* tabs). The active Gateway destinations
+> are also exposed read-only in these tools, so you can echo or probe them without
+> re-typing their connection details.
 
 ## DICOM Echo
 
-This tool tests DICOM communication between two Application Entity Titles (AETs).
+This tool tests DICOM communication with a single Application Entity (AE) and, on
+the same screen, lets you probe what the node accepts.
 
-![DICOM Tools main page](/userguide/dicomtools_mainpage.png)
-
-### Configuration Fields
-
-The following fields must be configured to execute an Echo test:
+### Configuration fields
 
 | Field | Description | Required |
 |-------|-------------|----------|
-| **Calling AETitle** | Identity of the calling DICOM entity | Yes |
-| **Called AETitle** | Identity of the DICOM entity to test | Yes |
+| **Calling AE Title** | Identity of the calling DICOM entity (Karnak) | Yes |
+| **Called AE Title** | Identity of the DICOM entity to test | Yes |
 | **Called Hostname** | Hostname or IP address of the DICOM node | Yes |
-| **Called Port** | Port number of the DICOM node | Yes |
+| **Called Port** | Port number of the DICOM node (1–65535) | Yes |
 
-All fields are mandatory to execute the Echo test.
+The **Check DICOM Node** button stays disabled until all fields are valid.
 
-### Running the Test
+Use **Select DICOM Node** to pick from the stored DICOM nodes (and the gateway
+destinations) instead of typing the values; the Called AE Title, Hostname and Port
+fields are filled automatically. **Reset Form** clears the form.
 
-Click the **Echo** button to launch the connectivity test and DICOM Echo command.
+### Running the test
 
-#### Successful Test
+Click **Check DICOM Node** to run the test. The result is shown in a grid; select the
+row to view the details. Each result combines two checks:
 
-Below is an example of a successful DICOM Echo test:
+- **DICOM Echo** — the C-ECHO (verification) result, with the DICOM status, the
+  connection time and the execution time (in milliseconds). A rejected association or
+  a node that does not support verification is reported with the reason.
+- **Check Network** — a low-level reachability check run alongside the echo: hostname
+  (DNS) resolution, ping result, and whether the host is listening on the port.
 
-![DICOM Tools Echo success](/userguide/dicomtools_successecho.png)
+![DICOM Echo test and result](/userguide/dicomtools_echo.png)
 
-#### Failed Test
+Below the current result, a **History** panel lists the previous checks (most recent
+first, with a count in its title). It is stored server-side, so checks run earlier — or in
+another session — remain visible after a page reload; select a row to view that check's
+details.
 
-In this example, the "Called AETitle" value is intentionally incorrect. The network connectivity test succeeds, but the DICOM Echo fails, displaying the reason for the failure:
+### DICOM Capabilities
 
-![DICOM Tools Echo error](/userguide/dicomtools_echoerror.png)
+From the result grid, the **Probe** button (in the **Capabilities** column) runs a
+non-invasive probe that asks the node which **SOP Classes** and **transfer syntaxes** it accepts — **no image data
+is exchanged**. A dialog opens and lists the accepted SOP classes (grouped by category) with
+the negotiated transfer syntaxes, along with the maximum PDU length and the remote
+implementation (version name and class UID). This is useful to confirm a destination
+will accept the modalities you intend to send before configuring a forwarding pipeline.
 
-### Select Node Utility
-
-The **Select Node** popup simplifies configuration by allowing you to choose from pre-configured DICOM nodes.
-
-Click the **Select Node** button to open the popup:
-
-![DICOM Tools Select Node](/userguide/dicomtools_selectnode.png)
-
-**Configuration:**
-
-1. Choose the node type in the **DICOM Nodes Type** field
-2. The **DICOM Node** dropdown updates automatically based on the selected type
-3. Filter nodes by typing in the field (searches AET, hostname, port, or description)
-4. Click **Select** to auto-fill the Called AETitle, Called Hostname, and Called Port fields
-
-![DICOM Tools Select Node result](/userguide/dicomtools_selectnode_result.png)
+![DICOM capabilities probe](/userguide/dicomtools_capabilities.png)
 
 ## DICOM Worklist
 
-This tool retrieves and displays the content of a DICOM Worklist to test connectivity and data retrieval.
+This tool retrieves and displays the content of a Modality Worklist (MWL) server to
+test connectivity and data retrieval.
 
-![DICOM Tools Worklist main page](/userguide/dicomtools_worklist.png)
-
-### Worklist Configuration
-
-Configure the following fields to connect to a worklist:
+### Worklist configuration
 
 | Field | Description | Required |
 |-------|-------------|----------|
-| **Calling AETitle** | Identity of the calling DICOM entity | Yes |
-| **Worklist AET** | Identity of the worklist to query | Yes |
-| **Worklist Hostname** | Hostname or IP address of the worklist | Yes |
-| **Worklist Port** | Port number of the worklist | Yes |
+| **Calling AE Title** | Identity of the calling DICOM entity | Yes |
+| **Worklist AE Title** | Identity of the worklist server to query | Yes |
+| **Worklist Hostname** | Hostname or IP address of the worklist server | Yes |
+| **Worklist Port** | Port number of the worklist server | Yes |
 
-All fields are mandatory to retrieve worklist content.
+Optional filter fields narrow the returned entries; if no filter is specified, all
+worklist entries are retrieved. Use **Select Worklist Node** to fill the connection
+fields from a stored worklist node.
 
-### Worklist Query Filters
+Click **Run Query** to execute the query. Results are displayed in a sortable
+table — click a column header to sort by that column. Select a row to open a popup
+showing the full attributes of that worklist entry.
 
-Additional optional fields are available to filter the results returned by the worklist:
+![DICOM Worklist query results](/userguide/dicomtools_worklist.png)
 
-- If no filters are specified, all worklist entries are retrieved
-- Multiple filters can be combined to narrow results
+## Manage DICOM Nodes
 
-### Query Results
+This tab is the central place to store the DICOM nodes you test or monitor regularly,
+so they no longer have to be configured from CSV files at startup.
 
-Click the **Query Worklist** button to execute the test and retrieve data.
+![DICOM node management](/userguide/dicomtools_managenodes.png)
 
-Retrieved worklist data is displayed in a sortable table. Click any column header to sort by that column:
+The grid lists each node with its **Description**, **AE Title**, **Hostname**,
+**Port**, **Node Type** and **Group**, plus per-row **Edit** and **Delete** actions.
 
-![Worklist success](/userguide/dicomtools_worklistsuccess.png)
+> [!INFO]
+> The active **Gateway destinations** appear in this grid as **read-only** rows. They
+> reflect your forwarding configuration and cannot be edited, deleted, or replaced by
+> an import.
 
-### Select Worklist Utility
+### Adding and editing a node
 
-The **Select Worklist** popup allows you to choose from pre-configured worklists.
+Click **Add Node** (or the edit action on a row) to open the editor:
 
-Click the **Select Worklist** button to open the popup:
+| Field | Description |
+|-------|-------------|
+| **Description** | A human-readable name for the node |
+| **AE Title** | The node's Application Entity Title |
+| **Hostname** | Hostname or IP address |
+| **Port** | DICOM port |
+| **Node Type** | What the node is used for (e.g. workstation) |
+| **Group** | Optional — pick an existing group or type a new one |
 
-![DICOM Tools Select worklist](/userguide/dicomtools_worklistpopup.png)
+The **Group** is an organizational label: it lets you collect related nodes together
+and check them all at once from the **Monitor** tab.
 
-**Configuration:**
+### Import / Export
 
-1. Browse the list of available worklists
-2. Filter by typing in the search field (searches AET, hostname, port, or description)
-3. Click **Select** to auto-fill the Worklist AET, Worklist Hostname, and Worklist Port fields
+The **Import / Export** button opens a dialog to move node configurations in and out
+of Karnak as CSV:
 
-![DICOM Tools Select worklist result](/userguide/dicomtools_worklist_result.png)
+- **Import** — upload a CSV file. Optionally choose an **Import into group** (leave
+  blank to use the group column from the file). Tick **Replace existing in scope** to
+  delete the nodes currently in the target group before importing. Replacing *without*
+  a target group deletes **every** node (worklist nodes included) and asks for an
+  explicit confirmation first. An import report summarizes how many nodes were imported
+  or removed and lists any skipped rows.
+- **Export** — download the current nodes as `dicom-nodes.csv`. Choose an **Export
+  group** to limit the file to one group, or leave it blank to export every group.
+
+## DICOMweb
+
+This tool tests a single DICOMweb endpoint and reports its reachability, TLS
+certificate and per-service availability.
+
+### Configuration
+
+| Field | Description |
+|-------|-------------|
+| **DICOMweb base URL** | The base URL of the service, e.g. `https://host:443/dicom-web` |
+| **Services to probe** | Which DICOMweb services to check; leaving all unchecked means *all services* |
+| **Saved endpoint** | Optional — pick a stored endpoint to fill the form |
+| **Group** | Optional filter shown when more than one endpoint group exists |
+
+The probed services are the DICOMweb (PS3.18) RESTful services:
+
+| Service | Role |
+|---------|------|
+| **STOW-RS** | Store |
+| **QIDO-RS** | Query |
+| **WADO-RS** | Retrieve |
+| **WADO-URI** | Retrieve (legacy) |
+| **UPS-RS** | Worklist |
+| **Capabilities** | Discovery |
+
+### Running the check
+
+Click **Check URL** to probe the single endpoint, or **Check group** to probe a whole
+group of managed endpoints (including the gateway STOW-RS destinations) at once. The
+result panel shows an overall **Reachable / Unreachable** badge followed by the details:
+
+- **TCP** — whether a TCP connection to the host and port succeeded.
+- **HTTP** — the status returned by the `OPTIONS` request, or a note if the endpoint
+  did not respond.
+- **TLS** (HTTPS only) — the negotiated protocol, the certificate subject/issuer, the
+  expiry date and the number of days until expiry, and whether the certificate is
+  trusted. An expired certificate makes the check fail.
+- **Services** — one line per probed service indicating whether it is supported.
+- **Authentication** — for endpoints with an authentication configuration, whether an
+  OAuth 2.0 access token could be obtained.
+
+![DICOMweb endpoint check result](/userguide/dicomtools_dicomweb.png)
+
+Click **Save as endpoint** to store the current URL and selected services as a
+reusable endpoint (see [Manage DICOMweb](#manage-dicomweb)).
+
+## Manage DICOMweb
+
+This tab stores the DICOMweb endpoints you test or monitor regularly.
+
+The grid lists each endpoint with its **Description**, **URL**, **Services** and
+**Group**, plus per-row **Edit** and **Delete** actions. As with DICOM nodes, the
+gateway **STOW-RS destinations** appear as read-only rows.
+
+![Manage DICOMweb endpoints](/userguide/dicomtools_manage_dicomweb.png)
+
+### Adding and editing an endpoint
+
+Click **Add Endpoint** (or the edit action on a row) to open the editor:
+
+| Field | Description |
+|-------|-------------|
+| **Description** | A human-readable name for the endpoint |
+| **DICOMweb base URL** | The base URL of the service |
+| **Services to probe** | Which services to check (none selected means all) |
+| **Group** | Optional — pick an existing group or type a new one |
+
+### Import / Export
+
+The **Import / Export** button behaves like the DICOM nodes one: import endpoints from
+a CSV (optionally into a chosen group, optionally replacing the existing endpoints in
+scope), or export the current endpoints to `dicomweb-endpoints.csv`.
 
 ## Monitor
 
-This tool monitors the status of DICOM nodes using both DICOM and WADO protocols, allowing you to verify connectivity and service availability.
+The Monitor tab runs the same checks as the Echo and DICOMweb tools, but against a
+whole **group** at once — ideal for regular health checks of your DICOM infrastructure.
+A second row of tabs switches between **DICOM Nodes** and **DICOMweb**.
 
-### DICOM Echo Monitoring
+![Monitor group health check](/userguide/dicomtools_monitor.png)
 
-**To test a DICOM node:**
+### DICOM Nodes
 
-1. Select a DICOM node from the list
-2. Click the **Check** button to launch the DICOM Echo test
+1. Pick a **Group** of nodes to check.
+2. Enter the **Calling AE Title** (defaults to `PACSMONITOR`).
+3. Click **Check DICOM Nodes**.
 
-Below is an example of a successful DICOM Echo monitoring test:
+The result grid shows one row per node with its DICOM Echo status, connection and
+execution times, and network reachability. The **Probe** button (in the **Capabilities**
+column) is available on each row to probe a node's accepted SOP classes.
 
-![Monitor DICOM Echo](/userguide/dicomtools_monitorecho.png)
+### DICOMweb
 
-### WADO Monitoring
+1. Optionally pick a **Group** of DICOMweb destinations (leave blank to check all).
+2. Click **Check DICOMweb**.
 
-**To test WADO connectivity:**
-
-1. Select a DICOM node from the list
-2. Navigate to the **WADO** tab
-3. Click the **Check** button to launch the WADO test
-
-Below is an example of a successful WADO test:
-
-![Monitor DICOM WADO](/userguide/dicomtools_monitorwado.png)
+The result grid shows one row per destination with its reachability, HTTP status and
+TLS certificate state. The gateway STOW-RS destinations are included unless a specific
+managed group is selected.
 
 > [!INFO]
-> The Monitor tool is useful for regular health checks of your DICOM infrastructure and can help identify connectivity issues before they impact production workflows.
+> The Monitor tool helps you spot connectivity, certificate or capability issues
+> before they affect production transfers.

@@ -1,12 +1,12 @@
 ---
-title: External Pseudonym
+title: External pseudonym
 weight: 40
 description: Import and manage pseudonyms from CSV files or manual entry
 ---
 
 This page allows you to create or import pseudonyms that Karnak will use during de-identification. The de-identification process and how pseudonyms are used is detailed in the [Pseudonym chapter](../../profiles/rules/#pseudonym).
 
-De-identification is activated in the [Destination configuration](../gateway/destinations/#6-de-identification).
+De-identification is activated in the [Destination configuration](../gateway/destinations/#8-de-identification).
 
 > [!INFO]
 > Pseudonyms created or imported on this page are stored in a cache with a maximum lifetime of **7 days**.
@@ -60,14 +60,16 @@ If validation errors occur, they will be displayed and the import will be reject
 
 ##### 3. Add a new patient manually
 
-You can also add external pseudonyms manually by filling in the form fields:
+You can also add external pseudonyms manually. Click the **Add patient** button above the
+table to open a popup containing the following fields:
 - **External Pseudonym** (required)
 - **Patient ID** (required)
-- **Patient First Name** (optional)
-- **Patient Last Name** (optional)
-- **Issuer of Patient ID** (optional)
+- **Patient first name** (optional)
+- **Patient last name** (optional)
+- **Issuer of patient ID** (optional)
 
-Click **Add patient** to add the entry to the external pseudonyms table.
+Fill in the fields and click **Add** in the popup to add the entry to the external
+pseudonyms table.
 
 ##### 4. Pseudonym management
 

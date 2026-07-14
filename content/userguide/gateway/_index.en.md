@@ -35,8 +35,19 @@ Select a forward node from the list to view and manage its configuration in the 
 > [!INFO]
 > The copy icon {{< svg-inline "static/userguide/copy.svg" >}} next to each forward node allows you to quickly copy its DICOM configuration in the clipboard for use in DICOM clients.
 
+###### Organizing the list into groups
 
+When the list grows, you can organize forward nodes into **groups** (a single level of
+folders) to keep related nodes together:
 
+- Click **Add group** to create a new group and give it a name.
+- **Drag a forward node onto a group** to assign it to that group.
+- **Right-click a group** to **Rename group** or **Delete group**; deleting a group only
+  removes the folder — the nodes it contained move back out, they are not deleted.
+- **Right-click a node** and choose **Remove from group** to take it out of its group.
+
+Groups are purely organizational; they do not change how forward nodes behave. The same
+grouping is available for [Projects](../projects) and [Profiles](../profiles).
 
 ##### 3. Forward Node Parameters
 
@@ -54,7 +65,7 @@ Each forward node can be configured with:
 - [**Sources**](sources): Control which DICOM nodes are authorized to send data to this forward node
 - [**Destinations**](destinations): Define where received DICOM instances should be forwarded
 
-![gateway destinations](/userguide/gateway_destinationspage.png)
+![Gateway destinations](/userguide/gateway_destinationspage.png)
 
 ###### 4.1 Navigation
 
@@ -62,15 +73,16 @@ Use the tabs to switch between the [**Destinations**](destinations) and [**Sourc
 
 ###### 4.2 Filtering
 
-**Destinations tab**: Filter by destination description
+**Destinations tab**: a free-text filter matching a destination's description, AE Title, hostname, port, URL, headers and notification settings.
 
-**Sources tab**: Filter by AE Title and hostname
+**Sources tab**: a free-text filter matching a source's description, AE Title and hostname.
 
 ###### 4.3 List
 
 All destinations or sources associated with the forward node are displayed here.
 
-Click any item in the list to open its detailed view and edit its configuration.
+Click any item in the list (or a **New** button) to open its configuration form. The form
+**replaces** the list panel in place; click **Cancel** to return to the list.
 
 ###### 4.4 Actions
 

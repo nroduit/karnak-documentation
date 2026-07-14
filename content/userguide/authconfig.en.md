@@ -1,5 +1,5 @@
 ---
-title: Authentication Configuration
+title: Authentication Config
 weight: 80
 description: Authentication Configuration for API calls
 ---
@@ -10,7 +10,7 @@ This page allows you to configure authentication credentials for API calls. Sinc
 
 ##### 1. Create an Authentication Configuration
 
-Click the **Create Authentication Config** button to begin. You'll be prompted to enter a unique identifier for the new configuration.
+Click the **New authentication config** button to begin. You'll be prompted to enter a unique identifier for the new configuration.
 
 ![authconfig create](/userguide/authconfig_create.png)
 
@@ -19,7 +19,10 @@ Click the **Create Authentication Config** button to begin. You'll be prompted t
 - The identifier must be unique (an error will appear if a duplicate exists)
 - We recommend avoiding spaces in the identifier for easier reference in profiles
 
-Click **Create** to proceed. The configuration will be added to the list on the left and its details will appear in the right panel.
+Click **Add** to proceed. The popup closes and an empty, editable configuration form
+appears in the right panel. The configuration is **not** saved yet — fill in the OAuth 2.0
+fields described below and click **Save** to create it. Only then is it persisted and added
+to the list on the left. Click **Cancel** to discard it.
 
 ###### OAuth 2.0
 
@@ -27,14 +30,17 @@ Currently, OAuth 2.0 is the only supported authentication type.
 
 **Required fields:**
 
-| Field | Description |
-|-------|-------------|
-| **Access Token URL** | The OAuth 2.0 token endpoint |
-| **Scope** | Required scopes (separate multiple scopes with whitespace) |
-| **Client ID** | OAuth 2.0 client identifier |
-| **Client Secret** | OAuth 2.0 client secret |
+| Field                | Description                                                 |
+|----------------------|-------------------------------------------------------------|
+| **Access Token URL** | The OAuth 2.0 token endpoint                                |
+| **Scope**            | Required scopes (separate multiple scopes with whitespace)  |
+| **Client Secret**    | OAuth 2.0 client secret                                     |
+| **Client ID**        | OAuth 2.0 client identifier                                 |
 
 ![authconfig create form](/userguide/authconfig_createform.png)
+
+Once all required fields are filled, click **Save** to create the configuration and add it
+to the list; click **Cancel** to discard it.
 
 **How it works:**
 
