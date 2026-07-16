@@ -68,3 +68,46 @@ This button automatically configures a DICOM destination for local storage. For 
 ###### Upload local folder
 
 Click the **Upload Local Folder** button {{% badge style="red" %}}B{{% /badge %}} to select a local folder containing DICOM instances that you want to forward through the selected forward node destinations.
+
+##### Automatic pixel de-identification plugin
+
+The portable distribution can run the [automatic pixel data de-identification](../../profiles/masks/#automatic-pixel-data-de-identification) feature, which masks burned-in patient data detected by an external OCR service. This service ships as a **separate plugin**; it is not included in the base portable archive.
+
+###### Install the plugin
+
+1. Download the de-identification plugin archive from the **same download page as the portable build**.
+2. Extract its contents into your already-extracted `karnak-portable` folder. The archive contains a single service folder (named after `DEIDENTIFY_IMAGE_SERVICE_NAME`, `image-ocr-identifier` by default) that holds a sub-folder and the service executable. Copy that folder as-is to the root of `karnak-portable`, next to `run.sh` / `run.bat`.
+
+After extraction the layout looks like:
+
+```text
+karnak-portable/
+├── run.sh
+├── run.bat
+├── run.cfg
+└── image-ocr-identifier/
+    ├── ...                    (service resources)
+    └── image-ocr-identifier   (executable, image-ocr-identifier.exe on Windows)
+```
+
+###### Configure and run the plugin
+
+Once the plugin folder is in place, the bundled service is managed as a sidecar. It is controlled in `run.cfg`:
+
+```sh
+### Image Deidentification
+DEIDENTIFY_IMAGE_ENABLED=true
+DEIDENTIFY_IMAGE_URL=http://localhost:8000
+DEIDENTIFY_IMAGE_SERVICE_NAME=image-ocr-identifier
+```
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DEIDENTIFY_IMAGE_ENABLED` | `true` | Start the bundled de-identification sidecar with the portable package. Set to `false` to manage the service yourself. |
+| `DEIDENTIFY_IMAGE_URL` | `http://localhost:8000` | Base URL Karnak uses to reach the service. |
+| `DEIDENTIFY_IMAGE_SERVICE_NAME` | `image-ocr-identifier` | Name of the bundled service folder and executable. The sidecar lives in `<app>/<name>/` and its binary is named `<name>` (`<name>.exe` on Windows). |
+
+When enabled, `run.sh` / `run.bat` starts the bundled binary (`image-ocr-identifier/image-ocr-identifier`, `.exe` on Windows) on launch and stops it on shutdown. If the binary is missing, the step is skipped and a message is logged.
+
+> [!INFO]
+> For details about the feature itself — eligible images, sensitive tags, fail-closed behavior, and enabling it in a profile — see [Automatic Pixel Data De-identification](../../profiles/masks/#automatic-pixel-data-de-identification).

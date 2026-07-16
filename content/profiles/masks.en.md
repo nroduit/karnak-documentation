@@ -44,7 +44,7 @@ This profile element requires the following parameters:
 
 ## Pixel Data Cleaning
 
-Pixel data cleaning applies user-defined masks to DICOM images to remove identifying information burned into the pixels, such as patient or institution information.
+Pixel data cleaning applies masks to DICOM images to remove identifying information burned into the pixels, such as patient or institution information. Masks can be defined manually per station name (see [Masks Definition](#masks-definition)) or generated automatically by an external OCR service (see [Automatic Pixel Data De-identification](#automatic-pixel-data-de-identification)).
 
 ### Condition for Automatic Application
 
@@ -201,3 +201,104 @@ masks:
       - "25 25 150 50"
       - "350 15 150 50"
 ```
+
+## Automatic Pixel Data De-identification
+
+Instead of defining mask rectangles by hand for each station name, Karnak can automatically detect and mask sensitive patient data that are *burned into* the DICOM pixel data (text overlays such as patient name, accession number, or dates). When this option is enabled, Karnak sends each eligible image to an external **de-identification image API** that runs OCR, detects sensitive text, and returns the mask areas to apply.
+
+Automatic mask generation is an option of the [Clean Pixel Data](#pixel-data-cleaning) profile element.
+
+### How It Works
+
+1. A destination uses a de-identification profile that contains a **Clean Pixel Data** element with automatic mask generation enabled.
+2. For every eligible instance (the [SOP Classes eligible for pixel data cleaning](#condition-for-automatic-application), or any image flagged with **Burned In Annotation (0028,0301)**), Karnak extracts the pixel data and a set of sensitive tag values and sends them to the external API.
+3. The API returns one or more mask areas (rectangles, each with a color). Karnak draws them on the image before forwarding it to the destination.
+4. If the API returns no mask area (no sensitive data detected, or the call failed), no mask is applied. For eligible image types (US, Secondary Capture, XC, or Burned In Annotation), the instance is then not forwarded; other image types are forwarded unchanged.
+
+The example below shows an ultrasound frame before and after automatic pixel de-identification: the burned-in patient identifiers are detected and masked while the diagnostic image content is preserved.
+
+| Before de-identification | After de-identification |
+|--------------------------|-------------------------|
+| ![Original ultrasound image with burned-in PHI](/images/original_us_image.png) | ![De-identified ultrasound image with masked PHI](/images/deidentified_us_image.png) |
+
+> [!INFO]
+> When automatic mask generation is enabled, the statically configured station-name masks are **not** used. Manual masks (see [Masks Definition](#masks-definition)) only apply when automatic generation is disabled.
+
+### Sensitive Tags Sent to the API
+
+The values of the following tags are sent so the API can detect them in the image. No pixel data leaves Karnak beyond the single frame being analyzed.
+
+`AccessionNumber`, `InstitutionName`, `OperatorsName`, `PatientAge`, `PatientBirthDate`, `PatientID`, `PatientName`, `PatientSex`, `PerformingPhysicianName`, `PerformedProcedureStepID`, `ReferringPhysicianName`, `StudyDate`.
+
+### Fail-closed Behavior
+
+When automatic mask generation is enabled and the API is **unreachable or returns an error**, Karnak produces **no mask** and the instance is **not forwarded**. This prevents un-masked PHI from leaking to the destination if the service is down.
+
+> [!WARNING]
+> A missing or failing de-identification image API stops eligible instances from being forwarded. Check the Karnak logs for the cause (client error, server error, or unreachable service).
+
+### Enabling the Option in a Profile
+
+#### Via the UI
+
+1. Open the profile editor and add (or edit) a **Clean Pixel Data** element.
+2. Enable **Automatic masks generation**.
+3. Make sure the profile also contains the **DICOM basic profile** element.
+4. Save and assign the profile to the destination's de-identification project.
+
+#### Via a YAML Profile
+
+Set the `automaticMasksGeneration` argument to `"true"` on the `clean.pixel.data` element:
+
+```yaml
+name: "Automatic Deidentification Karnak Profile"
+version: "1.0"
+minimumKarnakVersion: "0.9.2"
+profileElements:
+  - name: "Clean pixel data"
+    codename: "clean.pixel.data"
+    arguments:
+      automaticMasksGeneration: "true"
+  - name: "DICOM basic profile"
+    codename: "basic.dicom.profile"
+```
+
+### Configuring the External API Endpoint
+
+Karnak calls the de-identification image API at the URL configured by the `DEIDENTIFY_IMAGE_URL` environment variable (default `http://localhost:8000`). It maps to the `karnak.deidentify-image.url` property in `application.yml`:
+
+```yaml
+karnak:
+  deidentify-image:
+    url: ${DEIDENTIFY_IMAGE_URL:http://localhost:8000}
+```
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DEIDENTIFY_IMAGE_URL` | `http://localhost:8000` | Base URL of the de-identification image API. |
+
+The API contract is documented in the [`deidentification-api.yaml`](https://github.com/nroduit/karnak/blob/master/src/main/resources/deidentification-api.yaml) specification.
+
+### Deploying the External De-identification Service
+
+The de-identification image API is a separate service. Deploy and run it so that it is reachable from Karnak at `DEIDENTIFY_IMAGE_URL`.
+
+To deploy it alongside the standard installation:
+
+1. Deploy the de-identification image API following its [deployment guide](https://github.com/nroduit/image-ocr-identifier).
+2. Point Karnak to it by setting `DEIDENTIFY_IMAGE_URL` to the service base URL.
+3. Restart Karnak so the new configuration is picked up.
+
+> [!INFO]
+> For the [portable distribution](../../userguide/portable), the de-identification service ships as a separate plugin that is started automatically as a sidecar. See the portable distribution page for the installation steps.
+
+### Troubleshooting
+
+| Symptom | Likely cause | Action |
+|---------|--------------|--------|
+| Images with automatic masking are not forwarded | API unreachable, returning errors, or returning no mask area | Check the API is running and reachable at `DEIDENTIFY_IMAGE_URL`; inspect the Karnak logs. |
+| `Cannot reach de-identification image API ...` in the logs | Wrong URL or service down | Verify `DEIDENTIFY_IMAGE_URL` and the service health. |
+| `Client error ...` / `Server error ... from de-identification image API` in the logs | Malformed request (4xx) or API failure (5xx) | Verify the API version and health; check the request format against `deidentification-api.yaml`. |
+| `The SOP Instance UID in the API response ... does not match ...` in the logs | API returned a response for a different instance | Verify the API version and that it echoes back the request `sop_instance_uid`. |
+| `The SOP Instance UID in the API response is null` in the logs | API response omitted `sop_instance_uid` | Verify the API version returns `sop_instance_uid` in its JSON response. |
+| Eligible image forwarded without a mask although PHI is visible | The instance is not an eligible image type (not US, Secondary Capture, XC, or `BurnedInAnnotation`), so a missing mask does not abort the transfer | Confirm the image type; automatic masking only guards eligible SOP classes. |
