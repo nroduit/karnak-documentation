@@ -62,9 +62,20 @@ The Activity tab is split between the hierarchy tree (left) and the detail panel
 ### Hierarchy tree
 
 Each row in the tree shows the **Destination / Study / Series** name and the counts of
-**Studies**, **Series**, **Instances** and **Errors**, plus an overall **Status**
-badge. Expand a destination to see its studies, and a study to see its series; failing
-series expose one line per error reason.
+**Studies**, **Series**, **Instances**, **Retries** and **Errors**, plus an overall
+**Status** badge. Expand a destination to see its studies, and a study to see its series;
+failing series expose one line per error reason.
+
+The outcomes are counted in separate buckets rather than a single error total:
+
+- **Instances** — the number of instances received for that element.
+- **Retries** — instances re-received after already being seen (duplicate re-sends);
+  they are counted here instead of as new work.
+- **Errors** — instances that could not be sent because of an unexpected error.
+
+Instances **excluded** by configuration (filters or aborted transfers) are reflected in
+the **Status** badge and reported as a separate **Excluded** count in the detail panel
+and on the dashboard.
 
 The toolbar below the tree provides, from left to right:
 
@@ -75,16 +86,25 @@ The toolbar below the tree provides, from left to right:
 - **Delete All** — permanently remove every monitoring entry (a confirmation is
   required; this cannot be undone).
 
+> [!INFO]
+> **Delete All** also clears the per-series baseline used for [notification](../gateway/destinations#4-notifications)
+> reporting, which is stored alongside the monitoring history. Email reporting simply
+> restarts from zero afterwards: no previously forwarded outcome is re-notified, but a new
+> transfer to a series that existed before the deletion is reported as new. The automatic
+> retention cleanup removes aged-out entries the same way.
+
 ### Detail panel
 
 Select any element in the tree to see its details on the right:
 
 - For a **destination**: the forward AE Title, the destination label, and the
-  Studies / Series / Instances / Sent / Errors counts.
+  **Studies / Series / Instances / Retries / Sent / Errors / Excluded** counts.
 - For a **study**: patient and study attributes shown as **original vs sent
   (de-identified)** pairs — Patient ID, Study UID, Accession number, Description and
-  Study date — followed by the transfer counts.
-- For a **series** or an **error**: the corresponding identifiers and the error reason.
+  Study date — followed by the same **Series / Instances / Retries / Sent / Errors /
+  Excluded** counts.
+- For a **series** or an **error**: the corresponding identifiers, the per-outcome counts
+  and the error reason.
 
 A **Copy** button copies the whole detail block to the clipboard.
 
@@ -98,16 +118,18 @@ A **Copy** button copies the whole detail block to the clipboard.
 ## Dashboard tab
 
 The Dashboard summarizes activity **per forward node** over the selected range. Summary
-cards at the top total the **Studies**, **Series**, **Instances**, **Sent**, **Errors**,
-**De-identified** and **Tag-morphed**, and a grid breaks the figures down by **Forward
-AETitle**, also showing how many instances were **De-identified** and **Tag-morphed**.
+cards at the top total the **Studies**, **Series**, **Instances**, **Retries**, **Sent**,
+**Errors**, **Excluded**, **De-identified** and **Tag-morphed**, and a grid breaks the
+same figures down by **Forward AETitle**.
 
 ![Monitoring dashboard tab](/userguide/monitoring_dashboard.png)
 
 ## Export
 
 You can export the activity to a CSV file. The export respects the currently active
-filters, so only the matching transfers are included.
+filters, so only the matching transfers are included. One row is written per series, with
+the original and de-identified identifiers, the **Instances / Retries / Sent / Errors /
+Excluded** counts, the outcome reasons and the first/last-seen timestamps.
 
 Click **Export Settings** to customize the CSV format before exporting:
 

@@ -73,6 +73,12 @@ default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
 > [!INFO]
 > The interval setting helps reduce email volume by aggregating notifications. All instances received within the specified interval are summarized in a single email.
 
+> [!INFO]
+> Each email reports only what is **new since the previous notification** for a given
+> series (the delta), so outcomes that were already reported are not counted again when
+> the series is touched by a later transfer. A series touched only by retries or duplicate
+> re-sends has nothing new to report and therefore does not trigger a notification.
+
 #### 5. Virtual Destination
 
 When **Virtual destination (report only, discard DICOM)** is checked, the destination
