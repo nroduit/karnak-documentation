@@ -4,7 +4,7 @@
 [![Theme](https://img.shields.io/badge/Theme-Relearn-blue)](https://github.com/McShelby/hugo-theme-relearn)
 [![License](https://img.shields.io/github/license/nroduit/karnak-documentation)](LICENSE)
 
-Source repository for the **[Karnak documentation website](https://weasis.org/karnak-documentation/)** — covering installation, configuration, profiles, gateway setup, and user guides for the [Karnak](https://github.com/nroduit/karnak) DICOM gateway.
+Source repository for the **[Karnak documentation website](https://karnak.weasis.org/)** — covering installation, configuration, profiles, gateway setup, and user guides for the [Karnak](https://github.com/nroduit/karnak) DICOM gateway.
 
 ---
 
