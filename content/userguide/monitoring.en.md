@@ -81,7 +81,7 @@ The toolbar below the tree provides, from left to right:
 
 - **Expand errors** — expand the tree down to every failing series so problems are
   immediately visible.
-- **Export Settings** / **Export** — see [Export](#export) below.
+- **Export** — see [Export](#export) below.
 - **Refresh** — reload the tree with the latest data.
 - **Delete All** — permanently remove every monitoring entry (a confirmation is
   required; this cannot be undone).
@@ -131,11 +131,10 @@ filters, so only the matching transfers are included. One row is written per ser
 the original and de-identified identifiers, the **Instances / Retries / Sent / Errors /
 Excluded** counts, the outcome reasons and the first/last-seen timestamps.
 
-Click **Export Settings** to customize the CSV format before exporting:
+Click **Export** to open the **Export CSV** dialog. The only setting is:
 
-- **Delimiter**: the character used to separate fields.
-- **Quote character**: the character used to enclose fields.
+- **Separator**: the single character used to separate fields (a comma by default).
 
-![Monitoring export settings dialog](/userguide/monitoring_export_settings.png)
+![Monitoring export dialog](/userguide/monitoring_export_settings.png)
 
-Then click **Export** to generate and download the CSV file.
+Then click **Download** to generate and download the CSV file.
