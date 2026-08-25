@@ -6,7 +6,15 @@ description: Manage projects
 
 This page lists all projects configured in Karnak and lets you create, edit, and delete them. A project is linked to a profile and contains a secret used for de-identification.
 
-![Project page](/userguide/project_main.png)
+{{% annotate src="/userguide-new/project_main.png" viewbox="0 0 1232 345" alt="Projects page" %}}
+1               |    | 175,30 | 20
+2               |    | 150,70 | 20
+3               |    | 426,218 | 20
+4               |    | 1144,85 | 20
+@box | 495,10,735,133 | #00a6b6
+5               |    | 1025,185 | 20
+6               |    | 690,230 | 20
+{{% /annotate %}}
 
 ##### 1. Create a project
 
@@ -16,19 +24,23 @@ To create a new project:
    3. Select a profile.
    4. Click **Add**.
 
+![New Project](/userguide-new/project_new.png)
+
 The project is added to the list and its details appear in the right panel.
 
-##### 2. Project list
+##### 2. Create a group
+
+When the list grows, you can organize projects into groups (a single level of folders).  
+Click **Add group** to create one, drag a project onto a group to assign it, and right-click a group or project
+to rename, delete or remove it from its group. Grouping is purely organizational and is
+described in more detail on the [Gateway](../gateway) page.
+
+##### 3. Project list
 
 All available projects are listed in the left panel.  
 Selecting a project displays its details on the right.
 
-You can organize the list into a single level of **groups**: click **Add group** to
-create one, drag a project onto a group to assign it, and right-click a group or project
-to rename, delete or remove it from its group. Grouping is purely organizational and is
-described in more detail on the [Gateway](../gateway) page.
-
-##### 3. Project details
+##### 4. Project details
 
 In the details view you can:
 
@@ -37,7 +49,7 @@ In the details view you can:
 
 Click **Update** to save your changes.
 
-##### 4. Project secret
+##### 5. Project secret
 
 The project secret is central to Karnak's de-identification process.  
 It is a 32-character hexadecimal value.
@@ -51,10 +63,15 @@ You can generate a new secret by clicking **Generate Secret**, or type/paste you
 - Previous secrets are kept in the database.  
 - You can select any previous secret to use again.
 
-![Project secret history](/userguide/project_secret_history.png)
+![Project secret history](/userguide-new/project_secret_history.png)
 
 > [!WARNING]
-> Changing the project secret can cause data consistency issues between old and new de-identified DICOM instances. Use this feature with caution and only when necessary.
+> Changing the project secret can cause data consistency issues between old and new de-identified DICOM instances. Use this feature with caution and only when necessary. 
+> 
+> Since this modification can break the de-identification process, a warning is displayed to confirm this change.
+> ![Project secret warning](/userguide-new/project_secret_warning.png)
+
+
 
 
 A destination is associated with a project for de-identification, as described in the [Destination configuration](../gateway/destinations/#8-de-identification).
@@ -68,11 +85,11 @@ Implications of changing the secret:
 
 Details about the algorithm and UID generation using the project secret are available [here](../../profiles/rules/#action-u-generate-a-new-uid).
 
-##### 5. Action buttons
+##### 6. Action buttons
 
 - Click **Update** to save any change made to a project.  
-- Click **Remove** to delete the selected project.
+- Click **Delete** to delete the selected project.
 
 If the project is associated with a destination, deletion fails and an error message is displayed.
 
-![Delete error](/userguide/project_errordelete.png)
+![Delete error](/userguide-new/project_delete_error.png)

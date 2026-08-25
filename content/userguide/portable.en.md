@@ -57,18 +57,24 @@ Once the application is running, you can access the Karnak Gateway web interface
 
 For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..). This distribution includes new features in the [Forward Node](../gateway) view that are not covered in the main user guide:
 
-![profile page](/userguide/karnak_portable.png)
+{{% annotate src="/userguide-new/portable_main.png" viewbox="0 0 1333 487" alt="Authentication Configuration Page" %}}
+A               |    | 1035,190 | 20
+B               |    | 410,95 | 20
+{{% /annotate %}}
 
 ###### Add a local destination
 
 Click the **LOCAL** button {{% badge style="red" %}}A{{% /badge %}} to add a destination that saves DICOM instances to the `dicom` folder in the portable distribution's extracted directory.
+
+![Portable Local Destination](/userguide-new/portable_local_dest.png)
 
 This button automatically configures a DICOM destination for local storage. For [other options](../gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
 
 ###### Upload local folder
 
 Click the **Upload local folder** button {{% badge style="red" %}}B{{% /badge %}} to send DICOM instances from a local folder through the forward node's **active** destinations. The forward node must already have at least one active destination — otherwise a notification is shown and nothing happens. The button opens a dialog titled *Upload DICOM files from a local folder* where you type the **absolute path** to the folder in the **Folder Path** field.
-Click the **Upload Local Folder** button {{% badge style="red" %}}B{{% /badge %}} to select a local folder containing DICOM instances that you want to forward through the selected forward node destinations.
+
+![Portable Local Folder](/userguide-new/portable_local_folder.png)
 
 ##### Automatic pixel de-identification plugin
 

@@ -39,7 +39,16 @@ The **Check DICOM Node** button stays disabled until all fields are valid.
 
 Use **Select DICOM Node** to pick from the stored DICOM nodes (and the gateway
 destinations) instead of typing the values; the Called AE Title, Hostname and Port
-fields are filled automatically. **Reset Form** clears the form.
+fields are filled automatically.  
+
+![DICOM Echo test and result](/userguide-new/dicomtools_echo_selectnode.png)
+
+First select a **Group** to filter the nodes. All the defined groups are displayed as well as 
+*All Worklists nodes* and *All Workstation nodes*, grouping the nodes by type. 
+The group *Gateway destinations* contains all the nodes configured in the [Forward Nodes destinations](../../userguide/gateway/destinations). 
+Then select the node from the **DICOM node** dropdown.
+
+**Reset Form** clears the form.
 
 ### Running the test
 
@@ -52,7 +61,7 @@ row to view the details. Each result combines two checks:
 - **Check Network** — a low-level reachability check run alongside the echo: hostname
   (DNS) resolution, ping result, and whether the host is listening on the port.
 
-![DICOM Echo test and result](/userguide/dicomtools_echo.png)
+![DICOM Echo test and result](/userguide-new/dicomtools_echo.png)
 
 Below the current result, a **History** panel lists the previous checks (most recent
 first, with a count in its title). It is stored server-side, so checks run earlier — or in
@@ -68,7 +77,7 @@ the negotiated transfer syntaxes, along with the maximum PDU length and the remo
 implementation (version name and class UID). This is useful to confirm a destination
 will accept the modalities you intend to send before configuring a forwarding pipeline.
 
-![DICOM capabilities probe](/userguide/dicomtools_capabilities.png)
+![DICOM capabilities probe](/userguide-new/dicomtools_echo_probe.png)
 
 ## DICOM Worklist
 
@@ -89,17 +98,24 @@ worklist entries are retrieved. Use **Select Worklist Node** to fill the connect
 fields from a stored worklist node.
 
 Click **Run Query** to execute the query. Results are displayed in a sortable
-table — click a column header to sort by that column. Select a row to open a popup
-showing the full attributes of that worklist entry.
+table — click a column header to sort by that column. 
 
-![DICOM Worklist query results](/userguide/dicomtools_worklist.png)
+![DICOM Worklist query results](/userguide-new/dicomtools_worklist.png)
+
+The details of a worklist entry can be displayed by clicking on that row. 
+
+![DICOM Worklist query results details](/userguide-new/dicomtools_worklist_result.png)
+
+The full DICOM attributes of the selected worklist entry can be displayed in a dialog by clicking the **View DICOM Attributes** button. It can also be downloaded as text or as a DICOM file.
+
+![DICOM Worklist dicom details](/userguide-new/dicomtools_worklist_dicomattr.png)
 
 ## Manage DICOM Nodes
 
 This tab is the central place to store the DICOM nodes you test or monitor regularly,
 so they no longer have to be configured from CSV files at startup.
 
-![DICOM node management](/userguide/dicomtools_managenodes.png)
+![DICOM node management](/userguide-new/dicomtools_managenodes.png)
 
 The grid lists each node with its **Description**, **AE Title**, **Hostname**,
 **Port**, **Node Type** and **Group**, plus per-row **Edit** and **Delete** actions.

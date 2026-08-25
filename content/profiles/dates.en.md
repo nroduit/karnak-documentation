@@ -29,6 +29,7 @@ The `option` parameter can have one of the following values:
 * `shift` - Apply a fixed time shift
 * `shift_range` - Apply a random time shift within specified ranges
 * `shift_by_tag` - Apply a shift based on values from another DICOM tag
+* `shift_from_api` - Apply a shift based on values from an external API
 * `date_format` - Remove date precision (day and/or month)
 
 ## Shift Option
@@ -139,6 +140,35 @@ This example shifts all tags starting with `0010` that have AS, DA, DT, or TM Va
   arguments:
     days_tag: "(0015,0011)"
   option: "shift_by_tag"
+  tags:
+    - "0010,XXXX"
+```
+
+## Shift From API Option
+
+The **shift_from_api** option applies a shift based on values from an external API call.
+
+### Arguments
+
+* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).
+* `daysPath` (required): JSON path to the number of days for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
+* `secondsPath` (optional): JSON path to the number of seconds for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
+* `method` (optional): HTTP method: `GET` or `POST`. Defaults to `GET`.
+* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).
+* `authConfig` (optional): Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.
+
+### Example
+
+This example shifts all tags starting with `0010` that have AS, DA, DT, or TM Value Representation by the number of days contained in the response of the API call:
+
+```yaml
+- name: "Shift Date By Tag"
+  codename: "action.on.dates"
+  option: "shift_from_api"
+  arguments:
+    daysPath: "/shift/days"
+    secondsPath: "/shift/seconds"
+    url: "http://example.com/{{getString(#Tag.PatientID)}}/shift"
   tags:
     - "0010,XXXX"
 ```
