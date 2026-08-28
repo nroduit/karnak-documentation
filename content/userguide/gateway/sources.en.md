@@ -8,7 +8,7 @@ description: Sources management in Karnak
 
 The Sources tab displays all configured sources for the selected forward node.
 
-![Sources view](/userguide-new/source_view.png)
+![Sources view](/userguide/source_view.png)
 
 A source is used to control which entities can send DICOM data to the forward node. It validates that received DICOM instances come from a known Application Entity Title (AET).
 
@@ -20,7 +20,7 @@ A source is used to control which entities can send DICOM data to the forward no
 
 To create a new source, click the **Source** button and configure the following fields:
 
-![Creation source](/userguide-new/source_create.png)
+![Creation source](/userguide/source_create.png)
 
 | Field | Description | Required |
 |-------|-------------|----------|

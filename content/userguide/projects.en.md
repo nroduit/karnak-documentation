@@ -6,7 +6,7 @@ description: Manage projects
 
 This page lists all projects configured in Karnak and lets you create, edit, and delete them. A project is linked to a profile and contains a secret used for de-identification.
 
-{{% annotate src="/userguide-new/project_main.png" viewbox="0 0 1232 345" alt="Projects page" %}}
+{{% annotate src="/userguide/project_main.png" viewbox="0 0 1232 345" alt="Projects page" %}}
 1               |    | 175,30 | 20
 2               |    | 150,70 | 20
 3               |    | 426,218 | 20
@@ -24,7 +24,7 @@ To create a new project:
    3. Select a profile.
    4. Click **Add**.
 
-![New Project](/userguide-new/project_new.png)
+![New Project](/userguide/project_new.png)
 
 The project is added to the list and its details appear in the right panel.
 
@@ -63,13 +63,13 @@ You can generate a new secret by clicking **Generate Secret**, or type/paste you
 - Previous secrets are kept in the database.  
 - You can select any previous secret to use again.
 
-![Project secret history](/userguide-new/project_secret_history.png)
+![Project secret history](/userguide/project_secret_history.png)
 
 > [!WARNING]
 > Changing the project secret can cause data consistency issues between old and new de-identified DICOM instances. Use this feature with caution and only when necessary. 
 > 
 > Since this modification can break the de-identification process, a warning is displayed to confirm this change.
-> ![Project secret warning](/userguide-new/project_secret_warning.png)
+> ![Project secret warning](/userguide/project_secret_warning.png)
 
 
 
@@ -92,4 +92,4 @@ Details about the algorithm and UID generation using the project secret are avai
 
 If the project is associated with a destination, deletion fails and an error message is displayed.
 
-![Delete error](/userguide-new/project_delete_error.png)
+![Delete error](/userguide/project_delete_error.png)

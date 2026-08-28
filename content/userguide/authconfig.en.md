@@ -6,7 +6,7 @@ description: Authentication Configuration for API calls
 
 This page allows you to configure authentication credentials for API calls. Since this information is sensitive, it is stored in an encrypted database table.
 
-{{% annotate src="/userguide-new/authconfig_main.png" viewbox="0 0 1175 395" alt="Authentication Configuration Page" %}}
+{{% annotate src="/userguide/authconfig_main.png" viewbox="0 0 1175 395" alt="Authentication Configuration Page" %}}
 1               |    | 260,30 | 20
 2               |    | 240,220 | 20
 3               |    | 625,30 | 20
@@ -21,7 +21,7 @@ To create a new authentication configuration:
 2. Enter a unique identifier.
 3. Click **Add**.
 
-![authconfig create](/userguide-new/authconfig_new.png)
+![authconfig create](/userguide/authconfig_new.png)
 
 **Requirements:**
 
@@ -74,7 +74,7 @@ To delete a configuration:
 2. Click the red trash bin icon next to its identifier
 3. Confirm the deletion in the popup
 
-![authconfig delete](/userguide-new/authconfig_delete.png)
+![authconfig delete](/userguide/authconfig_delete.png)
 
 > [!INFO]
 > Deleting a configuration in use may cause errors in your workflows. Karnak does not verify whether a configuration is referenced by profiles or de-identification processes before deletion. Ensure the configuration is not in use before deleting it, or transfers will fail. 

@@ -10,7 +10,7 @@ The Gateway page allows you to configure Forward Nodes in Karnak. A Forward Node
 
 This page lists all the forward nodes configured in Karnak and allows you to create, edit, and delete them.
 
-{{% annotate src="/userguide-new/gateway_forwardnode.png" viewbox="0 0 2940 1190" alt="Gateway and Forward Node" %}}
+{{% annotate src="/userguide/gateway_forwardnode.png" viewbox="0 0 2940 1190" alt="Gateway and Forward Node" %}}
 1               |    | 950,65 | 40
 2               |    | 840,145 | 40
 3               |    | 1180,350 | 40
@@ -25,7 +25,7 @@ Click the **New forward node** button. A popup will appear:
   1. Enter a unique value in the **Forward AETitle** field. AE Titles must not exceed 16 characters.
   2. Click the **Add** button
 
-![New Forward Node](/userguide-new/gateway_new_forwardnode.png)
+![New Forward Node](/userguide/gateway_new_forwardnode.png)
 
 The new forward node appears in the list and is automatically selected. Optionally, add a description and save your changes.
 
@@ -47,7 +47,7 @@ Groups are purely organizational; they do not change how forward nodes behave. T
 grouping is available for [Projects](../projects) and [Profiles](../profiles).
 
 
-![Group](/userguide-new/gateway_group.png)
+![Group](/userguide/gateway_group.png)
 
 ##### 3. Forward Node List
 
@@ -74,7 +74,7 @@ Each forward node can be configured with:
 - [**Sources**](sources): Control which DICOM nodes are authorized to send data to this forward node
 - [**Destinations**](destinations): Define where received DICOM instances should be forwarded
 
-{{% annotate src="/userguide-new/gateway_destinationspage.png" viewbox="0 0 843 253" alt="Forward Node details" %}}
+{{% annotate src="/userguide/gateway_destinationspage.png" viewbox="0 0 843 253" alt="Forward Node details" %}}
 1               |    | 240,27 | 15
 2               |    | 25,87 | 15
 3               |    | 697,67 | 15

@@ -11,7 +11,7 @@ The `Dicom Basic Profile` is available by default and cannot be edited or delete
 the reference de-identification profile based on the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html).
 For more details, see [How does de-identification work?](../../profiles/rules)
 
-![profile page](/userguide-new/profile_main.png)
+![profile page](/userguide/profile_main.png)
 
 The page has two areas:
 
@@ -83,7 +83,7 @@ either tab:
 - the **delete** (trash) button removes the profile. If the profile is used by one or more
   projects, a warning is shown to prevent accidental deletion.
 
-![Profile actions](/userguide-new/profile_actions.png)
+![Profile actions](/userguide/profile_actions.png)
 
 ### Profile elements tab
 
@@ -97,7 +97,7 @@ delete** actions.
 > The order of the elements matters: they are applied from top to bottom. Use the up/down
 > arrows on each row to reorder them.
 
-![Profile actions](/userguide-new/profile_elements.png)
+![Profile actions](/userguide/profile_elements.png)
 
 A profile should normally include the **Basic DICOM confidentiality profile** element; if
 it is missing, a warning is shown. This element is **always applied last** — it is pinned
@@ -111,7 +111,7 @@ to the end of the list and cannot be reordered.
 
 #### Adding and editing an element
 
-![Edit profile element](/userguide-new/profile_element_edit.png)
+![Edit profile element](/userguide/profile_element_edit.png)
 
 Click **Add element** (or the edit action on a row) to open the **Add element** /
 **Edit element** dialog. Fill in:
@@ -155,7 +155,7 @@ The **Action** (for the tag-based types) decides what to do with the matched tag
 The **tag fields** use a tag picker that lets you **search or browse the DICOM
 dictionary** instead of typing tag numbers.
 
-![Tag picker](/userguide-new/profile_tag_picker.png)
+![Tag picker](/userguide/profile_tag_picker.png)
 
 Click **Save** to validate and add the element, or **Cancel** to discard. The reference
 for every type, action and option — and the equivalent YAML — is in the
@@ -163,7 +163,7 @@ for every type, action and option — and the equivalent YAML — is in the
 
 ### YAML editor tab
 
-![Yaml Profile Editor](/userguide-new/profile_yaml.png)
+![Yaml Profile Editor](/userguide/profile_yaml.png)
 
 The **YAML editor** tab edits the entire profile as YAML — the same format as the import
 and export files. It gives access to the **full** set of profile capabilities, including
@@ -186,4 +186,4 @@ created profile.
 If errors occur during import, the profile is not added to the list. The errors are shown
 in the right panel with details about their cause, as illustrated below.
 
-![profile error](/userguide-new/profile_error.png)
+![profile error](/userguide/profile_error.png)

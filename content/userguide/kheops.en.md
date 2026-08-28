@@ -69,7 +69,7 @@ to reveal the entry form and the table of configured albums.
 
 To share a DICOM instance in different Kheops albums, the following fields must be filled and **validated by clicking on Add button**.
 
-![Switching](/userguide-new/kheops_switching.png)
+![Switching](/userguide/kheops_switching.png)
 
 | Fields                       | Description                                                                                          |
 |------------------------------|------------------------------------------------------------------------------------------------------|

@@ -13,7 +13,7 @@ De-identification is activated in the [Destination configuration](../gateway/des
 > 
 > With the [portable version of Karnak](../portable), the cache is persistent only the time the application is running. Restarting the application will clear the cache.
 
-{{% annotate src="/userguide-new/external_pseudonym_main.png" viewbox="0 0 1175 619" alt="External Pseudonym Page" %}}
+{{% annotate src="/userguide/external_pseudonym_main.png" viewbox="0 0 1175 619" alt="External Pseudonym Page" %}}
 1               |    | 620,130 | 20
 2               |    | 430,210 | 20
 3               |    | 330,260 | 20
@@ -37,7 +37,7 @@ You can upload a CSV file containing external pseudonyms by:
 
 After selecting a file, a dialog appears asking for the CSV separator character. The default value is a comma (`,`).
 
-![External pseudonym separator dialog](/userguide-new/external_pseudonym_popup_separator.png)
+![External pseudonym separator dialog](/userguide/external_pseudonym_popup_separator.png)
 
 Click **Open CSV** to proceed to the import configuration.
 
@@ -45,7 +45,7 @@ Click **Open CSV** to proceed to the import configuration.
 
 The CSV data is displayed in a grid for review and configuration.
 
-{{% annotate src="/userguide-new/external_pseudonym_csv_import_dialog.png" viewbox="0 0 1139 569" alt="External Pseudonym CSV Import" %}}
+{{% annotate src="/userguide/external_pseudonym_csv_import_dialog.png" viewbox="0 0 1139 569" alt="External Pseudonym CSV Import" %}}
 1               |    | 220,85 | 20
 2               |    | 1100,135 | 20
 3               |    | 1070,305 | 20
@@ -81,7 +81,7 @@ table to open a popup containing the following fields:
 - **Patient last name** (optional)
 - **Issuer of patient ID** (optional)
 
-![External pseudonym add](/userguide-new/external_pseudonym_add.png)
+![External pseudonym add](/userguide/external_pseudonym_add.png)
 
 Fill in the fields and click **Add** in the popup to add the entry to the external
 pseudonyms table.
@@ -98,7 +98,7 @@ Each pseudonym row has action buttons:
 - **Edit**: Modify the patient fields
 - **Delete**: Remove the pseudonym from the cache
 
-![External pseudonym edit](/userguide-new/external_pseudonym_edit.png)
+![External pseudonym edit](/userguide/external_pseudonym_edit.png)
 
 ###### 4.2 Bulk operations
 

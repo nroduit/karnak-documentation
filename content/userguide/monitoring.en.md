@@ -59,6 +59,8 @@ The status of each element is color-coded:
 The Activity tab is split between the hierarchy tree (left) and the detail panel
 (right).
 
+![monitoring view](/userguide/monitoring_details.png)
+
 ### Hierarchy tree
 
 Each row in the tree shows the **Destination / Study / Series** name and the counts of
@@ -108,7 +110,13 @@ Select any element in the tree to see its details on the right:
 
 A **Copy** button copies the whole detail block to the clipboard.
 
-![Monitoring detail panel](/userguide/monitoring_detail.png)
+Below are two examples, the first one successfully deidentified and sent at the study level, and the second one, not sent because an error occurred.
+
+<div style="display:flex; gap:1rem; flex-wrap:wrap;">
+  <img src="/userguide/monitoring_details_success.png" alt="Monitoring detail success" style="width:49%; min-width:400px;">
+  <img src="/userguide/monitoring_details_error.png" alt="Monitoring detail error" style="width:49%; min-width:400px;">
+</div>
+
 
 > [!INFO]
 > When a value was changed by de-identification, the panel shows the **original** value
@@ -135,6 +143,6 @@ Click **Export** to open the **Export CSV** dialog. The only setting is:
 
 - **Separator**: the single character used to separate fields (a comma by default).
 
-![Monitoring export dialog](/userguide/monitoring_export_settings.png)
+![Monitoring export dialog](/userguide/monitoring_export.png)
 
 Then click **Download** to generate and download the CSV file.

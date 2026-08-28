@@ -22,7 +22,7 @@ A DICOM Destination uses the traditional DICOM protocol to forward instances to 
 
 **AETitle**, **Hostname** and **Port**  are mandatory when creating a DICOM Destination.
 
-![Creation source](/userguide-new/destination_DICOM.png)
+![Creation source](/userguide/destination_DICOM.png)
 
 ### Configuration Options
 
@@ -56,7 +56,7 @@ When this option is **checked**, use the destination AETitle as the calling AETi
 Check **Activate notification** to receive automatic email summaries of forwarded
 instances, including success and error reports.
 
-![Notifications](/userguide-new/destination_notifications.png)
+![Notifications](/userguide/destination_notifications.png)
 
 **Configuration fields** (on screen each label is prefixed with `Notif.:` and shows its
 default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
@@ -102,7 +102,7 @@ destination against the DICOM standard and email an HTML report. When enabled, o
 appear to set the report's recipient emails, to also check value content conformity
 (VR rules), and to perform deep sequence validation.
 
-![Notifications](/userguide-new/destination_conformance_st.png)
+![Notifications](/userguide/destination_conformance_st.png)
 
 See the dedicated [Conformance Report](../conformancereport) page for what each option
 does, when the report is sent, and what it contains.
@@ -124,7 +124,7 @@ Tag morphing allows you to modify specific DICOM tag values defined in a profile
 If no project exists yet, the same [no-project popup](#8-de-identification) shown for
 de-identification appears, letting you create one or cancel.
 
-![Tag Morphing](/userguide-new/destination_tagmorphing.png)
+![Tag Morphing](/userguide/destination_tagmorphing.png)
 
 > [!INFO]
 > **Activate tag morphing** and **Activate de-identification** are mutually exclusive options. Only one can be active at a time.
@@ -144,13 +144,13 @@ To activate de-identification, you must [create a project](../../projects#1-crea
 
 A popup will appear with two options, either create a project or continue without activating de-identification.
 
-![Popup deidentification](/userguide-new/popup_deidentification.png)
+![Popup deidentification](/userguide/popup_deidentification.png)
 
 **If a project exists:**
 
 Configure de-identification as shown below:
 
-![Configure de-identification](/userguide-new/deidentification_activate.png)
+![Configure de-identification](/userguide/deidentification_activate.png)
 
 ##### Project Selection
 
@@ -187,7 +187,7 @@ This option queries the pseudonym stored in the internal cache as explained in [
 
 This option retrieves the pseudonym from a specified DICOM tag within the instance itself.
 
-![Pseudonym is in a DICOM tag](/userguide-new/pseudonym_dicomtag.png)
+![Pseudonym is in a DICOM tag](/userguide/pseudonym_dicomtag.png)
 
 **Required configuration:**
 
@@ -212,7 +212,7 @@ If no delimiter and position are specified, the entire tag value is used as the 
 
 This option makes an API call to retrieve the pseudonym from an external service.
 
-![Pseudonym from API](/userguide-new/pseudonym_api.png)
+![Pseudonym from API](/userguide/pseudonym_api.png)
 
 The detailed usage of all the fields is explained in the [API Actions page](../../../profiles/api). The behavior is identical to profile API actions.
 
@@ -249,7 +249,7 @@ and disabled, since it no longer takes part in the lookup.
 
 Filter which DICOM instance types (SOP Classes) are forwarded to this destination.
 
-![SOP Filter](/userguide-new/destination_SOPfilter.png)
+![SOP Filter](/userguide/destination_SOPfilter.png)
 
 **Configuration:**
 
@@ -284,7 +284,7 @@ Three actions are available to manage the destination:
 
 The URL is required for STOW Destination creation. Most configuration options are identical to [DICOM Destinations](#dicom-destination). Only the differences are detailed below.
 
-![Creation source](/userguide-new/destination_stow.png)
+![Creation source](/userguide/destination_stow.png)
 
 ### Configuration Differences
 
@@ -331,7 +331,7 @@ generated header.
 
 Use for simple username/password authentication:
 
-![Creation source](/userguide-new/destination_basicauth.png)
+![Creation source](/userguide/destination_basicauth.png)
 
 **Generated headers:**
 ```
@@ -345,7 +345,7 @@ The username and password are Base64-encoded automatically.
 
 Use for token-based authentication:
 
-![Creation source](/userguide-new/destination_oauth.png)
+![Creation source](/userguide/destination_oauth.png)
 
 **Generated headers:**
 ```
