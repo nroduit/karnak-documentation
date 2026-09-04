@@ -3,7 +3,7 @@
     <p style="color: red;">Error: The environment variable <code>HUGO_GH_TOKEN</code> is not set. Please configure it to retrieve the latest release data.</p>
 {{ else }}
     {{$type := .Get 0}}
-    {{ $url := "https://api.github.com/repos/OsiriX-Foundation/karnak/releases" }}
+    {{ $url := "https://api.github.com/repos/nroduit/karnak/releases" }}
     {{ $headers := dict "Authorization" (printf "Bearer %s" $token) }}
     {{ $options := dict "headers" $headers }}
     {{ $releases := resources.GetRemote $url $options | transform.Unmarshal }}

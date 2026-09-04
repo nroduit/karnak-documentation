@@ -63,6 +63,10 @@ First, a DICOM instance is received by Karnak. After processing it, it sends the
 
 ### Create a switching Kheops album
 
+This feature is configured **inside a STOW destination**, not on a separate page. Open the
+STOW destination in Karnak and tick the **Switching in different KHEOPS albums** checkbox
+to reveal the entry form and the table of configured albums.
+
 To share a DICOM instance in different Kheops albums, the following fields must be filled and **validated by clicking on Add button**.
 
 ![Switching](/userguide/kheops_switching.png)

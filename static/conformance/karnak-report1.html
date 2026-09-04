@@ -1,0 +1,817 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Karnak DICOM Conformance Report</title>
+</head>
+<body style="margin: 0; padding: 16px; background-color: #eef1f4; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #2d3436;">
+<table style="width: 100%; max-width: 1000px; margin: auto; border-collapse: collapse; background-color: #ffffff; border: 1px solid #d8dee4;">
+<tbody>
+<tr>
+<td style="padding: 0;"><!-- Header -->
+<table style="width: 100%; border-collapse: collapse; background-color: #2c3e50;">
+<tbody>
+<tr>
+<td style="padding: 18px 24px;"><span style="font-size: 22px; color: #ffffff; font-weight: bold;">Karnak DICOM Conformance Report</span><br>
+<span style="font-size: 13px; color: #bdc3c7;">Destination <b style="color: #ecf0f1;">
+   Local DICOM Folder: ./dicom</b> &nbsp;•&nbsp; Source AET <b style="color:#ecf0f1;">test</b></span>
+</td>
+<td align="right" style="padding: 18px 24px; text-align: right; vertical-align: middle;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 4px; font-family: Arial, Helvetica, sans-serif; font-size: 18px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #c0392b;" bgcolor="#c0392b">
+FAILED</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Totals strip -->
+<table style="width: 100%; border-collapse: collapse; background-color: #f8f9fa; border-bottom: 1px solid #d8dee4;">
+<tbody>
+<tr>
+<td style="padding: 10px 24px;"><!-- Layout table instead of margins (Outlook drops margins on inline
+                 elements). The colour swatches are filled table cells, not styled
+                 spans: Outlook ignores width/height/padding on inline spans, so a
+                 span dot collapses to nothing -->
+<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td width="10" height="10" bgcolor="#c0392b" style="width: 10px; height: 10px; background-color: #c0392b; border-radius: 5px; font-size: 0; line-height: 10px; mso-line-height-rule: exactly; vertical-align: middle;">
+&nbsp;</td>
+<td style="padding: 0 24px 0 6px; font-size: 13px; white-space: nowrap; vertical-align: middle;">
+ <b>3</b> error(s)</td>
+<td width="10" height="10" bgcolor="#e67e22" style="width: 10px; height: 10px; background-color: #e67e22; border-radius: 5px; font-size: 0; line-height: 10px; mso-line-height-rule: exactly; vertical-align: middle;">
+&nbsp;</td>
+<td style="padding: 0 24px 0 6px; font-size: 13px; white-space: nowrap; vertical-align: middle;">
+ <b>6</b> warning(s)</td>
+<td width="10" height="10" bgcolor="#7f8c8d" style="width: 10px; height: 10px; background-color: #7f8c8d; border-radius: 5px; font-size: 0; line-height: 10px; mso-line-height-rule: exactly; vertical-align: middle;">
+&nbsp;</td>
+<td style="padding: 0 0 0 6px; font-size: 13px; white-space: nowrap; vertical-align: middle;">
+ <b>4</b> info</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 10px 24px; text-align: right; color: #7f8c8d; font-size: 11px;">
+Generated <span>2026-07-04 08:54:09 CEST</span> &nbsp;•&nbsp; Karnak <span>Development</span> &nbsp;•&nbsp;
+<span>innolitics/dicom-standard JSON (vendored 2025-02)</span> </td>
+</tr>
+</tbody>
+</table>
+<!-- Body -->
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr>
+<td style="padding: 18px 24px;"><!-- Study summary -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+Study summary</h2>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+<tbody>
+<tr>
+<td style="padding: 4px 8px; width: 16%; color: #7f8c8d;">Patient ID</td>
+ <td style="padding: 4px 8px; width: 34%;"><b>PIG 4BA_98659</b></td>
+<td style="padding: 4px 8px; width: 16%; color: #7f8c8d;">Patient name</td>
+<td style="padding: 4px 8px; width: 34%;"><i style="color: #7f8c8d;">(hidden — destination not de-identified)</i>
+</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; color: #7f8c8d;">Study UID</td>
+<td style="padding: 4px 8px;"><span style="font-family: Consolas, monospace; font-size: 11px;">1.2.840.113619.2.98.3467.1098086125.0.69</span></td>
+<td style="padding: 4px 8px; color: #7f8c8d;">Study date</td>
+<td style="padding: 4px 8px;"><b>20041018</b></td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; color: #7f8c8d;">Description</td>
+ <td style="padding: 4px 8px;">Test Photometric Interpretation</td>
+<td style="padding: 4px 8px; color: #7f8c8d;">Accession number</td>
+<td style="padding: 4px 8px;"></td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; color: #7f8c8d;">Content</td>
+<td style="padding: 4px 8px;"><b>6</b> series, <b>6</b> instance(s), modalities: <b>
+ US</b> </td>
+<td style="padding: 4px 8px; color: #7f8c8d;">Failed transfers</td>
+<td style="padding: 4px 8px;"><b>0</b> </td>
+</tr>
+</tbody>
+</table>
+<!-- Content sent -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+Content sent</h2>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+SOP Class</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+UID</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Ultrasound Image Storage</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.5.1.4.1.1.6.1</td>
+</tr>
+<tr>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Ultrasound Multi-frame Image Storage (Retired)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+ 1.2.840.10008.5.1.4.1.1.3</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Ultrasound Multi-frame Image Storage</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.5.1.4.1.1.3.1</td>
+</tr>
+</tbody>
+</table>
+<!-- Spacer: these two tables are not separated by a heading, so the gap
+                 uses an explicit spacer row rather than a table margin (Outlook drops
+                 margins on tables) -->
+<div style="font-size: 0; line-height: 12px; mso-line-height-rule: exactly;">&nbsp;</div>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Transfer syntax</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+UID</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Explicit VR Little Endian</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.1.2.1</td>
+</tr>
+<tr>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">JPEG Baseline (Process 1)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+ 1.2.840.10008.1.2.4.50</td>
+</tr>
+</tbody>
+</table>
+<!-- Series -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+Series</h2>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Series UID</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Modality</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+SOP Class(es)</th>
+<th style="padding: 6px 8px; text-align: right; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Instances</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+1.2.40.0.13.1.1.45653013396044006507995806643500112598</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.5.1.4.1.1.3.1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+ 1.2.40.0.13.1.1.122270019448124560098735282914374064195</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+ 1.2.840.10008.5.1.4.1.1.3</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+1.2.40.0.13.1.1.174837738883920071074308671435667278685</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.5.1.4.1.1.6.1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+ 1.2.840.113619.2.98.3467.1098086125.0.70</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+ 1.2.840.10008.5.1.4.1.1.6.1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+1.2.40.0.13.1.1.289494807713901808938101707293962434443</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+1.2.840.10008.5.1.4.1.1.3.1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px;">
+ 1.2.40.0.13.1.1.292543359504713203703828512757607614864</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">US</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; color: #57606f;">
+ 1.2.840.10008.5.1.4.1.1.6.1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+</tbody>
+</table>
+<!-- Findings per SOP Class -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+Conformance findings per SOP Class</h2>
+<div style="margin-bottom: 20px;">
+<p style="margin: 0 0 6px 0; font-size: 14px;"><b>Ultrasound Multi-frame Image Storage</b>
+<span style="font-family: Consolas, monospace; font-size: 11px; color: #7f8c8d;">
+1.2.840.10008.5.1.4.1.1.3.1</span> </p>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Severity</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Issue</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Tag</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Attribute / Module</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Expected</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Found</th>
+<th style="padding: 6px 8px; text-align: right; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Instances</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #c0392b;" bgcolor="#c0392b">
+ERROR</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #e74c3c;" bgcolor="#e74c3c">
+Missing module</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">cine</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">Mandatory module (usage M)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">None of its attributes is present. Required attributes: Multiplexed Audio Channels Description Code Sequence</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #c0392b;" bgcolor="#c0392b">
+ERROR</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #117a65;" bgcolor="#117a65">
+Pixel geometry</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0028,0034)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Pixel Aspect Ratio</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">absent when the ratio is 1:1 (the implied default)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">1\1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #a04000;" bgcolor="#a04000">
+Private creator missing</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(140D,0010)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Private Creator</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">A Private Creator reserving this block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">No Private Creator defines this private block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #a04000;" bgcolor="#a04000">
+Private creator missing</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(160D,0010)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Private Creator</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">A Private Creator reserving this block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">No Private Creator defines this private block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #a04000;" bgcolor="#a04000">
+Private creator missing</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(170D,0010)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Private Creator</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">A Private Creator reserving this block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">No Private Creator defines this private block</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #e74c3c;" bgcolor="#e74c3c">
+Type 2 missing</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0008,0008)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Image Type</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">Type 2: present, possibly empty</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Attribute is missing</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="margin-bottom: 20px;">
+<p style="margin: 0 0 6px 0; font-size: 14px;"><b>Ultrasound Multi-frame Image Storage (Retired)</b>
+<span style="font-family: Consolas, monospace; font-size: 11px; color: #7f8c8d;">
+1.2.840.10008.5.1.4.1.1.3</span> </p>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Severity</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Issue</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Tag</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Attribute / Module</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Expected</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Found</th>
+<th style="padding: 6px 8px; text-align: right; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Instances</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+Retired SOP Class</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0008,0016)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">SOP Class UID</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">A non-retired SOP Class</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Ultrasound Multi-frame Image Storage (Retired) is retired: IOD module checks skipped</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #0e6655;" bgcolor="#0e6655">
+Value format</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0008,0023)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Content Date</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">a valid date YYYYMMDD</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">1994.11.05</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+INFO</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+Retired attribute</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0008,2204)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Transducer Orientation</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">Attribute is retired in the current DICOM standard</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Attribute is used</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="margin-bottom: 20px;">
+<p style="margin: 0 0 6px 0; font-size: 14px;"><b>Ultrasound Image Storage</b> <span style="font-family: Consolas, monospace; font-size: 11px; color: #7f8c8d;">
+1.2.840.10008.5.1.4.1.1.6.1</span> </p>
+<table style="width: 100%; border-collapse: collapse;">
+<tbody>
+<tr>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Severity</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Issue</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Tag</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Attribute / Module</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Expected</th>
+<th style="padding: 6px 8px; text-align: left; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Found</th>
+<th style="padding: 6px 8px; text-align: right; background-color: #eceff1; border-bottom: 2px solid #d8dee4;">
+Instances</th>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #c0392b;" bgcolor="#c0392b">
+ERROR</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+ <td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #117a65;" bgcolor="#117a65">
+ Pixel geometry</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0028,0034)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Pixel Aspect Ratio</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">absent when the ratio is 1:1 (the implied default)</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">1\1</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+INFO</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+Retired attribute</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+(0010,1000)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Other Patient IDs</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">Attribute is retired in the current DICOM standard</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Attribute is used</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr style="background-color: #f8f9fa;">
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+INFO</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #2980b9;" bgcolor="#2980b9">
+ Non-standard attribute</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+ (0018,1004)</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Plate ID</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">an attribute defined in the IOD of this SOP Class</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">standard attribute not part of this IOD (Standard Extended SOP Class)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+<tr>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+INFO</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; white-space: nowrap;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #2980b9;" bgcolor="#2980b9">
+ Non-standard attribute</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; font-family: Consolas, monospace; font-size: 11px; white-space: nowrap;">
+ (0040,1400)</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">Requested Procedure Comments</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; color: #57606f;">an attribute defined in the IOD of this SOP Class</td>
+ <td style="padding: 4px 8px; border-bottom: 1px solid #eceff1;">standard attribute not part of this IOD (Standard Extended SOP Class)</td>
+<td style="padding: 4px 8px; border-bottom: 1px solid #eceff1; text-align: right;">
+1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Consistency -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+Study consistency</h2>
+<p style="margin: 0 0 20px 0; padding: 8px 12px; background-color: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf;">
+No consistency issue across the dataset.</p>
+<!-- Legend -->
+<h2 style="margin: 0 0 10px 0; font-size: 16px; color: #2c3e50; border-left: 4px solid #2c3e50; padding-left: 8px;">
+How to read this report</h2>
+<table style="width: 100%; border-collapse: collapse; color: #57606f; font-size: 12px;">
+<tbody>
+<tr>
+<td style="padding: 3px 8px; width: 130px; vertical-align: top;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #c0392b;" bgcolor="#c0392b">
+ERROR</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 3px 8px;">Violation of the DICOM standard: missing/empty Type 1 attribute, missing mandatory module, wrong VR or VM.</td>
+</tr>
+<tr>
+<td style="padding: 3px 8px; vertical-align: top;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #e67e22;" bgcolor="#e67e22">
+WARNING</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 3px 8px;">Recommended-practice deviation: missing Type 2 attribute, unexpected enumerated value, consistency issue. An
+<i>empty</i> Type 2 attribute is conformant.</td>
+</tr>
+<tr>
+<td style="padding: 3px 8px; vertical-align: top;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; font-weight: bold; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+INFO</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding: 3px 8px;">Informational only: retired attributes, unknown VR.</td>
+</tr>
+<tr>
+<td style="padding: 8px 8px 3px 8px; vertical-align: top; color: #7f8c8d;">Issue colors</td>
+<td style="padding: 8px 8px 3px 8px;"><!-- One cell per pill: cell padding spaces the badges reliably in
+                       Outlook, which would drop margins between inline elements -->
+<table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td style="padding-right: 6px;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #e74c3c;" bgcolor="#e74c3c">
+presence</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding-right: 6px;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #8e44ad;" bgcolor="#8e44ad">
+encoding (VR/VM)</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding-right: 6px;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #16a085;" bgcolor="#16a085">
+value constraints</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="padding-right: 6px;">
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #2980b9;" bgcolor="#2980b9">
+consistency</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table role="presentation" cellpadding="0" cellspacing="0" style="display: inline-block; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+<tbody>
+<tr>
+<td style="padding: 2px 9px; border-radius: 9px; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.2; color: #ffffff; white-space: nowrap; background-color: #7f8c8d;" bgcolor="#7f8c8d">
+retired usage</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style="padding: 8px 8px 3px 8px; vertical-align: top; color: #7f8c8d;">Notes</td>
+<td style="padding: 8px 8px 3px 8px;">Conditional modules and Type 1C/2C attributes are validated only when present (their conditions are free text in the standard). De-identification may legitimately empty or remove attributes; all values shown are the de-identified
+ ones actually sent. Pixel data and other bulk values are not inspected; private tags are not validated.
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Footer -->
+<table style="width: 100%; border-collapse: collapse; background-color: #2c3e50;">
+<tbody>
+<tr>
+<td style="padding: 8px 24px; text-align: center; color: #bdc3c7; font-size: 11px;">
+Copyright Karnak Team</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

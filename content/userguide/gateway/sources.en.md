@@ -20,7 +20,7 @@ A source is used to control which entities can send DICOM data to the forward no
 
 To create a new source, click the **Source** button and configure the following fields:
 
-![Creation source](/userguide/source_main.png)
+![Creation source](/userguide/source_create.png)
 
 | Field | Description | Required |
 |-------|-------------|----------|
