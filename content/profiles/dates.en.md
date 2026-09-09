@@ -41,8 +41,10 @@ The **shift** option applies a fixed shift to dates using the following required
 
 **Behavior by Value Representation:**
 
-* **Age String (AS)**: Seconds and days are **added** to the existing value
-* **Date (DA), Date Time (DT), Time (TM)**: Seconds and days are **subtracted** from the existing value
+* **Age String (AS)**: The days are **added** to the existing value (converted to the unit of the age: years, months, weeks or days); seconds are ignored
+* **Date (DA)**: The days are **subtracted** from the existing value; seconds are ignored
+* **Time (TM)**: The seconds are **subtracted** from the existing value; days are ignored
+* **Date Time (DT)**: Days and seconds are **subtracted** from the existing value
 
 ### Example
 
@@ -124,10 +126,15 @@ The **shift_by_tag** option applies a shift based on values contained in other D
 
 ### Arguments
 
-At least one of the following arguments must be specified:
+Both arguments are optional; an omitted argument applies no shift on its unit:
 
 * `seconds_tag`: Tag containing the number of seconds for the shift operation
 * `days_tag`: Tag containing the number of days for the shift operation
+
+The referenced tags are read from the original values of the instance (before de-identification), from the dataset being visited outwards, so a date nested in a sequence can use shift values stored at the study level.
+
+> [!WARNING]
+> If a referenced tag is missing or does not contain an integer, the date is **not** shifted by this element: it is left to the following profile elements (typically removed by the Basic DICOM Profile). A warning is logged.
 
 ### Example
 
@@ -150,19 +157,21 @@ The **shift_from_api** option applies a shift based on values from an external A
 
 ### Arguments
 
-* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).
+* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](../api/#url-and-body-arguments)).
 * `daysPath` (required): JSON path to the number of days for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
 * `secondsPath` (optional): JSON path to the number of seconds for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
 * `method` (optional): HTTP method: `GET` or `POST`. Defaults to `GET`.
-* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).
+* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](../api/#url-and-body-arguments)).
 * `authConfig` (optional): Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.
+
+The runtime parameters of `url` and `body` are evaluated against the original values of the instance (before de-identification). If the API cannot be reached, returns an error, or the response holds no integer at `daysPath` (or `secondsPath`), the transfer of the instance is aborted.
 
 ### Example
 
-This example shifts all tags starting with `0010` that have AS, DA, DT, or TM Value Representation by the number of days contained in the response of the API call:
+This example shifts all tags starting with `0010` that have AS, DA, DT, or TM Value Representation by the number of days and seconds contained in the response of the API call:
 
 ```yaml
-- name: "Shift Date By Tag"
+- name: "Shift Date From API"
   codename: "action.on.dates"
   option: "shift_from_api"
   arguments:
@@ -206,7 +215,7 @@ profileElements:
     codename: "action.on.dates"
     arguments:
       remove: "month_day"
-    option: "format_date"
+    option: "date_format"
     tags:
       - "0008,0023"
       - "0008,0021"

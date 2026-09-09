@@ -272,7 +272,7 @@ The de-identified Patient ID is generated as follows:
 
 **Patient Name:**
 
-The pseudonym is used as the Patient's Name if no other action has been defined during de-identification.
+Once the profile has been applied, the Patient's Name is always set to the pseudonym.
 
 
 ## Attributes Added by Karnak
@@ -295,21 +295,22 @@ The following attributes are set in the [Patient Module](http://dicom.nema.org/m
 | Tag | Attribute Name | Value | Notes |
 |-----|----------------|-------|-------|
 | **(0010,0020)** | Patient ID | Hashed pseudonym | See [PatientID Generation](#patientid-generation) |
-| **(0010,0010)** | Patient Name | Pseudonym | If no other action is applied |
+| **(0010,0010)** | Patient Name | Pseudonym | Always set after the profile is applied |
 | **(0012,0062)** | Patient Identity Removed | `YES` | Indicates de-identification |
-| **(0012,0063)** | De-identification Method | Concatenated profile codenames | See format below |
+| **(0012,0063)** | De-identification Method | Removed | Replaced by the code sequence below |
+| **(0012,0064)** | De-identification Method Code Sequence | One item per DICOM de-identification option applied | See codes below |
 
-#### De-identification Method Format
+#### De-identification Method Code Sequence
 
-Profile element codenames are concatenated and separated by `-`.
+Each item holds a code from the `DCM` coding scheme. Only the profile elements matching a DICOM de-identification option add an item (each code appears once):
 
-**Example:**
-
-A profile composed of:
-- `action.on.specific.tags`
-- `basic.dicom.profile`
-
-Will appear as: `action.on.specific.tags-basic.dicom.profile`
+| Code Value | Code Meaning | Profile element codename |
+|------------|--------------|--------------------------|
+| **113100** | Basic Application Confidentiality Profile | `basic.dicom.profile` |
+| **113101** | Clean Pixel Data Option | `clean.pixel.data` |
+| **113102** | Clean Recognizable Visual Features Option | `clean.recognizable.visual.features` |
+| **113107** | Retain Longitudinal Temporal Information Modified Dates Option | `action.on.dates` |
+| **113111** | Retain Safe Private Option | `action.on.privatetags` |
 
 ### Clinical Trial Subject Module
 
@@ -318,8 +319,11 @@ The following attributes are set in the [Clinical Trial Subject Module](http://d
 | Tag | Attribute Name | Value |
 |-----|----------------|-------|
 | **(0012,0010)** | Clinical Trial Sponsor Name | Project name |
-| **(0012,0020)** | Clinical Trial Protocol ID | Profile codename (concatenated) |
+| **(0012,0020)** | Clinical Trial Protocol ID | Profile name |
 | **(0012,0021)** | Clinical Trial Protocol Name | Null |
 | **(0012,0030)** | Clinical Trial Site ID | Null |
 | **(0012,0031)** | Clinical Trial Site Name | Null |
 | **(0012,0040)** | Clinical Trial Subject ID | Pseudonym |
+| **(0012,0042)** | Clinical Trial Subject Reading ID | Removed |
+| **(0012,0081)** | Clinical Trial Protocol Ethics Committee Name | Removed |
+| **(0012,0082)** | Clinical Trial Protocol Ethics Committee Approval Number | Removed |

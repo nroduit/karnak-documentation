@@ -38,7 +38,7 @@ The filter bar is shared by both tabs:
 
 | Filter | Description |
 |--------|-------------|
-| **Range** | A time range for the activity: *Last 5 minutes*, *Last 15 minutes*, *Last hour*, *Last 24 hours*, *Today*, *Last 7 days*, *Last 15 days*, *All*, or *Custom* (pick your own start/end). |
+| **Range** | A time range for the activity: *Last 5 minutes*, *Last 15 minutes*, *Last hour*, *Last 24 hours*, *Today*, *Last 7 days*, *Last 15 days*, *All*, or *Custom* (pick your own start/end). *Last 24 hours* is selected by default. |
 | **Status** | The outcome to show: *All*, *Sent*, *Not Sent*, *Excluded*, or *Error*. |
 | **Study UID** | Filter on a Study Instance UID (matches the original or de-identified value). |
 | **Series UID** | Filter on a Series Instance UID (matches the original or de-identified value). |
@@ -47,12 +47,13 @@ The filter bar is shared by both tabs:
 
 The status of each element is color-coded:
 
-- **Sent** (green): the instances were successfully sent.
-- **Excluded** (orange): the instances were not sent because of configuration rules —
+- **OK** (green): the instances were successfully sent.
+- **Excluded** (orange): some instances were not sent because of configuration rules —
   the [SOP Class filter](../gateway/destinations), destination conditions, or
-  `ExcludeInstance()` in the profile. The label indicates the reason.
-- **Error** (red): the instances were not sent because of an unexpected error. The
-  label indicates the error type.
+  `ExcludeInstance()` in the profile. The badge shows the number of excluded instances;
+  expand the series to see one line per reason.
+- **Error** (red): some instances were not sent because of an unexpected error. The
+  badge shows the number of errors; expand the series to see one line per error reason.
 
 ## Activity tab
 
@@ -82,7 +83,7 @@ and on the dashboard.
 The toolbar below the tree provides, from left to right:
 
 - **Expand errors** — expand the tree down to every failing series so problems are
-  immediately visible.
+  immediately visible (the button then becomes **Collapse errors**).
 - **Export** — see [Export](#export) below.
 - **Refresh** — reload the tree with the latest data.
 - **Delete All** — permanently remove every monitoring entry (a confirmation is

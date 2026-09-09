@@ -44,7 +44,7 @@ fields are filled automatically.
 ![DICOM Echo test and result](/userguide/dicomtools_echo_selectnode.png)
 
 First select a **Group** to filter the nodes. All the defined groups are displayed as well as 
-*All Worklists nodes* and *All Workstation nodes*, grouping the nodes by type. 
+*All Worklist nodes* and *All Workstation nodes*, grouping the nodes by type. 
 The group *Gateway destinations* contains all the nodes configured in the [Forward Nodes destinations](../../userguide/gateway/destinations). 
 Then select the node from the **DICOM node** dropdown.
 
@@ -64,9 +64,10 @@ row to view the details. Each result combines two checks:
 ![DICOM Echo test and result](/userguide/dicomtools_echo.png)
 
 Below the current result, a **History** panel lists the previous checks (most recent
-first, with a count in its title). It is stored server-side, so checks run earlier — or in
-another session — remain visible after a page reload; select a row to view that check's
-details.
+first, with a count in its title). It is stored server-side in the database, so checks run
+earlier — or in another session — remain visible after a page reload; select a row to view
+that check's details. Only the most recent checks are kept (200 by default, tunable by the
+administrator with `application.echo.history.limit`).
 
 ### DICOM Capabilities
 
@@ -106,7 +107,7 @@ The details of a worklist entry can be displayed by clicking on that row.
 
 ![DICOM Worklist query results details](/userguide/dicomtools_worklist_result.png)
 
-The full DICOM attributes of the selected worklist entry can be displayed in a dialog by clicking the **View DICOM Attributes** button. It can also be downloaded as text or as a DICOM file.
+The full DICOM attributes of the selected worklist entry can be displayed in a dialog by clicking the **View DICOM Details** button. It can also be downloaded as text (**Download Text**) or as a DICOM file (**Download DICOM**).
 
 ![DICOM Worklist dicom details](/userguide/dicomtools_worklist_dicomattr.png)
 
@@ -270,3 +271,16 @@ managed group is selected.
 > [!INFO]
 > The Monitor tool helps you spot connectivity, certificate or capability issues
 > before they affect production transfers.
+
+## Administrator settings
+
+The timeouts used by the Echo, Monitor and DICOMweb checks can be tuned with the following
+application properties (milliseconds):
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `dicom-tools.echo.connect-timeout-ms` | `3000` | TCP connection timeout of the C-ECHO and capabilities probe. |
+| `dicom-tools.echo.accept-timeout-ms` | `5000` | Association acceptance timeout of the C-ECHO and capabilities probe. |
+| `dicom-tools.network.ping-timeout-ms` | `3000` | Per-reply timeout of the ping in the network check. |
+| `dicom-tools.network.port-timeout-ms` | `3000` | TCP timeout of the DICOM port reachability probe. |
+| `dicom-tools.web.timeout-ms` | `5000` | Connect / TLS / HTTP timeout of the DICOMweb probe. |

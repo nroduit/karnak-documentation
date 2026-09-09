@@ -28,6 +28,10 @@ location of the settings.
 | **Conformance report: list of emails** | Comma-separated recipients. Leave empty to reuse the destination's [notification](gateway/destinations/#4-notifications) email list. |
 | **Check value content conformity (VR rules)** | Also report values that violate their VR length or format rules (PS3.5) — e.g. an over-long string or a malformed date. |
 | **Deep sequence validation (SR, functional groups)** | Recurse the checks through every sequence level (e.g. the SR content tree or enhanced multiframe functional groups) instead of only the first one. The recursion is bounded by a defined depth limit (`conformance-report.max-sequence-depth`, **8** by default). Off by default, as deeper recursion increases memory use. |
+| **Check for identifying data burned into the image** | Run OCR on each forwarded image through the external [de-identification image service](../../profiles/masks/#automatic-pixel-data-de-identification) and list, in the report, which patient-identifying DICOM tag values are still visible in the pixel data. The OCR runs on the image **actually sent** (after any masking), so it verifies that no identifying text leaves Karnak; to audit the *incoming* image instead, enable it on a virtual destination. Off by default. Requires the service to be reachable at `OCR_URL` (default `http://localhost:8000`); when it is not, the images are reported as *not analyzed* and the rest of the report is unaffected. |
+
+The report is delivered by email, so Karnak's outgoing mail server must be configured, as
+for the destination [notifications](gateway/destinations/#4-notifications).
 
 > [!INFO]
 > A [virtual destination](gateway/destinations/#5-virtual-destination) is report-only:
@@ -40,7 +44,11 @@ Reports are generated **per study**. Karnak accumulates the validation results o
 instance of a study as they are processed, and emails one report once the study's
 transfer **goes idle** — i.e. no new instance has arrived for that study within the idle
 timeout (5 minutes by default). A study is also flushed if it exceeds a maximum lifetime
-(4 hours by default), to guard against studies that never complete.
+(4 hours by default), to guard against studies that never complete, and pending reports
+are flushed when Karnak shuts down. Studies are grouped per *source forward node,
+destination and Study Instance UID* — independently of the DICOM associations used — so a
+source sending to several destinations gets one report per destination, and instances
+arriving after a study's report was sent produce a small follow-up report.
 
 > [!INFO]
 > If a study has no recipient email — neither a conformance report list nor a fallback
@@ -114,7 +122,7 @@ private element with no reserving creator, or an empty Private Creator, is repor
 ### Other checks
 
 Beyond the IOD structure, Karnak runs a set of **value-level and cross-attribute checks**
-modelled on those of David Clunie's [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html)
+modeled on those of David Clunie's [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html)
 verifier. The table lists what each one verifies and the severity it raises; a few are
 *optional* (value-conformity option) or *deep* (deep-sequence option), as noted.
 
@@ -129,7 +137,7 @@ verifier. The table lists what each one verifies and the severity it raises; a f
 | **Identifier reuse** | The SOP Instance, Series, Study and Frame of Reference UIDs all differ from one another. | Error |
 | **Residual identifiers** | No **direct identifier** remains after de-identification (telephone, address, other names, institution / physician names, occupation, comments…).² | Warning |
 | **Standard Extended SOP Class** | A standard attribute present but not part of the object's IOD. | Info |
-| **Retired constructs** | Attributes, SOP Classes or transfer syntaxes retired in the current standard. | Info |
+| **Retired constructs** | Attributes (*Info*), SOP Classes or transfer syntaxes (*Warning*) retired in the current standard. | Info / Warning |
 | **Value content conformity** *(optional)* | String values obey their VR length and format rules (PS3.5 §6.2). | Error / Warning |
 | **Enhanced multi-frame & segmentation** | *Per-frame Functional Groups* item count equals *Number of Frames*; *Segment Numbers* increase monotonically from one (LABELMAP excepted). *(deep)* *Dimension Index Values* match the *Dimension Index Sequence*, and no functional group appears in both the Shared and a Per-frame group. | Error |
 | **Study-level consistency** | Across the closed study: one Study Instance UID, one Patient ID & Name, consistent Frame of Reference, and Modality ↔ SOP Class coherence. | Error / Warning |
@@ -173,6 +181,11 @@ The HTML email summarizes, for the study:
 - **Findings** — conformance findings grouped by SOP class (with an example instance and
   a count), and study-level **consistency findings** for attributes that should be
   identical across the study but are not.
+- **Identifying data on image** — only when *Check for identifying data burned into the
+  image* is enabled: the patient-identifying tags whose value was found burned into the
+  pixel data, with the number of images affected; otherwise how many images were
+  analyzed, or could not be analyzed because the de-identification image service was
+  unreachable.
 
 ## Examples
 

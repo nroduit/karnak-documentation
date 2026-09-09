@@ -54,8 +54,10 @@ The following utility functions help work with tags:
 
 | Function | Description | Return Value |
 |----------|-------------|--------------|
-| `getString(int tag)` | Returns the value of the given tag in the DICOM instance | String value or null if tag is not present |
-| `tagIsPresent(int tag)` | Checks if the tag exists in the DICOM instance | `true` if present, `false` otherwise |
+| `getString(int tag)` | Returns the value of the given tag, looked up from the dataset being visited outwards (from an attribute nested in a sequence, the tags of the enclosing datasets are visible) | String value or null if tag is not present |
+| `tagIsPresent(int tag)` | Checks if the tag exists anywhere in the DICOM instance, at any nesting level | `true` if present, `false` otherwise |
+
+The values read by the expression (`stringValue`, `getString`) are the **original** values of the instance, before any profile element modified it.
 
 ### Available Actions
 
@@ -68,7 +70,6 @@ Actions are defined as functions and set the operation to perform on the current
 | `Remove()` | Removes the tag from the DICOM instance |
 | `Keep()` | Keeps the tag unchanged |
 | `UID()` | Replaces the current tag value with a newly generated UID and sets the tag's VR to UI |
-| `Add(int tagToAdd, int vr, String value)` | Adds a new tag to the DICOM instance |
 | `ComputePatientAge()` | Replaces the current tag value with a computed patient's age at the time of the exam |
 | `ExcludeInstance()` | Interrupts the transfer of this instance (appears as *Rejected* in monitoring) |
 

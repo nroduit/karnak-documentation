@@ -28,7 +28,7 @@ Another variant of this action regarding shifting dates using values retrieved f
 | **url** | Required | URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                                                                                  |
 | **responsePath** | Required | JSON path of the value used as replacement, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.                                                                                                |
 | **method** | Optional | HTTP method: `GET` or `POST`. Defaults to `GET`.                                                                                                                                                                                                                                  |
-| **body** | Optional | Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                                                            |
+| **body** | Optional | Request body for POST requests in JSON format (mandatory when `method` is `POST`). Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                          |
 | **authConfig** | Optional | Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.                                                                                                                        |
 | **defaultValue** | Optional | Fallback value used when an error occurs during the API call (e.g., Unauthorized, value not found, authConfig not found). If not specified, the transfer will be aborted with an error displayed in monitoring. When specified, the default value is used and transfer continues. |
 ### URL and Body Arguments
@@ -50,6 +50,12 @@ http://example.com/{{getString(#Tag.ClinicalTrialSponsorName)}}/patient/{{getStr
 ```
 
 In the body, hence the JSON format, the expression must be enclosed in double quotes if the expected value is a String.
+
+The expressions are evaluated against the **original** values of the instance, before any profile element modified it (for example `getString(#Tag.PatientID)` returns the Patient ID received by Karnak, not the pseudonymized one). An expression that evaluates to null is replaced by an empty string.
+
+### Response Caching
+
+The responses of the API are cached by URL, body and authentication configuration, so that the same call is not repeated for every instance of the same patient. The cache lifetime is defined by the `cache-api.ttl` property of `application.yml` (15 minutes by default).
 
 ## Examples
 

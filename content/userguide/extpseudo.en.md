@@ -4,7 +4,7 @@ weight: 40
 description: Import and manage pseudonyms from CSV files or manual entry
 ---
 
-This page allows you to create or import pseudonyms that Karnak will use during de-identification. The de-identification process and how pseudonyms are used is detailed in the [Pseudonym chapter](../../profiles/rules/#pseudonym).
+This page allows you to create or import pseudonyms that Karnak will use during de-identification. The de-identification process and how pseudonyms are used is detailed in the [Pseudonym chapter](../../profiles/rules/#pseudonymization).
 
 De-identification is activated in the [Destination configuration](../gateway/destinations/#8-de-identification).
 
@@ -30,7 +30,7 @@ External pseudonyms are linked to a specific project. This allows Karnak to prop
 ##### 2. Upload a CSV file
 
 You can upload a CSV file containing external pseudonyms by:
-- Clicking the **Upload File** button
+- Clicking the **Upload File...** button
 - Dragging and dropping a file onto the upload area
 
 ###### 2.1 CSV separator configuration
@@ -62,12 +62,13 @@ Only the **Patient ID** and **External Pseudonym** fields are required. Other fi
 
 ###### 2.3 Import validation
 
-Click **Upload CSV** to import the data. Karnak performs validation checks including:
-- Duplicate Patient IDs
-- Duplicate Pseudonyms
-- Required field validation
+Click **Upload CSV** to import the data. The **External Pseudonym** and **Patient ID**
+columns must be assigned; otherwise an error lists the missing fields and nothing is imported.
 
-If validation errors occur, they will be displayed and the import will be rejected.
+Entries are identified by their **Patient ID** (and **Issuer of patient ID**) within the
+selected project. A row whose patient already exists is skipped and listed in a
+**WARNING: Duplicate data** dialog; the other rows are imported normally. The same check
+applies when a patient is added manually.
 
 ##### 3. Pseudonym Actions
 
@@ -88,14 +89,16 @@ pseudonyms table.
 
 ###### 3.2 Delete all patients
 
-The **Delete all patients** button removes all external pseudonyms for the selected project only. Pseudonyms linked to other projects are not affected.
+The **Delete all patients** button removes, after confirmation, all external pseudonyms for the selected project only. Pseudonyms linked to other projects are not affected.
 
 ##### 4. Pseudonym management
 
 ###### 4.1 Edit or delete individual entries
 
+A filter row under the column headers narrows the table to the matching entries.
+
 Each pseudonym row has action buttons:
-- **Edit**: Modify the patient fields
+- **Edit**: Modify the patient fields inline, then click **Save** or **Cancel**
 - **Delete**: Remove the pseudonym from the cache
 
 ![External pseudonym edit](/userguide/external_pseudonym_edit.png)

@@ -27,6 +27,7 @@ This profile can only be applied to images with **Axial orientation** in the fol
 
 * `1.2.840.10008.5.1.4.1.1.2` - CT Image Storage
 * `1.2.840.10008.5.1.4.1.1.2.1` - Enhanced CT Image Storage
+* `1.2.840.10008.5.1.4.1.1.2.2` - Legacy Converted Enhanced CT Image Storage
 
 > [!INFO]
 > Images with non-axial orientation will be skipped.
@@ -51,6 +52,8 @@ Pixel data cleaning applies masks to DICOM images to remove identifying informat
 This profile is automatically applied to the following SOP Classes:
 
 * `1.2.840.10008.5.1.4.1.1.6.1` - Ultrasound Image Storage
+* `1.2.840.10008.5.1.4.1.1.6.2` - Enhanced US Volume Storage
+* `1.2.840.10008.5.1.4.1.1.7` - Secondary Capture Image Storage
 * `1.2.840.10008.5.1.4.1.1.7.1` - Multiframe Single Bit Secondary Capture Image Storage
 * `1.2.840.10008.5.1.4.1.1.7.2` - Multiframe Grayscale Byte Secondary Capture Image Storage
 * `1.2.840.10008.5.1.4.1.1.7.3` - Multiframe Grayscale Word Secondary Capture Image Storage
@@ -69,6 +72,7 @@ This profile element requires the following parameters:
 | `name` | Description of the action applied | Yes |
 | `codename` | Must be `clean.pixel.data` | Yes |
 | `condition` | Condition to evaluate if this profile element should be applied | No |
+| `arguments` | `automaticMasksGeneration`: set to `"true"` to generate the masks with the external OCR service instead of the manual masks (see [Automatic Pixel Data De-identification](#automatic-pixel-data-de-identification)) | No |
 
 ### Using Conditions
 
@@ -172,7 +176,6 @@ profileElements:
     condition: "tagValueContains(#Tag.StationName, 'ICT256') && !tagIsPresent(#Tag.BurnedInAnnotation)"
     arguments:
       value: "YES"
-      vr: "CS"
     tags:
       - "(0028,0301)"
 
@@ -213,7 +216,7 @@ Automatic mask generation is an option of the [Clean Pixel Data](#pixel-data-cle
 1. A destination uses a de-identification profile that contains a **Clean Pixel Data** element with automatic mask generation enabled.
 2. For every eligible instance (the [SOP Classes eligible for pixel data cleaning](#condition-for-automatic-application), or any image flagged with **Burned In Annotation (0028,0301)**), Karnak extracts the pixel data and a set of sensitive tag values and sends them to the external API.
 3. The API returns one or more mask areas (rectangles, each with a color). Karnak draws them on the image before forwarding it to the destination.
-4. If the API returns no mask area (no sensitive data detected, or the call failed), no mask is applied. For eligible image types (US, Secondary Capture, XC, or Burned In Annotation), the instance is then not forwarded; other image types are forwarded unchanged.
+4. If the API detects no sensitive data, no mask is applied and the image is forwarded unchanged. If the call fails, the instance is not forwarded (see [Fail-closed Behavior](#fail-closed-behavior)).
 
 The example below shows an ultrasound frame before and after automatic pixel de-identification: the burned-in patient identifiers are detected and masked while the diagnostic image content is preserved.
 
@@ -265,28 +268,27 @@ profileElements:
 
 ### Configuring the External API Endpoint
 
-Karnak calls the de-identification image API at the URL configured by the `DEIDENTIFY_IMAGE_URL` environment variable (default `http://localhost:8000`). It maps to the `karnak.deidentify-image.url` property in `application.yml`:
+Karnak calls the de-identification image API at the URL configured by the `OCR_URL` environment variable (default `http://localhost:8000`). It maps to the `ocr.url` property in `application.yml`:
 
 ```yaml
-karnak:
-  deidentify-image:
-    url: ${DEIDENTIFY_IMAGE_URL:http://localhost:8000}
+ocr:
+  url: ${OCR_URL:http://localhost:8000}
 ```
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `DEIDENTIFY_IMAGE_URL` | `http://localhost:8000` | Base URL of the de-identification image API. |
+| `OCR_URL` | `http://localhost:8000` | Base URL of the de-identification image API. |
 
 The API contract is documented in the [`deidentification-api.yaml`](https://github.com/nroduit/karnak/blob/master/src/main/resources/deidentification-api.yaml) specification.
 
 ### Deploying the External De-identification Service
 
-The de-identification image API is a separate service. Deploy and run it so that it is reachable from Karnak at `DEIDENTIFY_IMAGE_URL`.
+The de-identification image API is a separate service. Deploy and run it so that it is reachable from Karnak at `OCR_URL`.
 
 To deploy it alongside the standard installation:
 
 1. Deploy the de-identification image API following its [deployment guide](https://github.com/nroduit/image-ocr-identifier).
-2. Point Karnak to it by setting `DEIDENTIFY_IMAGE_URL` to the service base URL.
+2. Point Karnak to it by setting `OCR_URL` to the service base URL.
 3. Restart Karnak so the new configuration is picked up.
 
 > [!INFO]
@@ -296,9 +298,9 @@ To deploy it alongside the standard installation:
 
 | Symptom | Likely cause | Action |
 |---------|--------------|--------|
-| Images with automatic masking are not forwarded | API unreachable, returning errors, or returning no mask area | Check the API is running and reachable at `DEIDENTIFY_IMAGE_URL`; inspect the Karnak logs. |
-| `Cannot reach de-identification image API ...` in the logs | Wrong URL or service down | Verify `DEIDENTIFY_IMAGE_URL` and the service health. |
+| Images with automatic masking are not forwarded | API unreachable or returning errors | Check the API is running and reachable at `OCR_URL`; inspect the Karnak logs. |
+| `Cannot reach de-identification image API ...` in the logs | Wrong URL or service down | Verify `OCR_URL` and the service health. |
 | `Client error ...` / `Server error ... from de-identification image API` in the logs | Malformed request (4xx) or API failure (5xx) | Verify the API version and health; check the request format against `deidentification-api.yaml`. |
 | `The SOP Instance UID in the API response ... does not match ...` in the logs | API returned a response for a different instance | Verify the API version and that it echoes back the request `sop_instance_uid`. |
 | `The SOP Instance UID in the API response is null` in the logs | API response omitted `sop_instance_uid` | Verify the API version returns `sop_instance_uid` in its JSON response. |
-| Eligible image forwarded without a mask although PHI is visible | The instance is not an eligible image type (not US, Secondary Capture, XC, or `BurnedInAnnotation`), so a missing mask does not abort the transfer | Confirm the image type; automatic masking only guards eligible SOP classes. |
+| No mask applied although PHI is visible | The API detected no sensitive text, or the tag values are absent from the metadata | Confirm the sensitive tags are populated in the source metadata. |

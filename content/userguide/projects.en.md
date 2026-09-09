@@ -87,7 +87,8 @@ Details about the algorithm and UID generation using the project secret are avai
 
 ##### 6. Action buttons
 
-- Click **Update** to save any change made to a project.  
+- Click **Update** to save any change made to a project. If the project is already used
+  by a destination, a confirmation is requested before the change is applied.  
 - Click **Delete** to delete the selected project.
 
 If the project is associated with a destination, deletion fails and an error message is displayed.
