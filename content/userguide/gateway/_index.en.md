@@ -22,7 +22,7 @@ This page lists all the forward nodes configured in Karnak and allows you to cre
 ##### 1. Create a Forward Node
 
 Click the **New forward node** button. A popup will appear:
-  1. Enter a unique value in the **Forward AETitle** field. AE Titles must not exceed 16 characters.
+  1. Enter a unique value in the **Forward AETitle** field. AE Titles must not exceed 16 characters and cannot contain control characters or a backslash.
   2. Click the **Add** button
 
 ![New Forward Node](/userguide/gateway_new_forwardnode.png)
@@ -56,7 +56,7 @@ All configured forward nodes and groups are displayed in the left panel.
 Select a forward node from the list to view and manage its configuration in the right panel.
 
 > [!INFO]
-> The copy icon {{< svg-inline "static/userguide/copy.svg" >}} next to each forward node allows you to quickly copy its DICOM configuration in the clipboard for use in DICOM clients.
+> The copy icon {{< svg-inline "static/userguide/copy.svg" >}} next to each forward node allows you to quickly copy its DICOM configuration (AE Title, host and the listener port — `DICOM_LISTENER_PORT`, `11119` by default, see the [installation page](../../installation/#dicom-listener)) to the clipboard for use in DICOM clients. Adapt the host if the sending node reaches Karnak through another address.
 
 ##### 4. Forward Node Parameters
 
@@ -104,13 +104,13 @@ The available action buttons depend on the active tab.
 
 **Destinations tab**: 
 
-Create a new destination using either the DICOM or DICOM WEB (STOW) protocol. See the [Destinations](destinations) page for detailed configuration instructions.
+Create a new destination using either the DICOM or DICOM WEB (STOW) protocol. See the [Destinations](destinations) page for detailed configuration instructions. The [portable distribution](../portable) shows an additional **LOCAL** button that creates a destination storing the instances in its local DICOM folder.
 
 **Sources tab**: 
 
 Create a new source to control which DICOM nodes can send data to this forward node. See the [Sources](sources) page for detailed configuration instructions.
 
-##### 5. Forward Node Actions
+##### 6. Forward Node Actions
 
 Three action buttons are available:
 
@@ -120,5 +120,8 @@ Three action buttons are available:
 | **Delete** | Deletes the selected forward node and all associated configurations |
 | **Cancel** | Reverts unsaved changes to the forward node parameters |
 
+> [!INFO]
+> While a transfer is running through the forward node, **Save** and **Delete** are disabled and read *Transfer in progress*; they become available again once the transfer is complete.
+
 > [!WARNING]
-> Deleting a forward node will also remove all associated sources and destinations. This action cannot be undone.
+> Deleting a forward node will also remove all associated sources and destinations, as well as the related entries in the [Monitoring](../monitoring) view. This action cannot be undone.

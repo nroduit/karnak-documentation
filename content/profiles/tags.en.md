@@ -16,7 +16,7 @@ This profile element applies an action to a tag or group of tags defined by the 
 |-----------|-------------|
 | **name** | Description of the action applied |
 | **codename** | `action.on.specific.tags` |
-| **action** | Remove (`X`) or Keep (`K`) |
+| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](../rules/#default-values-by-vr) (`D`) |
 | **tags** | List of tags the action should be applied to |
 
 ### Optional Parameters
@@ -57,7 +57,7 @@ This profile element applies an action to private tags or groups of private tags
 |-----------|-------------|
 | **name** | Description of the action applied |
 | **codename** | `action.on.privatetags` |
-| **action** | Remove (`X`) or Keep (`K`) |
+| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](../rules/#default-values-by-vr) (`D`) |
 
 ### Optional Parameters
 
@@ -84,6 +84,39 @@ In this example, all tags starting with 0009 will be kept and all other private 
   action: "X"
 ```
 
+## Replace UIDs
+
+This profile element applies a UID action to a list of tags defined by the user. It is typically used to generate new, consistent UIDs for the UID attributes that the [Basic DICOM profile](../profilestructure/#basic-dicom-profile) does not cover, or to remove or empty them.
+
+### Required Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| **name** | Description of the action applied |
+| **codename** | `replace.uid` |
+| **action** | Replace with a [new UID](../rules/#action-u-generate-a-new-uid) (`U`), Remove (`X`) or Replace with an empty value (`Z`). Any other action is refused when the profile is loaded. |
+| **tags** | List of tags (or [tag paths](../profilestructure/#tag-paths-sequences)) the action should be applied to |
+
+### Optional Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| **condition** | Defines a condition to evaluate if this profile element should be applied to this DICOM instance |
+| **excludedTags** | List of tags that will be ignored by this action |
+
+### Example
+
+In this example, the Frame of Reference UID and every Referenced SOP Instance UID (at any depth, including inside sequences) are replaced by new UIDs derived from the project secret, so that the references between the de-identified instances remain consistent.
+
+```yaml
+- name: "New UIDs for the references"
+  codename: "replace.uid"
+  action: "U"
+  tags:
+    - "(0020,0052)"
+    - "(0008,1155)"
+```
+
 ## Add new tags
 
 This profile element adds a tag if it is not already present in the instance. This action is ignored if the tag already exists.
@@ -95,7 +128,7 @@ This profile element adds a tag if it is not already present in the instance. Th
 | **name** | Description of the action applied                                                                                  |
 | **codename** | `action.add.tag`                                                                                                   |
 | **arguments** | Contains:<br>• `value`: Value to set for the tag |
-| **tags** | Must contain exactly one tag - the tag to add                                                                      |
+| **tags** | Must contain exactly one tag - the tag to add, or a [tag path](../profilestructure/#tag-paths-sequences) to add it inside a sequence |
 
 ### Optional Parameters
 
@@ -113,13 +146,14 @@ This profile element adds a tag if it is not already present in the instance. Th
 - The add action is ignored
 - A subsequent profile element action can be applied to that tag
 
-> [!WARNING]
-> Only tags at the root level of the DICOM instance can be added. Adding elements inside a sequence is not supported.
+**Adding a tag inside a sequence:**
+
+The tag can be written as a literal path naming every enclosing sequence, e.g. `(0040,0275).(0040,0009)` (wildcards such as `*`, `**` or `X` are not allowed, and the path is always read from the top-level dataset). A missing or empty sequence is created with one item; when the sequence holds several items, each of them receives the attribute. Such an element is applied once all the other profile elements have been applied, so the added value is not modified by them.
 
 > [!INFO]
-> The tag must exist in the DICOM Standard, otherwise the profile validation will fail. The VR is retrieved from the Standard.
+> The tag must exist in the DICOM Standard, otherwise the profile validation will fail. The VR is retrieved from the Standard. Every enclosing tag of a path must be a sequence.
 >
-> If this profile element is applied to a SOP class that doesn't contain this tag, it won't be added to prevent corrupting the DICOM instance. A warning will be generated in the logs.
+> If this profile element is applied to a SOP class that doesn't contain this tag (at this location), it won't be added to prevent corrupting the DICOM instance. A warning will be generated in the logs.
 
 ### Use Case
 
@@ -172,7 +206,7 @@ The `privateCreator` argument is optional but recommended for consistency.
   - If they don't match: A collision occurs and the tag is not added (a warning is logged)
 
 > [!INFO]
-> The behavior for root-level tags and sequences follows the same rules as [Add new tags](#add-new-tags).
+> A private tag can only be added to the top-level dataset: tag paths are not supported by this element.
 >
 > For details about private tag management and element numbers, see the [DICOM Standard Part 5 Section 7.8](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_7.8.html).
 

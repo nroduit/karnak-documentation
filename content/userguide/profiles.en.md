@@ -40,7 +40,7 @@ created and opened so you can [add its elements](#profile-elements-tab).
 ### Import a profile
 
 To reuse an existing profile, use the upload area below the buttons: click
-**Upload file...** or drag a YAML file onto *Drag and drop your profile here*. The file is
+**Upload File...** or drag a YAML file onto *Drag and drop your profile here*. The file is
 loaded and analyzed; if it is valid, a new profile is created from it and added to the
 list. If it contains errors, the profile is not added and the errors are shown in the
 right panel (see [Import errors](#import-errors)).
@@ -127,6 +127,10 @@ Click **Add element** (or the edit action on a row) to open the **Add element** 
   - *Defacing (clean recognizable visual features)*
   - *Add a tag*
   - *Apply action to private tags*
+
+  The types that may appear only once in a profile (*Basic DICOM confidentiality
+  profile*, *Clean pixel data* and *Defacing*) are no longer offered once the profile
+  contains them.
 - **Type-specific fields** — the middle of the dialog adapts to the selected type:
   - *Apply action to specific tags* / *Apply action to private tags*: an **Action**
     (see the table below), a **Tags** picker and an **Excluded tags** picker.
@@ -148,8 +152,7 @@ The **Action** (for the tag-based types) decides what to do with the matched tag
 | Keep | `K` | Keep the value unchanged |
 | Remove | `X` | Remove the tag |
 | Replace with null | `Z` | Replace with an empty value |
-| Replace with a dummy value | `D` | Replace with a dummy value |
-| Replace with the default dummy value | `DDum` | Replace with Karnak's default dummy value |
+| Replace with a dummy value | `D` | Replace with a dummy value consistent with the tag's VR (see [default values by VR](../../profiles/rules/#default-values-by-vr)) |
 | Generate a new UID | `U` | Generate a new, deterministic UID |
 
 The **tag fields** use a tag picker that lets you **search or browse the DICOM

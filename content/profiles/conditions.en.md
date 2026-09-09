@@ -120,6 +120,10 @@ tagIsPresent("0008,1030")
 !tagIsPresent("0008,1030")
 ```
 
+### Tags Inside Sequences
+
+A condition is evaluated for each visited attribute, including the attributes nested in the items of a sequence. The tag given to a function is looked up from the dataset being visited outwards: inside a sequence item, the item's own value is used when the item holds the tag, otherwise the value of the enclosing dataset (up to the top level). A condition on a study-level tag such as `Modality` therefore holds at every level, while a condition on a tag that only exists inside the items of a sequence is true only while those items are visited.
+
 ### Combining Conditions
 
 Multiple conditions can be combined using logical operators.

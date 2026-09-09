@@ -32,7 +32,7 @@ Metadata fields help identify and manage your profiles. While optional, we recom
 | **name** | Profile name displayed in the UI | Optional (recommended) |
 | **version** | Profile version number | Optional (recommended) |
 | **minimumKarnakVersion** | Minimum Karnak version required | Optional |
-| **defaultIssuerOfPatientID** | Default value when IssuerOfPatientID is missing in DICOM files. Used for building patient pseudonyms during de-identification | Optional |
+| **defaultIssuerOfPatientID** | Legacy field, accepted for compatibility but ignored. The default Issuer of Patient ID is configured on the [destination](../../userguide/gateway/destinations/#issuer-of-patient-id-by-default) | Optional |
 | **profileElements** | List of profile elements to apply | Required |
 
 ## Profile Element Structure
@@ -51,7 +51,7 @@ Each profile element defines a specific de-identification rule.
 | Field | Description | When Required |
 |-------|-------------|---------------|
 | **condition** | Boolean expression to conditionally apply this element | Optional |
-| **action** | Action type to perform (e.g., K, X, D, U, Z) | For certain codenames |
+| **action** | Action type to perform (`K`, `X`, `Z`, `U`, `D`; see [Actions on tags](tags.en.md)) | For certain codenames |
 | **option** | Single configuration value | For certain codenames |
 | **arguments** | Key-value pairs for advanced configuration | For certain codenames |
 | **tags** | DICOM attributes this element should target | For certain codenames |
@@ -68,6 +68,23 @@ Tags can be specified in multiple formats:
 | Concatenated | `00100010` | No separators |
 | Pattern | `(0010,XXXX)` | All tags in group 0010 |
 | Wildcard | `(XXXX,XXXX)` | All DICOM attributes |
+
+A tag written in one of these formats matches the attribute **wherever it appears** in the instance: at the top level and inside the items of any sequence.
+
+### Tag Paths (Sequences)
+
+To restrict a tag to a given location, write a dot-separated **path**: the last segment is the tag itself and the preceding segments are the sequences enclosing it. A leading dot anchors the path to the top-level dataset; without it, the named sequences may themselves be nested anywhere.
+
+| Path | Matches |
+|------|---------|
+| `.(0040,0009)` | The tag at the top level only |
+| `(0040,0275).(0040,0009)` | The tag directly inside an item of (0040,0275), the sequence being at any depth |
+| `.(0040,0275).(0040,0009)` | Same, but the sequence must be at the top level |
+| `*.(0040,0009)` | The tag exactly one sequence below its enclosing dataset |
+| `**.(0040,0009)` | The tag at any depth except the top level |
+| `(0040,0275).*` | Any tag directly inside an item of (0040,0275) |
+
+Each segment accepts the `X` wildcard digits (e.g., `(0040,0275).0040XXXX`). When several entries of the same element match a tag, a path takes precedence over a plain tag, and the most specific path wins. Paths are accepted by `tags` and `excludedTags` of the elements working on user-defined tags, and by [Add new tags](tags.en.md#add-new-tags) (literal paths only).
 
 ### Conditions
 
@@ -113,4 +130,4 @@ profileElements:
 ```
 
 > [!INFO]
-> This profile should be placed at the end of your profile elements to ensure all other rules are applied first.
+> This profile should be placed at the end of your profile elements to ensure all other rules are applied first. The profile editor automatically moves it to the last position, and it can appear only once in a profile (as can the Clean Pixel Data and Defacing elements).

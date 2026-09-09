@@ -20,11 +20,13 @@ The following variables can be used in your custom Logback configuration file to
 | **DeidentifySOPInstanceUID** | SOP Instance UID **after** de-identification |
 | **SeriesInstanceUID** | Series Instance UID **before** de-identification |
 | **DeidentifySeriesInstanceUID** | Series Instance UID **after** de-identification |
-| **ProjectName** | Project name used for de-identification |
-| **ProfileName** | Profile name used for de-identification |
-| **ProfileCodenames** | Concatenated list of profile items applied during de-identification |
+| **TagMorphingSOPInstanceUID** | SOP Instance UID **after** tag morphing |
+| **TagMorphingSeriesInstanceUID** | Series Instance UID **after** tag morphing |
+| **ProjectName** | Project name used for de-identification or tag morphing |
+| **ProfileName** | Profile name used for de-identification or tag morphing |
+| **ProfileCodenames** | Concatenated list of profile items applied during de-identification or tag morphing |
 
-For usage examples, see the [default Logback configuration](https://github.com/nroduit/karnak/blob/master/src/main/resources/logback.xml#L112-L114).
+These variables are set (as [MDC](https://logback.qos.ch/manual/mdc.html) values, used with `%X{name}` in a pattern) while a profile is applied to an instance; the `Deidentify*` / `TagMorphing*` values, `ProjectName`, `ProfileName` and `ProfileCodenames` are available on the `DEBUG` event emitted with the `CLINICAL` marker once the profile has been applied. See the [clinical logs](#clinical-logs) example below.
 
 ## Inject the Logback Configuration File
 
@@ -45,7 +47,7 @@ services:
     container_name: karnak
     image: nroduit/karnak:latest
     volumes:
-      - ./my-logback.yml:/logs/my-logback.xml
+      - ./my-logback.xml:/logs/my-logback.xml
     environment:
       LOGBACK_CONFIGURATION_FILE: /logs/my-logback.xml
 ```
@@ -56,33 +58,71 @@ If you run Karnak directly from the JAR file, add the following parameter at sta
 
 ## Default Logback Configuration
 
-The default [logback configuration file](https://github.com/nroduit/karnak/blob/master/src/main/resources/logback.xml) supports two operating modes:
+The default [logback configuration file](https://github.com/nroduit/karnak/blob/master/src/main/resources/logback.xml) selects its appenders from the active Spring profile:
 
-### Development Mode
+### Standard installation (Docker or JAR)
 
-* Set the `ENVIRONMENT` variable to `DEV` to activate this mode
-* Logs everything at the `INFO` level by default
-* Packages `org.karnak` and `org.weasis` are logged at the `DEBUG` level for detailed troubleshooting
+* Logs everything at the `INFO` level to the **console** (standard output) only; no log file is written, so no writable volume is needed and the Docker logs can be read with `docker logs` or collected by your log driver
+* Log levels can be adjusted with the standard Spring `logging.level.*` properties (e.g. the `LOGGING_LEVEL_ORG_KARNAK=DEBUG` environment variable)
 
+### Portable distribution
 
-### Production Mode
+* Logs the `org.karnak` packages at the `INFO` level to the console **and** to the rolling file `logs/karnak.log` in the extracted directory
+* The rotation is controlled by the `KARNAK_LOGS_MAX_FILE_SIZE` (default `50MB`), `KARNAK_LOGS_MIN_INDEX` (default `1`) and `KARNAK_LOGS_MAX_INDEX` (default `10`) variables set in `run.cfg`
 
-* Active by default (when `ENVIRONMENT` is not set to `DEV`)
-* Logs everything at the `WARN` level or higher
-* Creates two log files:
+### Clinical logs
 
-#### all.log
+Each de-identification or tag-morphing operation emits a `DEBUG` event carrying the `CLINICAL` marker and the [variables](#available-variables) above. The default configuration does not write these events to a dedicated file. To keep an audit trail, add an appender filtered on the marker to your custom configuration and enable the `DEBUG` level for the `org.karnak` package:
 
-Contains:
-* All `WARN` level logs and above
-* `org.weasis` logs at `INFO` level
-* `org.karnak` logs at `INFO` level (excluding clinical logs)
+```xml
+<configuration>
+  <appender name="CLINICAL_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/clinical.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+      <fileNamePattern>logs/clinical_%i.log</fileNamePattern>
+      <minIndex>1</minIndex>
+      <maxIndex>10</maxIndex>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>50MB</maxFileSize>
+    </triggeringPolicy>
+    <!-- Keep only the events carrying the CLINICAL marker -->
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+      <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+        <marker>CLINICAL</marker>
+      </evaluator>
+      <onMismatch>DENY</onMismatch>
+      <onMatch>NEUTRAL</onMatch>
+    </filter>
+    <encoder>
+      <pattern>%d SOPInstanceUID_OLD=%X{SOPInstanceUID} SOPInstanceUID_NEW=%X{DeidentifySOPInstanceUID} SeriesInstanceUID_OLD=%X{SeriesInstanceUID} SeriesInstanceUID_NEW=%X{DeidentifySeriesInstanceUID} ProjectName=%X{ProjectName} ProfileName=%X{ProfileName} ProfileCodenames=%X{ProfileCodenames}%n</pattern>
+    </encoder>
+  </appender>
 
-#### clinical.log
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- Exclude the clinical events from the console -->
+    <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+      <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+        <marker>CLINICAL</marker>
+      </evaluator>
+      <onMismatch>NEUTRAL</onMismatch>
+      <onMatch>DENY</onMatch>
+    </filter>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
 
-Contains:
-* All logs marked with the `CLINICAL` marker
-* Specifically tracks de-identification operations and clinical data processing
+  <logger name="org.karnak" level="DEBUG" />
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="CLINICAL_FILE" />
+  </root>
+</configuration>
+```
+
+With Docker, mount a writable volume for the `logs` folder (the image runs as a non-root user, so mount it at a path such as `/tmp/logs` or make the target directory writable).
 
 > [!INFO]
 > Clinical logs provide detailed tracking of the de-identification process, including which profiles were applied and how patient data was transformed. This is useful for auditing and compliance purposes.

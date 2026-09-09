@@ -59,7 +59,7 @@ graph LR;
   B --> D
 ```
 
-First, a DICOM instance is received by Karnak. After processing it, it sends the instance to the main Kheops album. Depending on existing rules and conditions, the instance will also be shared to the album X and Y.
+First, a DICOM instance is received by Karnak. After processing it, it sends the instance to the main Kheops album. Depending on existing rules and conditions, the instance will also be shared to the album X and Y. Sharing is done per series once the instance has been transferred; when the destination de-identifies, the series is shared with the de-identified Study and Series Instance UIDs.
 
 ### Create a switching Kheops album
 
@@ -76,6 +76,8 @@ To share a DICOM instance in different Kheops albums, the following fields must 
 | Url API                      | The url of the Kheops API                                                                            |
 | Valid token of destination   | The token to write to the album destination. Need **WRITE** permission                               |
 | Valid token of source        | The token to shared from the album source. Need **READ, SEND** (Sharing in the Kheops UI) permission |
+
+When **Url API** is filled, both tokens are checked against the Kheops API when you click **Add**: the destination token must have at least the *write* scope and the source token the *read* and *send* scopes, otherwise the album is not added. Configured albums are listed in a table where each row can be modified (**Edit**, then **Validate** or **Cancel**) or deleted (**Remove**).
 
 The condition field defines a condition to enable sharing an instance to a specific album if it is evaluated to true.
 

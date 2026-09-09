@@ -30,7 +30,8 @@ A DICOM Destination uses the traditional DICOM protocol to forward instances to 
 
 These fields define where Karnak should send the DICOM instances.
 
-- **AETitle**: The Application Entity Title that identifies the destination DICOM node.
+- **AETitle**: The Application Entity Title that identifies the destination DICOM node (16 characters max, no whitespace).
+- **Description**: An optional label shown in the destination list.
 - **Hostname**: The IP address or hostname of the destination server.
 - **Port**: The network port used by the destination DICOM service (must be between 1 and 65535).
 - **Concurrent connections**: The number of parallel DICOM associations Karnak opens to this destination (between 1 and 50; `1` means a single connection). Increasing this value improves throughput when forwarding large studies, but must stay within the destination PACS's concurrent-association limit.
@@ -42,7 +43,7 @@ This field defines the [transfer syntax](http://dicom.nema.org/medical/dicom/cur
 
 It is recommended to choose "Keep original transfer syntax" unless you have specific requirements for compression or compatibility with the destination system.
 
-When selecting a specific transfer syntax, ensure that the destination system supports it to avoid decompression or compatibility issues. It is also recommended to check "Transcode only uncompressed" when selecting lossy syntaxes to avoid re-compressing already compressed data.
+When selecting a specific transfer syntax, ensure that the destination system supports it to avoid decompression or compatibility issues. When you select a compressed transfer syntax, the **Transcode only uncompressed** checkbox becomes available and is checked automatically so that instances that are already compressed are not re-encoded; uncheck it only if every instance must be transcoded. The checkbox is disabled for *Keep original transfer syntax* and *Explicit VR - Little Endian*.
 
 > [!INFO]
 > Transcoding may increase processing time and resource usage, especially for large datasets. Use it judiciously based on your workflow needs.
@@ -63,7 +64,7 @@ default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
 
 | Field | Description | Default Value |
 |-------|-------------|---------------|
-| **List of emails** | Comma-separated list of recipient email addresses | None |
+| **List of emails** | Comma-separated list of recipient email addresses (required when notifications are active) | None |
 | **Error subject prefix** | Prefix added to email subjects when an error occurs | `**ERROR**` |
 | **Rejection subject prefix** | Prefix added when an instance is rejected due to filters or criteria | `**REJECTED**` |
 | **Subject pattern** | Email subject template using [Java String Format](https://dzone.com/articles/java-string-format-examples) | `[Karnak Notification] %s %.30s` |
@@ -100,7 +101,9 @@ or audit purposes — without sending any data.
 Enable **Build DICOM conformance report** to validate every study sent to this
 destination against the DICOM standard and email an HTML report. When enabled, options
 appear to set the report's recipient emails, to also check value content conformity
-(VR rules), and to perform deep sequence validation.
+(VR rules), to perform deep sequence validation, and to check for identifying data
+burned into the image (this last option runs OCR through the external de-identification
+image service, which must be reachable at `OCR_URL`, `http://localhost:8000` by default).
 
 ![Notifications](/userguide/destination_conformance_st.png)
 
@@ -193,7 +196,7 @@ This option retrieves the pseudonym from a specified DICOM tag within the instan
 
 - **Tag**: The DICOM tag containing the pseudonym (e.g., Clinical Trial Subject ID `(0012,0040)`)
 
-**Optional configuration:**
+**Optional configuration** (both must be set together):
 
 - **Delimiter**: Character used to split the tag value
 - **Position**: Which part to use after splitting (zero-based index)
@@ -220,7 +223,7 @@ You can reference an [Authentication Configuration](../../authconfig) to securel
 
 ##### Issuer of Patient ID by default
 
-This field (labeled *Issuer of Patient ID by default*) provides a default value for the Issuer of Patient ID when it's not present in the DICOM instance.
+This field (labeled *Issuer of Patient ID by default*) provides a default value for the Issuer of Patient ID when it's not present in the DICOM instance. It is only shown when the pseudonym type is **Pseudonym is already stored in KARNAK**.
 
 **Usage:**
 
@@ -233,11 +236,9 @@ The combination of Patient ID and Issuer ensures unique patient identification a
 ##### Ignore the Issuer of Patient ID (cache lookup)
 
 This option is only available when the pseudonym type is **Pseudonym is already stored
-in KARNAK**. On screen it is the checkbox *"Does the Issuer of Patient ID of the image to
-de-identify should be ignored when retrieving the pseudonym in the cache? (only for
-'Pseudonym is already stored in KARNAK')"*. When checked, the Issuer of Patient ID of the
-incoming image is **ignored** when building the key used to look up the pseudonym in the
-cache.
+in KARNAK**. On screen it is the **Ignore Issuer of Patient ID** checkbox. When checked,
+the Issuer of Patient ID of the incoming image is **ignored** when building the key used
+to look up the pseudonym in the cache.
 
 It is **enabled by default**, so the same Patient ID is matched even when it is registered
 under a different (or missing) issuer in the [External Pseudonym](../../extpseudo) cache
@@ -253,12 +254,12 @@ Filter which DICOM instance types (SOP Classes) are forwarded to this destinatio
 
 **Configuration:**
 
-- **Enabled**: Only instances matching the specified [SOP Classes](http://dicom.nema.org/medical/Dicom/current/output/chtml/part04/sect_B.5.html) are transferred
+- **Enabled**: Only instances matching the specified [SOP Classes](http://dicom.nema.org/medical/Dicom/current/output/chtml/part04/sect_B.5.html) are transferred. At least one SOP Class must be selected, otherwise the destination cannot be saved.
 - **Disabled**: All SOP Classes are transferred without restriction
 
 #### 10. Enable the Destination
 
-This toggle allows you to temporarily disable a destination without deleting it. The state is also visible in the destination list with a green (enabled) or red (disabled) indicator.
+The **Enable destination** checkbox allows you to temporarily disable a destination without deleting it. The state is also visible in the destination list with a green (enabled) or red (disabled) indicator.
 
 Use this feature to:
 - Temporarily pause forwarding during maintenance
@@ -275,10 +276,17 @@ Three actions are available to manage the destination:
 | **Delete** | Permanently deletes the selected destination |
 | **Cancel** | Reverts all unsaved changes to the last saved state |
 
+> [!INFO]
+> While a transfer is running through the forward node, **Save** and **Delete** are disabled and read *Transfer in progress*; the **Activity** column of the destination list shows a spinner during that time.
+
 > [!WARNING]
 > Deleting a destination cannot be undone. All configuration settings will be permanently removed.
 
 ---
+
+## STOW Destination
+
+A STOW Destination forwards instances over DICOMWeb (STOW-RS) to a web server such as a DICOMWeb-enabled PACS or a Kheops instance.
 
 ### Creating a STOW Destination
 
