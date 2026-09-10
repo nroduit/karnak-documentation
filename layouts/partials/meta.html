@@ -16,3 +16,7 @@
     {{ with .Keywords }}
     <meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">
     {{ end }}
+    {{- /* social cards (Open Graph, Twitter, schema.org), same partials the theme's own meta.html calls */}}
+    {{- partial "twitter_cards.html" . }}
+    {{- partial "opengraph.html" . }}
+    {{- partial "schema.html" . }}
