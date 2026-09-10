@@ -1,7 +1,7 @@
 ---
 archetype: "home"
-title: "Karnak"
-description: "Karnak is a DICOM gateway for data de-identification and DICOM attribute normalization."
+title: "Homepage"
+description: "Karnak is an open-source DICOM gateway for de-identification, tag morphing and conformance checks, forwarding studies to DICOM and DICOMweb destinations."
 keywords: [ "dicom gateway", "de-identification", "pseudonymization", "tag morphing", "dicom conformance", "dicom proxy" ]
 ---
 
