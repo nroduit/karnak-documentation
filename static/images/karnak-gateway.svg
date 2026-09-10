@@ -56,7 +56,7 @@
 <text x="108" y="608" font-size="17.5" fill="#4a6f9e">Many other object types</text>
 
 <!-- Karnak lock-up -->
-<a href="https://karnak.weasis.org/">
+<a href="https://karnak.weasis.org/" target="_blank" rel="noopener noreferrer">
 <use href="#karnak-mark" x="576" y="45" width="64" height="64" color="#f5b05a"/>
 <text x="652" y="100" font-size="64" fill="#14356e" font-weight="800">Karnak</text>
 </a>
@@ -84,13 +84,13 @@
 
 <!-- what it is built on -->
 <g transform="translate(0 5)">
-<a href="https://karnak.weasis.org/en/profiles/profilestructure/">
+<a href="https://karnak.weasis.org/en/profiles/profilestructure/" target="_blank" rel="noopener noreferrer">
 <circle cx="470" cy="588" r="30" fill="#ffffff" stroke="#cfe2f5" stroke-width="2"/>
 <g transform="translate(455.0 573.0) scale(1.2500)" fill="none" stroke="#2f6fb5" stroke-width="1.70" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 19 5.8v5.4c0 4.5-2.9 7.6-7 9-4.1-1.4-7-4.5-7-9V5.8z"/></g>
 <text x="470" y="644" font-size="20" fill="#14356e" font-weight="700" text-anchor="middle">Rules engine</text>
 <text x="470" y="668" font-size="16" fill="#4a6f9e" text-anchor="middle">profiles in YAML</text>
 </a>
-<a href="https://github.com/dcm4che/dcm4che">
+<a href="https://github.com/dcm4che/dcm4che" target="_blank" rel="noopener noreferrer">
 <circle cx="643" cy="588" r="30" fill="#ffffff" stroke="#cfe2f5" stroke-width="2"/>
 <g transform="translate(628.0 573.0) scale(1.2500)" fill="none" stroke="#2f6fb5" stroke-width="1.70" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.4"/><path d="M18.26 9.91L21.47 10.42L21.47 13.58L18.26 14.09L17.90 14.95L19.81 17.58L17.58 19.81L14.95 17.90L14.09 18.26L13.58 21.47L10.42 21.47L9.91 18.26L9.05 17.90L6.42 19.81L4.19 17.58L6.10 14.95L5.74 14.09L2.53 13.58L2.53 10.42L5.74 9.91L6.10 9.05L4.19 6.42L6.42 4.19L9.05 6.10L9.91 5.74L10.42 2.53L13.58 2.53L14.09 5.74L14.95 6.10L17.58 4.19L19.81 6.42L17.90 9.05Z"/></g>
 <text x="643" y="644" font-size="20" fill="#14356e" font-weight="700" text-anchor="middle">DICOM library</text>
@@ -102,7 +102,7 @@
 <text x="816" y="644" font-size="20" fill="#14356e" font-weight="700" text-anchor="middle">Scalable</text>
 <text x="816" y="668" font-size="16" fill="#4a6f9e" text-anchor="middle">with your hardware</text>
 <path d="M729 556v116" stroke="#d5e5f5" stroke-width="2"/>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/">
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/" target="_blank" rel="noopener noreferrer">
 <circle cx="989" cy="588" r="30" fill="#ffffff" stroke="#cfe2f5" stroke-width="2"/>
 <g transform="translate(974.0 573.0) scale(1.2500)" fill="none" stroke="#2f6fb5" stroke-width="1.70" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="11.6" r="3.1"/><circle cx="4.6" cy="5.6" r="2.2"/><circle cx="19.4" cy="5.6" r="2.2"/><circle cx="12" cy="20.4" r="2.2"/><path d="M6.4 7 9.6 9.6M17.6 7 14.4 9.6M12 14.7v3.5"/></g>
 <text x="989" y="644" font-size="20" fill="#14356e" font-weight="700" text-anchor="middle">Integration</text>
@@ -116,7 +116,7 @@
 <text x="1128" y="78" font-size="30" fill="#14356e" font-weight="800">TRANSFORMED DATA</text>
 <text x="1128" y="112" font-size="20" fill="#2f6fb5">De-identified. Normalized. Validated.</text>
 <rect x="1104" y="132" width="400" height="508" rx="22" fill="#e8f7f1"/>
-<a href="https://karnak.weasis.org/en/profiles/rules/">
+<a href="https://karnak.weasis.org/en/profiles/rules/" target="_blank" rel="noopener noreferrer">
 <rect x="1120" y="148" width="368" height="150" rx="20" fill="url(#gTeal)" filter="url(#shadow)"/>
 <circle cx="1176" cy="223" r="30" fill="#ffffff"/>
 <g transform="translate(1160.0 207.0) scale(1.3333)" fill="none" stroke="#2b6fb0" stroke-width="1.60" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.6" cy="7.8" r="3.2"/><path d="M3.6 19.2a6.2 6.2 0 0 1 9.4-5"/><rect x="14" y="13.8" width="7" height="6" rx="1.3"/><path d="M15.8 13.8v-1.6a1.7 1.7 0 0 1 3.4 0v1.6"/></g>
@@ -125,7 +125,7 @@
 <text x="1220" y="248" font-size="16.5" fill="#eaf6fb">Pseudonyms per project</text>
 <text x="1220" y="270" font-size="16.5" fill="#eaf6fb">Pixels masked, CT defaced</text>
 </a>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#7-tag-morphing">
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#7-tag-morphing" target="_blank" rel="noopener noreferrer">
 <rect x="1120" y="311.0" width="368" height="150" rx="20" fill="url(#gPurple)" filter="url(#shadow)"/>
 <circle cx="1176" cy="386.0" r="30" fill="#ffffff"/>
 <g transform="translate(1160.0 370.0) scale(1.3333)" fill="none" stroke="#2b6fb0" stroke-width="1.60" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 3.6h8.8l8 8-8.8 8.8-8-8z"/><circle cx="7.6" cy="7.6" r="1.7"/></g>
@@ -134,7 +134,7 @@
 <text x="1220" y="411.0" font-size="16.5" fill="#eaf6fb">Normalized and consistent</text>
 <text x="1220" y="433.0" font-size="16.5" fill="#eaf6fb">Driven by your conditions</text>
 </a>
-<a href="https://karnak.weasis.org/en/userguide/conformancereport/">
+<a href="https://karnak.weasis.org/en/userguide/conformancereport/" target="_blank" rel="noopener noreferrer">
 <rect x="1120" y="474.0" width="368" height="150" rx="20" fill="url(#gBlue)" filter="url(#shadow)"/>
 <circle cx="1176" cy="549.0" r="30" fill="#ffffff"/>
 <g transform="translate(1160.0 533.0) scale(1.3333)" fill="none" stroke="#2b6fb0" stroke-width="1.60" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 19 5.8v5.4c0 4.5-2.9 7.6-7 9-4.1-1.4-7-4.5-7-9V5.8z"/><path d="M8.6 11.8 11 14.2l4.4-4.4"/></g>
@@ -166,49 +166,49 @@
 <text x="188" y="748" font-size="27" fill="#0f9b8e" font-weight="800">FOR RESEARCH</text>
 <text x="188" y="781" font-size="20" fill="#2f6fb5">Reproducible, shareable datasets</text>
 <g transform="translate(97 809) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/profilestructure/#basic-dicom-profile"><text x="130" y="822" font-size="17.5" fill="#25476f">De-identification follows DICOM PS3.15</text></a>
+<a href="https://karnak.weasis.org/en/profiles/profilestructure/#basic-dicom-profile" target="_blank" rel="noopener noreferrer"><text x="130" y="822" font-size="17.5" fill="#25476f">De-identification follows DICOM PS3.15</text></a>
 <g transform="translate(97 840) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/projects/#5-project-secret"><text x="130" y="853" font-size="17.5" fill="#25476f">Deterministic UIDs from a project secret</text></a>
+<a href="https://karnak.weasis.org/en/userguide/projects/#5-project-secret" target="_blank" rel="noopener noreferrer"><text x="130" y="853" font-size="17.5" fill="#25476f">Deterministic UIDs from a project secret</text></a>
 <g transform="translate(97 871) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/extpseudo/"><text x="130" y="884" font-size="17.5" fill="#25476f">Pseudonyms from CSV, DICOM tags or an API</text></a>
+<a href="https://karnak.weasis.org/en/userguide/extpseudo/" target="_blank" rel="noopener noreferrer"><text x="130" y="884" font-size="17.5" fill="#25476f">Pseudonyms from CSV, DICOM tags or an API</text></a>
 <g transform="translate(97 902) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/dates/"><text x="130" y="915" font-size="17.5" fill="#25476f">Date shifting or reduced date precision</text></a>
+<a href="https://karnak.weasis.org/en/profiles/dates/" target="_blank" rel="noopener noreferrer"><text x="130" y="915" font-size="17.5" fill="#25476f">Date shifting or reduced date precision</text></a>
 <g transform="translate(97 933) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/conditions/"><text x="130" y="946" font-size="17.5" fill="#25476f">Conditional rules inside each profile</text></a>
+<a href="https://karnak.weasis.org/en/profiles/conditions/" target="_blank" rel="noopener noreferrer"><text x="130" y="946" font-size="17.5" fill="#25476f">Conditional rules inside each profile</text></a>
 <g transform="translate(97 964) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/portable/"><text x="130" y="977" font-size="17.5" fill="#25476f">Portable app for collaborative projects</text></a>
+<a href="https://karnak.weasis.org/en/userguide/portable/" target="_blank" rel="noopener noreferrer"><text x="130" y="977" font-size="17.5" fill="#25476f">Portable app for collaborative projects</text></a>
 <circle cx="600" cy="756" r="42" fill="#1878df"/>
 <g transform="translate(578.0 734.0) scale(1.8333)" fill="none" stroke="#ffffff" stroke-width="2.00" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2.4"/><rect x="9.6" y="9.6" width="4.8" height="4.8" rx="1"/><path d="M9.5 6V3M14.5 6V3M9.5 21v-3M14.5 21v-3M6 9.5H3M6 14.5H3M21 9.5h-3M21 14.5h-3"/></g>
 <text x="656" y="748" font-size="27" fill="#1878df" font-weight="800">FOR IMAGING IT</text>
 <text x="656" y="781" font-size="20" fill="#2f6fb5">A standard node in your network</text>
 <g transform="translate(565 809) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/"><text x="598" y="822" font-size="17.5" fill="#25476f">C-STORE in, C-STORE or STOW-RS out</text></a>
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/" target="_blank" rel="noopener noreferrer"><text x="598" y="822" font-size="17.5" fill="#25476f">C-STORE in, C-STORE or STOW-RS out</text></a>
 <g transform="translate(565 840) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/installation/#identity-provider"><text x="598" y="853" font-size="17.5" fill="#25476f">Single sign-on with OpenID Connect</text></a>
+<a href="https://karnak.weasis.org/en/installation/#identity-provider" target="_blank" rel="noopener noreferrer"><text x="598" y="853" font-size="17.5" fill="#25476f">Single sign-on with OpenID Connect</text></a>
 <g transform="translate(565 871) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#9-authorized-sops"><text x="598" y="884" font-size="17.5" fill="#25476f">Per-destination filters and transcoding</text></a>
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#9-authorized-sops" target="_blank" rel="noopener noreferrer"><text x="598" y="884" font-size="17.5" fill="#25476f">Per-destination filters and transcoding</text></a>
 <g transform="translate(565 902) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/dicomtools/"><text x="598" y="915" font-size="17.5" fill="#25476f">Echo, worklist and DICOMweb diagnostics</text></a>
+<a href="https://karnak.weasis.org/en/userguide/dicomtools/" target="_blank" rel="noopener noreferrer"><text x="598" y="915" font-size="17.5" fill="#25476f">Echo, worklist and DICOMweb diagnostics</text></a>
 <g transform="translate(565 933) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#5-virtual-destination"><text x="598" y="946" font-size="17.5" fill="#25476f">Virtual destination: validate, don't send</text></a>
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#5-virtual-destination" target="_blank" rel="noopener noreferrer"><text x="598" y="946" font-size="17.5" fill="#25476f">Virtual destination: validate, don't send</text></a>
 <g transform="translate(565 964) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/installation/"><text x="598" y="977" font-size="17.5" fill="#25476f">Docker or portable deployment</text></a>
+<a href="https://karnak.weasis.org/en/installation/" target="_blank" rel="noopener noreferrer"><text x="598" y="977" font-size="17.5" fill="#25476f">Docker or portable deployment</text></a>
 <path d="M534 726v230" stroke="#cfe3ef" stroke-width="2"/>
 <circle cx="1068" cy="756" r="42" fill="#16a34a"/>
 <g transform="translate(1046.0 734.0) scale(1.8333)" fill="none" stroke="#ffffff" stroke-width="2.00" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M7.5 10.5V7.2a4.5 4.5 0 0 1 9 0v3.3"/><circle cx="12" cy="15.8" r="1.3" fill="currentColor" stroke="none"/></g>
 <text x="1124" y="748" font-size="27" fill="#16a34a" font-weight="800">FOR PATIENT PRIVACY</text>
 <text x="1124" y="781" font-size="20" fill="#2f6fb5">No identifiers in tags or pixels</text>
 <g transform="translate(1033 809) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/masks/#automatic-pixel-data-de-identification"><text x="1066" y="822" font-size="17.5" fill="#25476f">Automatic annotation removal with OCR</text></a>
+<a href="https://karnak.weasis.org/en/profiles/masks/#automatic-pixel-data-de-identification" target="_blank" rel="noopener noreferrer"><text x="1066" y="822" font-size="17.5" fill="#25476f">Automatic annotation removal with OCR</text></a>
 <g transform="translate(1033 840) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/masks/#defacing"><text x="1066" y="853" font-size="17.5" fill="#25476f">CT defacing (experimental)</text></a>
+<a href="https://karnak.weasis.org/en/profiles/masks/#defacing" target="_blank" rel="noopener noreferrer"><text x="1066" y="853" font-size="17.5" fill="#25476f">CT defacing (experimental)</text></a>
 <g transform="translate(1033 871) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/masks/#fail-closed-behavior"><text x="1066" y="884" font-size="17.5" fill="#25476f">If masking fails, nothing is sent</text></a>
+<a href="https://karnak.weasis.org/en/profiles/masks/#fail-closed-behavior" target="_blank" rel="noopener noreferrer"><text x="1066" y="884" font-size="17.5" fill="#25476f">If masking fails, nothing is sent</text></a>
 <g transform="translate(1033 902) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#4-notifications"><text x="1066" y="915" font-size="17.5" fill="#25476f">Email summaries of transfers and errors</text></a>
+<a href="https://karnak.weasis.org/en/userguide/gateway/destinations/#4-notifications" target="_blank" rel="noopener noreferrer"><text x="1066" y="915" font-size="17.5" fill="#25476f">Email summaries of transfers and errors</text></a>
 <g transform="translate(1033 933) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/userguide/monitoring/"><text x="1066" y="946" font-size="17.5" fill="#25476f">Monitoring: original vs de-identified values</text></a>
+<a href="https://karnak.weasis.org/en/userguide/monitoring/" target="_blank" rel="noopener noreferrer"><text x="1066" y="946" font-size="17.5" fill="#25476f">Monitoring: original vs de-identified values</text></a>
 <g transform="translate(1033 964) scale(0.72)" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></g>
-<a href="https://karnak.weasis.org/en/profiles/masks/"><text x="1066" y="977" font-size="17.5" fill="#25476f">Diagnostic value of the image preserved</text></a>
+<a href="https://karnak.weasis.org/en/profiles/masks/" target="_blank" rel="noopener noreferrer"><text x="1066" y="977" font-size="17.5" fill="#25476f">Diagnostic value of the image preserved</text></a>
 <path d="M1002 726v230" stroke="#cfe3ef" stroke-width="2"/>
 </svg>
