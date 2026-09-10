@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 24 464 464" width="512" height="512"
+     role="img" aria-labelledby="karnak-logo-title">
+  <title id="karnak-logo-title">Karnak</title>
+  <g fill="none" stroke="#f5b05a" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- cavetto cornice -->
+    <path d="M88 48h336l-24 76H112z"/>
+    <!-- battered pylon towers -->
+    <path d="M112 124 96 464h320L400 124"/>
+    <!-- central gateway -->
+    <path d="M189 464 196 224h120l7 240"/>
+  </g>
+</svg>

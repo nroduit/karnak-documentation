@@ -71,7 +71,7 @@ Actions are defined as functions and set the operation to perform on the current
 | `Keep()` | Keeps the tag unchanged |
 | `UID()` | Replaces the current tag value with a newly generated UID and sets the tag's VR to UI |
 | `ComputePatientAge()` | Replaces the current tag value with a computed patient's age at the time of the exam |
-| `ExcludeInstance()` | Interrupts the transfer of this instance (appears as *Rejected* in monitoring) |
+| `ExcludeInstance()` | Interrupts the transfer of this instance (appears as *Excluded* in monitoring) |
 
 ## Examples
 

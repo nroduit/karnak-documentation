@@ -15,17 +15,17 @@ For detailed instructions on creating an album, refer to the [official Kheops do
 
 Once the album is created, follow these steps to configure it as a destination in Karnak:
 
-##### 1. Create a new token
+### 1. Create a new token
 
 ![New token](/userguide/kheops_newtoken.png)
 
-##### 2. Configure token permissions
+### 2. Configure token permissions
 
 Give **WRITE** permission to the token and set the expiration date.
 
 ![Token permissions](/userguide/kheops_newtoken_1.png)
 
-##### 3. Copy the authentication token
+### 3. Copy the authentication token
 
 Copy the authentication token value to use in the header of your Karnak destination.
 

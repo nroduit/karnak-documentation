@@ -14,7 +14,7 @@ This page allows you to configure authentication credentials for API calls. Sinc
 @box | 315,65,850,280 | #00a6b6
 {{% /annotate %}}
 
-##### 1. Create an Authentication Configuration
+### 1. Create an Authentication Configuration
 
 To create a new authentication configuration:
 1. Click the **New authentication config** button to open the creation popup.
@@ -33,7 +33,7 @@ appears in the right panel. The configuration is **not** saved yet — fill in t
 fields described below and click **Save** to create it. Only then is it persisted and added
 to the list on the left. Click **Cancel** to discard it.
 
-###### OAuth 2.0
+#### OAuth 2.0
 
 Currently, OAuth 2.0 is the only supported authentication type.
 
@@ -62,11 +62,11 @@ When an API call references this configuration (via the `authConfig` parameter):
 > Authentication configurations cannot be modified after creation. To make changes, you must delete and recreate the configuration.  
 > The fields Client Secret and Client ID are masked in the interface for security purposes. 
 
-##### 2. Authentication Configuration List
+### 2. Authentication Configuration List
 
 All available authentication configurations are displayed in the left panel. Select a configuration to view its details on the right.
 
-##### 3. Delete Configuration
+### 3. Delete Configuration
 
 To delete a configuration:
 
@@ -79,7 +79,7 @@ To delete a configuration:
 > [!INFO]
 > Deleting a configuration in use may cause errors in your workflows. Karnak does not verify whether a configuration is referenced by profiles or de-identification processes before deletion. Ensure the configuration is not in use before deleting it, or transfers will fail. 
 
-##### 4. Configuration Details
+### 4. Configuration Details
 
 The details view displays all configuration information in read-only mode. The fields Client Secret and Client ID are masked for security purposes.
 

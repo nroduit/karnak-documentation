@@ -12,7 +12,7 @@ This page allows you to configure destinations for your forward nodes. Destinati
 Depending on the protocol used, two types of destinations can be created:
 
 - [**DICOM Destinations**](#dicom-destination) - Traditional DICOM protocol
-- [**STOW Destinations**](#stow-destination) - DICOMWeb (STOW-RS) protocol
+- [**STOW Destinations**](#stow-destination) - DICOMweb (STOW-RS) protocol
 
 ## DICOM Destination
 
@@ -22,7 +22,7 @@ A DICOM Destination uses the traditional DICOM protocol to forward instances to 
 
 **AETitle**, **Hostname** and **Port**  are mandatory when creating a DICOM Destination.
 
-![Creation source](/userguide/destination_DICOM.png)
+![DICOM destination form](/userguide/destination_DICOM.png)
 
 ### Configuration Options
 
@@ -105,7 +105,7 @@ appear to set the report's recipient emails, to also check value content conform
 burned into the image (this last option runs OCR through the external de-identification
 image service, which must be reachable at `OCR_URL`, `http://localhost:8000` by default).
 
-![Notifications](/userguide/destination_conformance_st.png)
+![DICOM conformance report options](/userguide/destination_conformance_st.png)
 
 See the dedicated [Conformance Report](../conformancereport) page for what each option
 does, when the report is sent, and what it contains.
@@ -147,7 +147,7 @@ To activate de-identification, you must [create a project](../../projects#1-crea
 
 A popup will appear with two options, either create a project or continue without activating de-identification.
 
-![Popup deidentification](/userguide/popup_deidentification.png)
+![No-project popup](/userguide/popup_deidentification.png)
 
 **If a project exists:**
 
@@ -286,13 +286,13 @@ Three actions are available to manage the destination:
 
 ## STOW Destination
 
-A STOW Destination forwards instances over DICOMWeb (STOW-RS) to a web server such as a DICOMWeb-enabled PACS or a Kheops instance.
+A STOW Destination forwards instances over DICOMweb (STOW-RS) to a web server such as a DICOMweb-enabled PACS or a Kheops instance.
 
 ### Creating a STOW Destination
 
 The URL is required for STOW Destination creation. Most configuration options are identical to [DICOM Destinations](#dicom-destination). Only the differences are detailed below.
 
-![Creation source](/userguide/destination_stow.png)
+![STOW destination form](/userguide/destination_stow.png)
 
 ### Configuration Differences
 
@@ -339,7 +339,7 @@ generated header.
 
 Use for simple username/password authentication:
 
-![Creation source](/userguide/destination_basicauth.png)
+![Basic Auth header generator](/userguide/destination_basicauth.png)
 
 **Generated headers:**
 ```
@@ -353,7 +353,7 @@ The username and password are Base64-encoded automatically.
 
 Use for token-based authentication:
 
-![Creation source](/userguide/destination_oauth.png)
+![OAuth 2 header generator](/userguide/destination_oauth.png)
 
 **Generated headers:**
 ```
@@ -361,7 +361,7 @@ Use for token-based authentication:
 <value>Bearer 1234567890</value>
 ```
 
-##### 2. Switching to different Kheops albums
+#### 2. Switching to different Kheops albums
 
 If the destination is a Kheops endpoint, it is possible to configure multiple albums by selecting the option "Switching in different KHEOPS albums".
 

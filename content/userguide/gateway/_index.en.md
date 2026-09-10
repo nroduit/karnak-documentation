@@ -19,7 +19,7 @@ This page lists all the forward nodes configured in Karnak and allows you to cre
 5               |    | 2750,620 | 40
 {{% /annotate %}}
 
-##### 1. Create a Forward Node
+### 1. Create a Forward Node
 
 Click the **New forward node** button. A popup will appear:
   1. Enter a unique value in the **Forward AETitle** field. AE Titles must not exceed 16 characters and cannot contain control characters or a backslash.
@@ -32,7 +32,7 @@ The new forward node appears in the list and is automatically selected. Optional
 > [!INFO]
 > The Forward AETitle must be unique across all forward nodes in the Karnak instance.
 
-##### 2. Create a group
+### 2. Create a group
 
 When the list grows, you can organize forward nodes into **groups** (a single level of
 folders) to keep related nodes together:
@@ -49,7 +49,7 @@ grouping is available for [Projects](../projects) and [Profiles](../profiles).
 
 ![Group](/userguide/gateway_group.png)
 
-##### 3. Forward Node List
+### 3. Forward Node List
 
 All configured forward nodes and groups are displayed in the left panel. 
 
@@ -58,7 +58,7 @@ Select a forward node from the list to view and manage its configuration in the 
 > [!INFO]
 > The copy icon {{< svg-inline "static/userguide/copy.svg" >}} next to each forward node allows you to quickly copy its DICOM configuration (AE Title, host and the listener port — `DICOM_LISTENER_PORT`, `11119` by default, see the [installation page](../../installation/#dicom-listener)) to the clipboard for use in DICOM clients. Adapt the host if the sending node reaches Karnak through another address.
 
-##### 4. Forward Node Parameters
+### 4. Forward Node Parameters
 
 In the details view, you can modify:
 
@@ -67,7 +67,7 @@ In the details view, you can modify:
 
 Click the **Save** button to apply your changes.
 
-##### 5. Sources and Destinations
+### 5. Sources and Destinations
 
 Each forward node can be configured with:
 
@@ -81,24 +81,24 @@ Each forward node can be configured with:
 4               |    | 750,200 | 15
 {{% /annotate %}}
 
-###### 5.1 Navigation
+#### 5.1 Navigation
 
 Use the tabs to switch between the [**Destinations**](destinations) and [**Sources**](sources) views for the selected forward node.
 
-###### 5.2 Filtering
+#### 5.2 Filtering
 
 **Destinations tab**: a free-text filter matching a destination's description, AE Title, hostname, port, URL, headers and notification settings.
 
 **Sources tab**: a free-text filter matching a source's description, AE Title and hostname.
 
-###### 5.3 List
+#### 5.3 List
 
 All destinations or sources associated with the forward node are displayed here.
 
 Click any item in the list (or a **New** button) to open its configuration form. The form
 **replaces** the list panel in place; click **Cancel** to return to the list.
 
-###### 5.4 Actions
+#### 5.4 Actions
 
 The available action buttons depend on the active tab.
 
@@ -110,7 +110,7 @@ Create a new destination using either the DICOM or DICOM WEB (STOW) protocol. Se
 
 Create a new source to control which DICOM nodes can send data to this forward node. See the [Sources](sources) page for detailed configuration instructions.
 
-##### 6. Forward Node Actions
+### 6. Forward Node Actions
 
 Three action buttons are available:
 

@@ -21,19 +21,19 @@ De-identification is activated in the [Destination configuration](../gateway/des
 @box | 10,290,1155,300 | #00a6b6
 {{% /annotate %}}
 
-##### 1. Choose a project
+### 1. Choose a project
 
 External pseudonyms are linked to a specific project. This allows Karnak to properly handle cases where:
 - A patient participates in multiple clinical studies with different pseudonyms
 - Potential pseudonym collisions occur between projects
 
-##### 2. Upload a CSV file
+### 2. Upload a CSV file
 
 You can upload a CSV file containing external pseudonyms by:
 - Clicking the **Upload File...** button
 - Dragging and dropping a file onto the upload area
 
-###### 2.1 CSV separator configuration
+#### 2.1 CSV separator configuration
 
 After selecting a file, a dialog appears asking for the CSV separator character. The default value is a comma (`,`).
 
@@ -41,7 +41,7 @@ After selecting a file, a dialog appears asking for the CSV separator character.
 
 Click **Open CSV** to proceed to the import configuration.
 
-###### 2.2 Preview and configuration
+#### 2.2 Preview and configuration
 
 The CSV data is displayed in a grid for review and configuration.
 
@@ -60,7 +60,7 @@ Only the **Patient ID** and **External Pseudonym** fields are required. Other fi
 
 **3. Data preview:** The data that will be imported as pseudonyms is displayed in the table.
 
-###### 2.3 Import validation
+#### 2.3 Import validation
 
 Click **Upload CSV** to import the data. The **External Pseudonym** and **Patient ID**
 columns must be assigned; otherwise an error lists the missing fields and nothing is imported.
@@ -70,9 +70,9 @@ selected project. A row whose patient already exists is skipped and listed in a
 **WARNING: Duplicate data** dialog; the other rows are imported normally. The same check
 applies when a patient is added manually.
 
-##### 3. Pseudonym Actions
+### 3. Pseudonym Actions
 
-###### 3.1 Add a new pseudonym
+#### 3.1 Add a new pseudonym
 
 You can also add external pseudonyms manually. Click the **Add patient** button above the
 table to open a popup containing the following fields:
@@ -87,13 +87,13 @@ table to open a popup containing the following fields:
 Fill in the fields and click **Add** in the popup to add the entry to the external
 pseudonyms table.
 
-###### 3.2 Delete all patients
+#### 3.2 Delete all patients
 
 The **Delete all patients** button removes, after confirmation, all external pseudonyms for the selected project only. Pseudonyms linked to other projects are not affected.
 
-##### 4. Pseudonym management
+### 4. Pseudonym management
 
-###### 4.1 Edit or delete individual entries
+#### 4.1 Edit or delete individual entries
 
 A filter row under the column headers narrows the table to the matching entries.
 
@@ -103,6 +103,6 @@ Each pseudonym row has action buttons:
 
 ![External pseudonym edit](/userguide/external_pseudonym_edit.png)
 
-###### 4.2 Bulk operations
+#### 4.2 Bulk operations
 
 Select multiple rows using the checkboxes on the left side of each row. Click **Delete selected patients** to remove all selected entries and confirm the action in the dialog.

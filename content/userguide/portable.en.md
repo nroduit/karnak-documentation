@@ -6,16 +6,16 @@ description: Run Karnak Gateway as a portable application
 
 Karnak Gateway can be distributed as a portable application, allowing you to run it without installing it on your system. 
 
-The purpose of this distribution is to provide an easy way to use Karnak Gateway for deidentification tasks on a local machine. It is typically used by researchers in collaborative projects that require a consistent method for de-identifying DICOM data with a shared de-identification profile.
+The purpose of this distribution is to provide an easy way to use Karnak Gateway for de-identification tasks on a local machine. It is typically used by researchers in collaborative projects that require a consistent method for de-identifying DICOM data with a shared de-identification profile.
 
 > [!WARNING]
 > The portable distribution is intended for personal use only on a single machine. For multiple gateway configurations, when using Karnak as a production service, please use the [standard installation method](../../installation) on a server and adapt the resource allocation accordingly.
 
-##### Download Karnak portable distribution
+### Download Karnak portable distribution
 
 {{< latest-download "deb" >}}
 
-##### Run Karnak Gateway portable
+### Run Karnak Gateway portable
 
 No installation is needed: extract the downloaded archive anywhere (for example in your Documents folder) and launch Karnak from the extracted folder.
 
@@ -53,7 +53,7 @@ To stop Karnak, close the launcher window (or press `Ctrl+C` in the terminal).
 > `dicom`: Default folder where DICOM instances are stored when using the "LOCAL" destination.  
 > `data`: Contains the embedded H2 database files used by Karnak Gateway to store its configurations. The database file is encrypted with a key generated on first launch and stored in the hidden `.db_pwd` file next to `run.sh` / `run.bat`. If you download a new version of the portable distribution, copy both the `data` folder **and** the `.db_pwd` file to retain your existing configurations.
 
-##### Configuration (run.cfg)
+### Configuration (run.cfg)
 
 The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented `NAME=value` line is exported to Karnak. The main settings are:
 
@@ -71,16 +71,16 @@ The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented
 | `KARNAK_LOGS_MAX_FILE_SIZE`, `KARNAK_LOGS_MIN_INDEX`, `KARNAK_LOGS_MAX_INDEX` | `50MB`, `1`, `10` | Size and number of the rotated `logs/karnak.log` files. |
 | `OCR_ENABLED`, `OCR_AUTO_INSTALL`, `OCR_VERSION`, `OCR_MODEL`, `OCR_URL`, `OCR_SERVICE_NAME` | see [below](#automatic-pixel-de-identification-service) | De-identification image (OCR) service. |
 
-##### User guide
+### User guide
 
 For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..). This distribution includes new features in the [Forward Node](../gateway) view that are not covered in the main user guide:
 
-{{% annotate src="/userguide/portable_main.png" viewbox="0 0 1333 487" alt="Authentication Configuration Page" %}}
+{{% annotate src="/userguide/portable_main.png" viewbox="0 0 1333 487" alt="Forward node view of the portable distribution" %}}
 A               |    | 1035,190 | 20
 B               |    | 410,95 | 20
 {{% /annotate %}}
 
-###### Add a local destination
+#### Add a local destination
 
 Click the **LOCAL** button {{% badge style="red" %}}A{{% /badge %}} to add a destination that saves DICOM instances to the `dicom` folder in the portable distribution's extracted directory.
 
@@ -88,17 +88,17 @@ Click the **LOCAL** button {{% badge style="red" %}}A{{% /badge %}} to add a des
 
 This button automatically configures a DICOM destination for local storage. For [other options](../gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
 
-###### Upload local folder
+#### Upload local folder
 
 Click the **Upload local folder** button {{% badge style="red" %}}B{{% /badge %}} to send DICOM instances from a local folder through the forward node's **active** destinations. The forward node must already have at least one active destination — otherwise a notification is shown and nothing happens. The button opens a dialog titled *Upload DICOM files from a local folder* where you type the **absolute path** to the folder in the **Folder Path** field.
 
 ![Portable Local Folder](/userguide/portable_local_folder.png)
 
-##### Automatic pixel de-identification service
+### Automatic pixel de-identification service
 
 The portable distribution can run the [automatic pixel data de-identification](../../profiles/masks/#automatic-pixel-data-de-identification) feature, which masks burned-in patient data detected by an external OCR service ([image-ocr-identifier](https://github.com/nroduit/image-ocr-identifier)). This service is **not included** in the portable archive, because it is large and optional.
 
-###### Install the service
+#### Install the service
 
 The easiest way is to answer **Y** when the launcher asks for it on the first launch: the launcher downloads the release of the service that matches your Karnak version (pinned by `OCR_VERSION` in `run.cfg`) and installs it in the `image-ocr-identifier` folder next to `run.sh` / `run.bat`. Karnak then starts it automatically at every launch.
 
@@ -122,7 +122,7 @@ karnak-portable/
 > [!INFO]
 > A prebuilt service is published for Windows (x86-64), macOS (Apple Silicon) and Linux (x86-64). On other systems the launcher skips the download and the automatic masking is unavailable.
 
-###### Configure the service
+#### Configure the service
 
 The service is controlled in `run.cfg`:
 

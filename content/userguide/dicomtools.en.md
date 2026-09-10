@@ -16,7 +16,7 @@ nodes. The modules are accessed through tabs at the top of the page:
 - **Monitor** — run health checks against a whole group of DICOM nodes or DICOMweb destinations at once
 
 > [!INFO]
-> DICOM nodes and DICOMweb endpoints are now **persisted in the database** and managed
+> DICOM nodes and DICOMweb endpoints are **persisted in the database** and managed
 > directly from the web interface (the *Manage* tabs). The active Gateway destinations
 > are also exposed read-only in these tools, so you can echo or probe them without
 > re-typing their connection details.
@@ -113,8 +113,7 @@ The full DICOM attributes of the selected worklist entry can be displayed in a d
 
 ## Manage DICOM Nodes
 
-This tab is the central place to store the DICOM nodes you test or monitor regularly,
-so they no longer have to be configured from CSV files at startup.
+This tab is the central place to store the DICOM nodes you test or monitor regularly.
 
 ![DICOM node management](/userguide/dicomtools_managenodes.png)
 

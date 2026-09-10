@@ -16,7 +16,7 @@ This page lists all projects configured in Karnak and lets you create, edit, and
 6               |    | 690,230 | 20
 {{% /annotate %}}
 
-##### 1. Create a project
+### 1. Create a project
 
 To create a new project:
    1. Click the **New project** button to open the creation popup.
@@ -28,19 +28,19 @@ To create a new project:
 
 The project is added to the list and its details appear in the right panel.
 
-##### 2. Create a group
+### 2. Create a group
 
 When the list grows, you can organize projects into groups (a single level of folders).  
 Click **Add group** to create one, drag a project onto a group to assign it, and right-click a group or project
 to rename, delete or remove it from its group. Grouping is purely organizational and is
 described in more detail on the [Gateway](../gateway) page.
 
-##### 3. Project list
+### 3. Project list
 
 All available projects are listed in the left panel.  
 Selecting a project displays its details on the right.
 
-##### 4. Project details
+### 4. Project details
 
 In the details view you can:
 
@@ -49,10 +49,10 @@ In the details view you can:
 
 Click **Update** to save your changes.
 
-##### 5. Project secret
+### 5. Project secret
 
 The project secret is central to Karnak's de-identification process.  
-It is a 32-character hexadecimal value.
+It is a 16-byte value written as 32 hexadecimal characters.
 
 - A secret is automatically generated when the project is created.  
 - In the details view, the secret is shown along with its creation date and time.
@@ -85,7 +85,7 @@ Implications of changing the secret:
 
 Details about the algorithm and UID generation using the project secret are available [here](../../profiles/rules/#action-u-generate-a-new-uid).
 
-##### 6. Action buttons
+### 6. Action buttons
 
 - Click **Update** to save any change made to a project. If the project is already used
   by a destination, a confirmation is requested before the change is applied.  

@@ -38,8 +38,6 @@ Using these constants is recommended over hardcoded tag values to make profiles 
 
 All utility functions are detailed below with their parameters, return types, and usage examples.
 
-Utility functions are available to define the conditions and are detailed below.
-
 ### tagValueIsPresent 
 
 `tagValueIsPresent(int tag, String value)` or `tagValueIsPresent(String tag, String value)`

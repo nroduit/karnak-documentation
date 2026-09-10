@@ -4,8 +4,6 @@ weight: 20
 description: Sources management in Karnak
 ---
 
-## Sources
-
 The Sources tab displays all configured sources for the selected forward node.
 
 ![Sources view](/userguide/source_view.png)

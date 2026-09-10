@@ -65,7 +65,7 @@ keepWhitespace = false
 # consult this documentation for explanation
 [params]
   editURL = "https://github.com/nroduit/karnak-documentation/edit/main/content/"
-  logo = { src = '/images/logo.png' }
+  logo = { src = '/images/logo.svg' }
   linkTitle = ""
   # Author of the site, will be used in meta information
   author.name = "Karnak Team"

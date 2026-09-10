@@ -9,7 +9,7 @@ This page provides technical details about how Karnak performs DICOM de-identifi
 
 ## Overview
 
-Karnak is a gateway that receives DICOM files and forwards them to one or multiple destinations using DICOM or DICOMWeb protocols. Each destination can be linked to a project that defines the de-identification method and a secret used to generate deterministic values.
+Karnak is a gateway that receives DICOM files and forwards them to one or multiple destinations using DICOM or DICOMweb protocols. Each destination can be linked to a project that defines the de-identification method and a secret used to generate deterministic values.
 
 ## Basic Profile
 
@@ -29,7 +29,7 @@ Five different actions are defined in the DICOM standard:
 
 ### Multiple Actions for IOD Conformance
 
-The [DICOM type](http://dicom.nema.org/dicom/2013/output/chtml/part05/sect_7.4.html) is often dependent on the [Information Object Definition (IOD)](http://dicom.nema.org/medical/dicom/current/output/chtml/part04/chapter_6.html) of the instance. To avoid DICOM corruption, multiple actions can be defined for a tag, ensuring that destructive actions like REMOVE won't be applied on Type 1 or Type 2 attributes.
+The [DICOM type](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_7.4.html) is often dependent on the [Information Object Definition (IOD)](http://dicom.nema.org/medical/dicom/current/output/chtml/part04/chapter_6.html) of the instance. To avoid DICOM corruption, multiple actions can be defined for a tag, ensuring that destructive actions like REMOVE won't be applied on Type 1 or Type 2 attributes.
 
 **Combined actions:**
 
@@ -98,9 +98,9 @@ A DICOM study may be de-identified multiple times using different methods. Karna
 #### Project Secret Format
 
 > [!INFO]
-> The secret is 16 bytes long and randomly generated when the project is created.
+> The secret is 16 bytes long (32 hexadecimal characters) and randomly generated when the project is created.
 
-Users can upload their own secret, but it must be exactly 16 bytes long in hexadecimal format.
+Users can provide their own secret, but it must be exactly 16 bytes, written as 32 hexadecimal characters.
 
 ### Hash Function
 
@@ -137,7 +137,7 @@ uuid[6] |= 0x40
 
 // Variant
 uuid[8] &= 0x3F
-uuid[8] != 0x80
+uuid[8] |= 0x80
 ```
 
 **Final UID format:**

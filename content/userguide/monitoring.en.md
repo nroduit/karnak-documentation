@@ -111,7 +111,7 @@ Select any element in the tree to see its details on the right:
 
 A **Copy** button copies the whole detail block to the clipboard.
 
-Below are two examples, the first one successfully deidentified and sent at the study level, and the second one, not sent because an error occurred.
+Below are two examples, the first one successfully de-identified and sent at the study level, and the second one, not sent because an error occurred.
 
 <div style="display:flex; gap:1rem; flex-wrap:wrap;">
   <img src="/userguide/monitoring_details_success.png" alt="Monitoring detail success" style="width:49%; min-width:400px;">

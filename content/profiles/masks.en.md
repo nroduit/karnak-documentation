@@ -254,9 +254,9 @@ When automatic mask generation is enabled and the API is **unreachable or return
 Set the `automaticMasksGeneration` argument to `"true"` on the `clean.pixel.data` element:
 
 ```yaml
-name: "Automatic Deidentification Karnak Profile"
+name: "Automatic De-identification Karnak Profile"
 version: "1.0"
-minimumKarnakVersion: "0.9.2"
+minimumKarnakVersion: "2.0.0"
 profileElements:
   - name: "Clean pixel data"
     codename: "clean.pixel.data"

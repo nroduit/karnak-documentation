@@ -20,7 +20,7 @@ Conformance reporting is enabled in the destination editor. See the
 [Destinations](gateway/destinations/#6-dicom-conformance-report) page for the exact
 location of the settings.
 
-![Notifications](/userguide/destination_conformance_st.png)
+![DICOM conformance report options](/userguide/destination_conformance_st.png)
 
 | Setting | Description |
 |---------|-------------|
