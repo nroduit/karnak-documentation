@@ -70,6 +70,7 @@ The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented
 | `DB_USER` / `DB_PASSWORD` | `karnak` / `karnak` | User credentials of the embedded H2 database (the file encryption key is the generated `.db_pwd`). |
 | `KARNAK_LOGS_MAX_FILE_SIZE`, `KARNAK_LOGS_MIN_INDEX`, `KARNAK_LOGS_MAX_INDEX` | `50MB`, `1`, `10` | Size and number of the rotated `logs/karnak.log` files. |
 | `OCR_ENABLED`, `OCR_AUTO_INSTALL`, `OCR_VERSION`, `OCR_MODEL`, `OCR_URL`, `OCR_SERVICE_NAME` | see [below](#automatic-pixel-de-identification-service) | De-identification image (OCR) service. |
+{class="cfg-table"}
 
 ### User guide
 

@@ -1,0 +1,43 @@
+{{- /*
+  columns — lay out blocks of Markdown side by side, stacking them on narrow
+  screens. Useful to pair a short explanation with the screenshot it describes.
+
+  Params:
+    widths  (optional) comma-separated growth factors, one per column,
+            e.g. widths="2,1" gives the first column twice the free space.
+            Use "auto" for a column that should stay as narrow as its content
+            (handy for a small screenshot: widths="1,auto"). Defaults to equal
+            columns.
+    valign  (optional) top (default) | center | bottom — vertical alignment of
+            the columns relative to each other.
+
+  Inner content: the columns, separated by a line containing "<--->".
+  Each part is rendered as Markdown, so shortcodes and images work as usual.
+
+    {{< columns >}}
+    Some text describing the dialog.
+    <--->
+    ![Dialog](/userguide/dialog.png)
+    {{< /columns >}}
+*/ -}}
+{{- $widths := split (.Get "widths" | default "") "," -}}
+{{- $valign := .Get "valign" | default "top" -}}
+{{- $align := dict "top" "flex-start" "center" "center" "bottom" "flex-end" -}}
+{{- if not (.Page.Store.Get "columnsCSS") -}}
+{{- .Page.Store.Set "columnsCSS" true -}}
+<style>
+    .columns {display: flex; flex-wrap: wrap; gap: 1rem 2rem;}
+    .columns > .column {flex: 1 1 18rem; min-width: 0;}
+    .columns > .column > :first-child {margin-top: 0;}
+    .columns > .column > :last-child {margin-bottom: 0;}
+</style>
+{{- end -}}
+<div class="columns" style="align-items: {{ index $align $valign | default "flex-start" }};">
+{{- range $i, $part := split .Inner "<--->" -}}
+{{- $width := "1" -}}
+{{- if gt (len $widths) $i -}}{{- with trim (index $widths $i) " \t" -}}{{- $width = . -}}{{- end -}}{{- end -}}
+<div class="column" style="{{ if eq $width "auto" }}flex: 0 1 auto;{{ else }}flex-grow: {{ $width }};{{ end }}">
+{{ trim $part "\n\r \t" | $.Page.RenderString (dict "display" "block") }}
+</div>
+{{- end -}}
+</div>

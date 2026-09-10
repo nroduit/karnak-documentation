@@ -9,7 +9,7 @@ delete them. A profile defines the actions to apply to a DICOM instance before i
 
 The `Dicom Basic Profile` is available by default and cannot be edited or deleted. It is
 the reference de-identification profile based on the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html).
-For more details, see [How does de-identification work?](../../profiles/rules)
+For more details, see [De-identification Process](../../profiles/rules)
 
 ![profile page](/userguide/profile_main.png)
 

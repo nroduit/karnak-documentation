@@ -1,6 +1,6 @@
 ---
 layout: default
-title: How does de-identification work?
+title: De-identification Process
 weight: 70
 description: Technical explanations about the de-identification process
 ---

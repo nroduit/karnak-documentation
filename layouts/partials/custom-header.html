@@ -4,6 +4,17 @@
 </style>
 -->
 
+<style>
+    /* Configuration tables (marked with {class="cfg-table"} in the Markdown):
+       keep the Default column from being stretched by long unbreakable values
+       such as the DICOM filepath pattern. */
+    .cfg-table { table-layout: fixed; width: 100%; }
+    .cfg-table th:nth-child(1), .cfg-table td:nth-child(1) { width: 30%; }
+    .cfg-table th:nth-child(2), .cfg-table td:nth-child(2) { width: 20%; }
+    .cfg-table th:nth-child(3), .cfg-table td:nth-child(3) { width: 50%; }
+    .cfg-table td code { overflow-wrap: anywhere; }
+</style>
+
 {{- if isset .Params "canonical" -}}
 <link rel="canonical" href="{{ .Params.baseURL }}" />
 {{- else -}}

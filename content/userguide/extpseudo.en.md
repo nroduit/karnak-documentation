@@ -35,11 +35,13 @@ You can upload a CSV file containing external pseudonyms by:
 
 #### 2.1 CSV separator configuration
 
+{{< columns widths="1,auto" >}}
 After selecting a file, a dialog appears asking for the CSV separator character. The default value is a comma (`,`).
 
-![External pseudonym separator dialog](/userguide/external_pseudonym_popup_separator.png)
-
 Click **Open CSV** to proceed to the import configuration.
+<--->
+![External pseudonym separator dialog](/userguide/external_pseudonym_popup_separator.png)
+{{< /columns >}}
 
 #### 2.2 Preview and configuration
 
@@ -74,6 +76,7 @@ applies when a patient is added manually.
 
 #### 3.1 Add a new pseudonym
 
+{{< columns widths="1,auto" >}}
 You can also add external pseudonyms manually. Click the **Add patient** button above the
 table to open a popup containing the following fields:
 - **External Pseudonym** (required)
@@ -82,10 +85,11 @@ table to open a popup containing the following fields:
 - **Patient last name** (optional)
 - **Issuer of patient ID** (optional)
 
-![External pseudonym add](/userguide/external_pseudonym_add.png)
-
 Fill in the fields and click **Add** in the popup to add the entry to the external
 pseudonyms table.
+<--->
+![External pseudonym add](/userguide/external_pseudonym_add.png)
+{{< /columns >}}
 
 #### 3.2 Delete all patients
 
