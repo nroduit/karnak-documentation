@@ -15,6 +15,8 @@ Karnak receives studies through a DICOM listener and forwards them to DICOM (C-S
 
 ## Get started
 
+New to Karnak? [How Karnak works](overview) shows a typical deployment with a research repository outside the institution and the pipeline each study goes through.
+
 1. [Install Karnak with Docker Compose](installation) on a server, or [download the portable distribution](userguide/portable) to run it on a single machine without installation.
 2. Create a [forward node with its sources and destinations](userguide/gateway).
 3. Create a [project](userguide/projects) and assign it a [de-identification profile](profiles).
