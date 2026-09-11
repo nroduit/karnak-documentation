@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../card.css">
+<style>
+.hex { left: 0; top: 118px; width: 210px; height: 235px; }
+.oc { left: 300px; width: 320px; height: 118px; border-radius: 18px; padding: 12px 16px; display: flex; gap: 12px; align-items: center; color: #fff; }
+.oc .icon { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,0.2); } .oc .icon svg { width: 28px; height: 28px; stroke: #fff; }
+.oc b { display: block; font-size: 24px; line-height: 1.1; margin-bottom: 3px; } .oc small { font-size: 18px; line-height: 1.2; color: #eef7ff; display: block; }
+.g1 { top: 40px; background: linear-gradient(135deg, #0f9b8e, #1fb8a5); } .g2 { top: 176px; background: linear-gradient(135deg, #4c3fb5, #6b63e6); } .g3 { top: 312px; background: linear-gradient(135deg, #1878df, #19c6d4); }
+.lines { left: 0; top: 0; width: 620px; height: 470px; }
+.lbl { left: -30px; top: 372px; width: 270px; text-align: center; font-size: 19px; font-weight: 800; color: #0b7a6e; line-height: 1.15; }
+.lbl small { display: block; font-size: 16px; color: var(--muted); }
+</style></head><body><div class="card">
+<!--TOP-->
+<div class="cbody">
+  <div class="ctext">
+    <h1>Open-source DICOM gateway for de&#8209;identification</h1>
+    <p>Studies come in over DICOM, a YAML profile transforms them, and they go out over DICOM or DICOMweb. Docker image or portable app.</p>
+  </div>
+  <div class="cvis">
+    <svg class="lines" viewBox="0 0 620 470" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M212 236 L 238 236" stroke="#0b7a6e" stroke-width="8"/><circle cx="242" cy="236" r="7" fill="#0b7a6e"/>
+      <path d="M242 236 C 268 236 258 99 276 99 L 290 99" stroke="#0b7a6e" stroke-width="4"/>
+      <path d="M242 236 L 290 236" stroke="#0b7a6e" stroke-width="4"/>
+      <path d="M242 236 C 268 236 258 371 276 371 L 290 371" stroke="#0b7a6e" stroke-width="4"/>
+      <path d="M286 91 L 299 99 L 286 107 Z M286 228 L 299 236 L 286 244 Z M286 363 L 299 371 L 286 379 Z" fill="#0b7a6e" stroke="#0b7a6e" stroke-width="2"/>
+    </svg>
+    <div class="hex"><!--HEX--></div>
+    <div class="lbl">DICOM in · DICOMweb out<small>C-STORE in · C-STORE or STOW-RS out</small></div>
+    <div class="oc g1"><div class="icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><rect x="15" y="12" width="7" height="6" rx="1.5"/></svg></div><div><b>De-identification</b><small>Tags and pixels, pseudonyms per project</small></div></div>
+    <div class="oc g2"><div class="icon"><svg viewBox="0 0 24 24"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.5"/></svg></div><div><b>Tag morphing</b><small>Normalized, condition-driven tags</small></div></div>
+    <div class="oc g3"><div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>Conformance report</b><small>Checked against the DICOM standard</small></div></div>
+  </div>
+</div>
+</div></body></html>

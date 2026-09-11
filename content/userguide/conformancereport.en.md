@@ -2,6 +2,7 @@
 title: Conformance Report
 weight: 75
 description: Validate studies against the DICOM standard and email a conformance report
+images: [ "/images/social/conformancereport.png" ]
 ---
 
 Karnak can validate every study sent to a destination against the **DICOM standard** and

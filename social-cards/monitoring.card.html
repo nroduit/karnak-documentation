@@ -1,0 +1,44 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../card.css">
+<style>
+.mini { left: 0; top: 10px; }
+.mini .tabs { margin-bottom: 8px; } .mini .tabs span { font-size: 15px; padding: 4px 10px; }
+.mini .row { grid-template-columns: 1fr 60px 70px 96px; font-size: 15px; }
+.mini .row.h { white-space: nowrap; font-size: 14px; }
+.mini .lbl { display: flex; gap: 6px; align-items: center; white-space: nowrap; overflow: hidden; } .mini .lbl i { font-style: normal; color: #6f8bb3; }
+.d1 .lbl { padding-left: 18px; } .d2 .lbl { padding-left: 36px; } .d3 .lbl { padding-left: 54px; }
+.red { color: #fca5a5; } .exc { color: #fcd34d; } .row.sel { background: #2a3550; }
+.tool { display: flex; gap: 8px; margin-top: 10px; } .tool span { font-size: 15px; padding: 5px 10px; }
+.det { position: absolute; right: 0; top: 40px; width: 204px; background: #242c3d; border-radius: 12px; padding: 10px 12px; font-size: 15px; box-shadow: 0 10px 28px rgba(0,0,0,0.35); }
+.det h5 { font-size: 16px; color: #fff; margin-bottom: 6px; }
+.det .v { background: #1b2130; border-radius: 6px; padding: 4px 8px; margin-bottom: 5px; display: flex; justify-content: space-between; gap: 6px; }
+.det .v span { color: #9fb0c8; } .det .v b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .det .v.deid b { color: #5eead4; }
+</style></head><body><div class="card">
+<!--TOP-->
+<div class="cbody">
+  <div class="ctext">
+    <span class="new"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>Redesigned in Karnak 2.0</span>
+    <h1>Monitoring</h1>
+    <p>A Destination → Study → Series tree with one line per error reason. Drill down where there are problems and compare original and sent values.</p>
+  </div>
+  <div class="cvis">
+    <div class="app mini" style="width:380px">
+      <div class="tabs"><span class="on">☰ Activity</span><span>▦ Dashboard</span></div>
+      <div class="row h"><div>Destination / Study / Series</div><div class="n">Series</div><div class="n">Inst.</div><div class="n">Status</div></div>
+      <div class="row red"><div class="lbl"><i>▾</i>▤ DEMO-NODE → RESEARCH</div><div class="n">3</div><div class="n">4</div><div class="n"><span class="badge err">3 error(s)</span></div></div>
+      <div class="row red d1"><div class="lbl"><i>▾</i>▭ <span class="mono">1.3.46.670589…</span></div><div class="n">2</div><div class="n">3</div><div class="n"><span class="badge err">3 error(s)</span></div></div>
+      <div class="row red d3"><div class="lbl">⚠ HTTP 400 Bad Request</div><div class="n"></div><div class="n">2</div><div class="n"></div></div>
+      <div class="row d1"><div class="lbl"><i>▾</i>▭ <span class="mono">1.3.6.1.4.1.23739…</span></div><div class="n">1</div><div class="n">1</div><div class="n"><span class="badge exc">1 excluded</span></div></div>
+      <div class="row"><div class="lbl"><i>▾</i>▤ SAMPLE-NODE → PACS</div><div class="n">10</div><div class="n">731</div><div class="n"><span class="badge ok">OK</span></div></div>
+      <div class="row d1 sel"><div class="lbl"><i>▸</i>▭ <span class="mono">1.3.12.2.1107…</span></div><div class="n">1</div><div class="n">298</div><div class="n"><span class="badge ok">OK</span></div></div>
+      <div class="tool"><span class="btn ghost">▲ Expand errors</span><span class="btn ghost">⤓ Export</span><span class="btn danger">🗑 Delete All</span></div>
+    </div>
+    <div class="det"><h5>Study details</h5>
+      <div class="v"><span>Patient ID</span><b>SynchoCK_Calypso</b></div>
+      <div class="v deid"><span>de-identified</span><b>34F638B59D2C…</b></div>
+      <div class="v"><span>Study UID</span><b>1.3.12.2.1107…</b></div>
+      <div class="v deid"><span>de-identified</span><b>2.25.27506466…</b></div>
+      <div class="v"><span>Instances</span><b>298</b></div>
+    </div>
+  </div>
+</div>
+</div></body></html>

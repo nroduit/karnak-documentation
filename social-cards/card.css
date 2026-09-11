@@ -1,0 +1,26 @@
+/* Social cards (Open Graph / Twitter), 1200 x 630, built on the carousel stylesheet */
+@import url("../linkedin-carousel/carousel.css");
+html, body { width: 1200px; height: 630px; }
+.card { width: 1200px; height: 630px; padding: 44px 56px 40px; display: flex; flex-direction: column; background: #fff; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: linear-gradient(90deg, #1878df 0%, #19c6d4 50%, #16b39c 100%); }
+.card::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: linear-gradient(90deg, #16b39c 0%, #19c6d4 50%, #1878df 100%); }
+.ctop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+.ctop .brand svg { width: 52px; height: 52px; }
+.ctop .brand .name { font-size: 36px; }
+.ctop .brand .kind { font-size: 16px; letter-spacing: 3px; margin-top: 3px; }
+.ctop .url { font-size: 24px; font-weight: 700; color: var(--muted); }
+.cbody { display: grid; grid-template-columns: 440px 616px; gap: 32px; align-items: center; flex: 1; }
+.ctext h1 { font-size: 48px; line-height: 1.08; letter-spacing: -0.5px; }
+.ctext p { font-size: 24px; line-height: 1.32; color: var(--navy2); margin-top: 14px; }
+.ctext .new { font-size: 18px; padding: 7px 14px; margin-bottom: 14px; }
+.ctext .new svg { width: 18px; height: 18px; }
+.cvis { position: relative; height: 470px; width: 616px; }
+.cvis > * { position: absolute; }
+/* mini app mock for the cards */
+.app.mini { background: #1b2130; border-radius: 16px; padding: 12px 14px; color: #e6edf7; font-size: 16px; box-shadow: 0 10px 28px rgba(20,53,110,0.18); width: 100%; }
+.app.mini .tabs { margin-bottom: 8px; } .app.mini .tabs span { font-size: 15px; padding: 4px 10px; }
+.app.mini .bar { gap: 8px; margin-bottom: 8px; } .app.mini .fld { font-size: 15px; padding: 5px 9px; } .app.mini .fld small { font-size: 12px; } .app.mini .btn { font-size: 15px; padding: 6px 10px; }
+.mini .badge { font-size: 14px; padding: 2px 8px; }
+.mini .row { display: grid; align-items: center; padding: 6px 8px; border-top: 2px solid #2f3848; }
+.mini .row.h { background: #242c3d; border-top: 0; font-weight: 700; color: #c9d5e6; border-radius: 8px 8px 0 0; }
+.mini .n { text-align: right; }

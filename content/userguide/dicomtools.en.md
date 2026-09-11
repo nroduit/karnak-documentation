@@ -2,6 +2,7 @@
 title: DICOM Web Tools
 weight: 70
 description: Tools for testing, managing and diagnosing DICOM and DICOMweb endpoints
+images: [ "/images/social/dicomtools.png" ]
 ---
 
 The **DICOM Web Tools** module groups the utilities used to test connectivity, query

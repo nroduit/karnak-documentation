@@ -2,6 +2,7 @@
 title: Image modifications
 weight: 50
 description: Definition of the masks applied to Pixel Data
+images: [ "/images/social/masks.png" ]
 ---
 
 This page describes the profile elements available in Karnak for modifying DICOM image data to remove identifying information.

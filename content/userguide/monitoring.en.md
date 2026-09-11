@@ -2,6 +2,7 @@
 title: Monitoring
 weight: 60
 description: Activity and status of completed or ongoing transfers
+images: [ "/images/social/monitoring.png" ]
 ---
 
 ![monitoring view](/userguide/monitoring_main.png)

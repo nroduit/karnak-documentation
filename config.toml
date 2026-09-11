@@ -67,8 +67,8 @@ keepWhitespace = false
   editURL = "https://github.com/nroduit/karnak-documentation/edit/main/content/"
   logo = { src = '/images/logo.svg' }
   # Default social-card image (og:image / twitter:image) for pages that declare no `images` of their own.
-  # 1.91:1 letterboxed export of static/images/karnak-gateway.svg; LinkedIn and co. do not render SVG cards.
-  images = ['/images/karnak-gateway-card.png']
+  # 1200x630 @2x card rendered by social-cards/build.sh; feature pages set their own card in front matter.
+  images = ['/images/social/karnak.png']
   linkTitle = ""
   # Author of the site, will be used in meta information
   author.name = "Karnak Team"

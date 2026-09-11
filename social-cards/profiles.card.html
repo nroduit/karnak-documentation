@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../card.css">
+<style>
+.panel { left: 0; top: 30px; width: 300px; background: #1e2433; border-radius: 16px; padding: 14px 14px; color: #e6edf7; box-shadow: 0 10px 28px rgba(20,53,110,0.18); }
+.panel h3 { font-size: 20px; color: #fff; } .panel .meta { font-size: 14px; color: #9fb0c8; margin: 2px 0 8px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 8px; } .tabs span { font-size: 14px; font-weight: 700; padding: 4px 9px; border-radius: 8px; color: #c9d5e6; background: #2a3243; } .tabs span.on { background: #3b4658; color: #fff; }
+.row { display: flex; align-items: center; gap: 8px; padding: 9px 4px; border-top: 2px solid #2f3848; }
+.row .n { width: 24px; height: 24px; border-radius: 50%; background: #3b4658; color: #fff; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+.row b { display: block; font-size: 16px; color: #fff; } .row small { display: block; font-size: 13px; color: #9fb0c8; }
+.row.pinned .n { background: var(--gold); color: #1e2433; }
+.link { left: 312px; top: 200px; width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 3px solid var(--gold); color: var(--navy); font-size: 22px; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(20,53,110,0.18); }
+.yaml { left: 368px; top: 30px; width: 248px; overflow: hidden; background: var(--navy); border-radius: 16px; padding: 14px 14px; color: #dbe8fb; }
+.yaml h3 { font-size: 18px; color: #fff; margin-bottom: 6px; }
+.yaml code { display: block; font-size: 13px; line-height: 1.4; white-space: pre; color: #9fe1d5; } .yaml code b { color: #f5b05a; } .yaml code i { color: #8fb4e8; font-style: normal; }
+</style></head><body><div class="card">
+<!--TOP-->
+<div class="cbody">
+  <div class="ctext">
+    <span class="new"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>New in Karnak 2.0</span>
+    <h1>Visual and YAML profile editors</h1>
+    <p>Build a de-identification profile element by element in the portal, or edit the whole YAML. Same profile, two editors, import and export.</p>
+  </div>
+  <div class="cvis">
+    <div class="panel"><h3>Research export</h3><div class="meta">Version 1.2 · applied top to bottom</div>
+      <div class="tabs"><span class="on">Profile elements</span><span>YAML editor</span></div>
+      <div class="row"><div class="n">1</div><div><b>Shift dates</b><small>action.on.dates · 10 days</small></div></div>
+      <div class="row"><div class="n">2</div><div><b>New UIDs for references</b><small>replace.uid · U</small></div></div>
+      <div class="row"><div class="n">3</div><div><b>Clean pixel data</b><small>clean.pixel.data · OCR</small></div></div>
+      <div class="row pinned"><div class="n">4</div><div><b>DICOM basic profile</b><small>always last</small></div></div>
+    </div>
+    <div class="link">⇄</div>
+    <div class="yaml"><h3>The same profile as YAML</h3>
+<code><i>profileElements:</i>
+- name: "Shift dates"
+  codename: <b>action.on.dates</b>
+  option: "shift"
+  arguments: { days: 10 }
+  tags: ["(0008,002X)"]
+- name: "New UIDs"
+  codename: <b>replace.uid</b>
+  action: "U"
+  tags: ["(0020,0052)"]
+- name: "Clean pixel data"
+  codename: <b>clean.pixel.data</b>
+- name: "DICOM basic profile"
+  codename: <b>basic.dicom.profile</b></code>
+    </div>
+  </div>
+</div>
+</div></body></html>

@@ -21,3 +21,5 @@ resources/
 # VS Code
 /.vscode/**
 !/.vscode/cspell.json
+# assembled HTML of the social cards (sources are the *.src.html / *.card.html files)
+social-cards/build/

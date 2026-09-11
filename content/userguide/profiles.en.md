@@ -2,6 +2,7 @@
 title: Profiles
 weight: 20
 description: Manage the profiles
+images: [ "/images/social/profiles.png" ]
 ---
 
 This page lists all profiles configured in Karnak and lets you create, import, edit and

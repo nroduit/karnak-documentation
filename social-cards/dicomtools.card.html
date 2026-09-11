@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../card.css">
+<style>
+.mini { left: 0; top: 0; }
+.mini .tabs span { font-size: 15px; padding: 4px 9px; }
+.mini .bar { gap: 8px; margin-bottom: 8px; } .mini .fld { font-size: 15px; padding: 5px 9px; } .mini .fld small { font-size: 12px; } .mini .btn { font-size: 15px; padding: 6px 10px; }
+.rr { display: grid; grid-template-columns: 1.5fr 1fr 0.9fr 0.9fr 1fr; padding: 5px 10px; font-size: 15px; align-items: center; border-top: 2px solid #2f3848; }
+.rr.h { background: #242c3d; border-top: 0; font-weight: 700; color: #c9d5e6; border-radius: 8px 8px 0 0; }
+.rr b { display: block; font-size: 16px; color: #fff; } .rr small { color: #9fb0c8; font-size: 12px; }
+.sec { font-size: 15px; font-weight: 800; color: #fff; margin: 8px 0 4px; } .sec small { font-weight: 500; font-size: 13px; color: #9fb0c8; margin-left: 6px; }
+.det2 { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid #2f3848; padding: 6px 10px 4px; font-size: 14px; line-height: 1.4; color: #dbe4f0; }
+.det2 h5 { font-size: 14px; color: #c9d5e6; } .det2 li { list-style: none; } .det2 li::before { content: "• "; color: #6f8bb3; }
+</style></head><body><div class="card">
+<!--TOP-->
+<div class="cbody">
+  <div class="ctext">
+    <span class="new"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>Enhanced in Karnak 2.0</span>
+    <h1>DICOM Web Tools</h1>
+    <p>Echo with network checks, capabilities probe, worklist query, DICOMweb endpoint checks and group monitoring, with every check kept in a history.</p>
+  </div>
+  <div class="cvis">
+    <div class="app mini">
+      <div class="tabs"><span class="on">DICOM Echo</span><span>Worklist</span><span>Nodes</span><span>DICOMweb</span><span>Monitor</span></div>
+      <div class="bar"><div class="fld"><small>Calling AE</small>DCM-TOOLS</div><div class="fld"><small>Called AE</small>NODE</div><div class="fld" style="flex:1"><small>Hostname</small>localhost</div><div class="fld"><small>Port</small>4444</div><span class="btn">Check DICOM Node</span></div>
+      <div class="sec">Result</div>
+      <div class="rr h"><div>DICOM node</div><div>Echo</div><div>Connection</div><div>Execution</div><div>Network</div></div>
+      <div class="rr"><div><b>NODE</b><small>localhost : 4444</small></div><div><span class="badge ok">Success</span></div><div>25 ms</div><div>10 ms</div><div><span class="badge ok">Success</span></div></div>
+      <div class="det2"><div><h5>DICOM status</h5><li>Status code 0000</li><li>Peer dcm4che-5.22.6</li></div><div><h5>Network status</h5><li>127.0.0.1 can be pinged</li><li>listening on port 4444</li></div></div>
+      <div class="sec">History (3)<small>most recent first</small></div>
+      <div class="rr h"><div>Checked at · node</div><div>Echo</div><div>Connection</div><div>Execution</div><div>Network</div></div>
+      <div class="rr"><div><b>KARNAK_GATEWAY</b><small>2026-08-21 16:42 · karnak.example.org</small></div><div><span class="badge ok">Success</span></div><div>33 ms</div><div>29 ms</div><div><span class="badge ok">Success</span></div></div>
+    </div>
+  </div>
+</div>
+</div></body></html>
