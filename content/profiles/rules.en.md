@@ -1,8 +1,10 @@
 ---
 layout: default
-title: De-identification Process
+title: "How Karnak De-identifies DICOM Studies"
 weight: 70
-description: Technical explanations about the de-identification process
+description: "Technical reference for the de-identification pipeline: UID generation, date shifting, pseudonym sources, and how the DICOM confidentiality profile is applied."
+linkTitle: "De-identification Process"
+keywords: [ "dicom de-identification", "uid generation", "pseudonymization algorithm", "ps3.15", "confidentiality profile", "date shifting" ]
 ---
 
 This page provides technical details about how Karnak performs DICOM de-identification, including the algorithms used for UID generation, date shifting, and pseudonymization.
@@ -13,7 +15,7 @@ Karnak is a gateway that receives DICOM files and forwards them to one or multip
 
 ## Basic Profile
 
-The [Basic Profile](../profilestructure/#basic-dicom-profile) for de-identifying DICOM objects is provided by the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html). This profile defines an exhaustive list of DICOM tags and their related actions for proper de-identification.
+The [Basic Profile](profilestructure/#basic-dicom-profile) for de-identifying DICOM objects is provided by the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html). This profile defines an exhaustive list of DICOM tags and their related actions for proper de-identification.
 
 ### De-identification Actions
 

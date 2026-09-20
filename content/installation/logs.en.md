@@ -1,7 +1,9 @@
 ---
-title: Configuring Logs
+title: "Configure Karnak Logging with Logback"
 weight: 10
-description: Configure the logging system in Karnak
+description: "Inject your own Logback configuration to control log levels, format, rotation and where Karnak writes application and DICOM transfer logs."
+linkTitle: "Configuring Logs"
+keywords: [ "karnak logs", "logback configuration", "dicom transfer log", "log rotation", "troubleshooting" ]
 ---
 
 Karnak offers the possibility of injecting your own log configuration to customize how logs are generated and stored.

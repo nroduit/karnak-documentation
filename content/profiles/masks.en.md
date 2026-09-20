@@ -1,8 +1,10 @@
 ---
-title: Image modifications
+title: "Remove Burned-in Annotations from DICOM Images"
 weight: 50
-description: Definition of the masks applied to Pixel Data
+description: "Protect identity in pixel data: hand-defined masks applied per SOP class or image size, and automatic text detection through the OCR service."
 images: [ "/images/social/masks.png" ]
+linkTitle: "Image modifications"
+keywords: [ "burned-in annotation", "pixel data anonymization", "dicom mask", "ocr", "ultrasound de-identification", "clean pixels" ]
 ---
 
 This page describes the profile elements available in Karnak for modifying DICOM image data to remove identifying information.
@@ -32,7 +34,7 @@ This profile can only be applied to images with **Axial orientation** in the fol
 
 > [!INFO]
 > Images with non-axial orientation will be skipped.
-> Currently, the CT images that do not represent the head are not automatically excluded. It is recommended to use [conditions](../conditions) to restrict defacing to head CT images only.
+> Currently, the CT images that do not represent the head are not automatically excluded. It is recommended to use [conditions](conditions) to restrict defacing to head CT images only.
 
 ### Configuration
 

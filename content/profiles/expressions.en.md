@@ -1,7 +1,9 @@
 ---
-title: Expressions
+title: "SpEL Expressions for DICOM Tag Values"
 weight: 40
-description: Definition of the expressions applied to specific tags
+description: "Compute a tag value with a Spring Expression Language expression: the context Karnak exposes, the helper functions available, and worked profile examples."
+linkTitle: "Expressions"
+keywords: [ "spring expression language", "spel", "dicom tag expression", "conditional de-identification", "profile element" ]
 ---
 
 ## Actions on specific tags

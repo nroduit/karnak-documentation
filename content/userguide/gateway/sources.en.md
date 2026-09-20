@@ -1,7 +1,9 @@
 ---
-title: Sources
+title: "Restrict Which DICOM Sources May Send"
 weight: 20
-description: Sources management in Karnak
+description: "Control which calling AE titles, hostnames and IP addresses may send instances to a forward node, and what Karnak does when a sender is not on the list."
+linkTitle: "Sources"
+keywords: [ "dicom source", "calling ae title", "ip filtering", "access control", "forward node" ]
 ---
 
 The Sources tab displays all configured sources for the selected forward node.
@@ -32,7 +34,7 @@ To create a new source, click the **Source** button and configure the following 
 
 When a DICOM instance is received by the forward node:
 
-- **With sources configured**: Only instances from registered AETs (and hostnames, if enabled) are accepted. Instances from any other node are refused with the DICOM status *Not Authorized* (0124H) and are listed in the [Monitoring](../../monitoring) view as not transferred, with the reason *Source not authorized: <AET>*.
+- **With sources configured**: Only instances from registered AETs (and hostnames, if enabled) are accepted. Instances from any other node are refused with the DICOM status *Not Authorized* (0124H) and are listed in the [Monitoring](../monitoring) view as not transferred, with the reason *Source not authorized: <AET>*.
 - **Without sources configured**: All instances are accepted.
 
 This provides flexible security control for your DICOM workflow.

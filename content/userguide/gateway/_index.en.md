@@ -1,7 +1,9 @@
 ---
-title: Gateway
+title: "Forward Nodes: DICOM Gateway Configuration"
 weight: 10
-description: Gateway management in Karnak
+description: "Configure a forward node — the DICOM application entity that receives instances — and route what it arrives to destinations, each with its own profile."
+linkTitle: "Gateway"
+keywords: [ "forward node", "dicom application entity", "gateway configuration", "dicom routing", "ae title" ]
 ---
 
 The Gateway page allows you to configure Forward Nodes in Karnak. A Forward Node represents a DICOM Application Entity (AE) that receives DICOM instances and routes them to one or more destinations. See [How Karnak works](../../overview) for the deployment workflow and the pipeline each instance goes through.

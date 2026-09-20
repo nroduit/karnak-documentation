@@ -1,7 +1,9 @@
 ---
-title: Actions on tags
+title: "Keep, Remove or Replace DICOM Tags"
 weight: 20
-description: Definition of the actions applied to specific tags
+description: "Select DICOM attributes by tag, group or pattern inside a profile and apply keep, remove, replace or add actions, including the default value used for each VR."
+linkTitle: "Actions on tags"
+keywords: [ "dicom tags", "remove dicom tag", "replace attribute value", "value representation", "de-identification action" ]
 ---
 
 This page describes profile elements that apply actions to DICOM tags. These actions allow you to selectively keep, remove, or add tags during de-identification.
@@ -16,7 +18,7 @@ This profile element applies an action to a tag or group of tags defined by the 
 |-----------|-------------|
 | **name** | Description of the action applied |
 | **codename** | `action.on.specific.tags` |
-| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](../rules/#default-values-by-vr) (`D`) |
+| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](rules/#default-values-by-vr) (`D`) |
 | **tags** | List of tags the action should be applied to |
 
 ### Optional Parameters
@@ -57,7 +59,7 @@ This profile element applies an action to private tags or groups of private tags
 |-----------|-------------|
 | **name** | Description of the action applied |
 | **codename** | `action.on.privatetags` |
-| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](../rules/#default-values-by-vr) (`D`) |
+| **action** | Keep (`K`), Remove (`X`), Replace with an empty value (`Z`), Replace with a new UID (`U`) or Replace with a [dummy value](rules/#default-values-by-vr) (`D`) |
 
 ### Optional Parameters
 
@@ -86,7 +88,7 @@ In this example, all tags starting with 0009 will be kept and all other private 
 
 ## Replace UIDs
 
-This profile element applies a UID action to a list of tags defined by the user. It is typically used to generate new, consistent UIDs for the UID attributes that the [Basic DICOM profile](../profilestructure/#basic-dicom-profile) does not cover, or to remove or empty them.
+This profile element applies a UID action to a list of tags defined by the user. It is typically used to generate new, consistent UIDs for the UID attributes that the [Basic DICOM profile](profilestructure/#basic-dicom-profile) does not cover, or to remove or empty them.
 
 ### Required Parameters
 
@@ -94,8 +96,8 @@ This profile element applies a UID action to a list of tags defined by the user.
 |-----------|-------------|
 | **name** | Description of the action applied |
 | **codename** | `replace.uid` |
-| **action** | Replace with a [new UID](../rules/#action-u-generate-a-new-uid) (`U`), Remove (`X`) or Replace with an empty value (`Z`). Any other action is refused when the profile is loaded. |
-| **tags** | List of tags (or [tag paths](../profilestructure/#tag-paths-sequences)) the action should be applied to |
+| **action** | Replace with a [new UID](rules/#action-u-generate-a-new-uid) (`U`), Remove (`X`) or Replace with an empty value (`Z`). Any other action is refused when the profile is loaded. |
+| **tags** | List of tags (or [tag paths](profilestructure/#tag-paths-sequences)) the action should be applied to |
 
 ### Optional Parameters
 
@@ -128,7 +130,7 @@ This profile element adds a tag if it is not already present in the instance. Th
 | **name** | Description of the action applied                                                                                  |
 | **codename** | `action.add.tag`                                                                                                   |
 | **arguments** | Contains:<br>• `value`: Value to set for the tag |
-| **tags** | Must contain exactly one tag - the tag to add, or a [tag path](../profilestructure/#tag-paths-sequences) to add it inside a sequence |
+| **tags** | Must contain exactly one tag - the tag to add, or a [tag path](profilestructure/#tag-paths-sequences) to add it inside a sequence |
 
 ### Optional Parameters
 
@@ -157,7 +159,7 @@ The tag can be written as a literal path naming every enclosing sequence, e.g. `
 
 ### Use Case
 
-This feature is especially useful when applying masks to non-compliant SOPs by using the Burned In Annotation attribute. See the [Cleaning Data Pixel Exceptions](../masks/#complete-example-equipment-specific-cleaning) page for a complete example.
+This feature is especially useful when applying masks to non-compliant SOPs by using the Burned In Annotation attribute. See the [Cleaning Data Pixel Exceptions](masks/#complete-example-equipment-specific-cleaning) page for a complete example.
 
 ### Example
 

@@ -1,0 +1,221 @@
+{{- /*
+  schema.org JSON-LD, emitted into <head> by layouts/partials/custom-header.html.
+
+  Search engines use it for rich results; assistants use it as the machine-readable
+  summary of a page they would otherwise have to infer from HTML. Both work far
+  better when the same few entities are described once and then referenced, so
+  everything here hangs off three stable @ids declared on the home page:
+
+    <base>/#organization  the Karnak project
+    <base>/#website       this documentation site
+    <base>/#karnak        the gateway itself, as a SoftwareApplication
+
+  Every other page then says "I am part of #website, I am about #karnak" instead
+  of restating the facts, which is what lets a crawler merge the pages into one
+  picture of one piece of software.
+
+  Per kind:
+    home            Organization + WebSite (with a SearchAction) + SoftwareApplication
+    section listing CollectionPage, whose hasPart names the children
+    ordinary page   TechArticle
+    `howto` in front matter  HowTo as well
+
+  Breadcrumbs are left to the theme, which marks up the visible trail with
+  microdata; two trails would be one too many.
+
+  Nothing is emitted on a documentation-line build (params.docline), on the
+  printer-friendly rendering, or on the untranslated French tree: all three are
+  served noindex, so repeating the entity definitions there would only offer a
+  crawler a second copy of them at an address it has been asked to ignore.
+
+  Kept deliberately close to its Weasis counterpart (nroduit.github.io,
+  layouts/partials/seo-jsonld.html) so a fix in one site ports to the other.
+*/ -}}
+
+{{- /* `return` cannot be used to bail out of a partial that writes output — Hugo
+       keeps rendering the rest — so the whole body hangs off this one condition. */ -}}
+{{- $emit := and
+      (not site.Params.docline)
+      (eq (.Store.Get "relearnOutputFormat" | default "html") "html")
+      (eq .Language.Lang "en")
+-}}
+{{- if $emit -}}
+
+{{- $base := absURL "" | strings.TrimRight "/" -}}
+{{- $orgID := printf "%s/#organization" $base -}}
+{{- $siteID := printf "%s/#website" $base -}}
+{{- $appID := printf "%s/#karnak" $base -}}
+{{- $author := partialCached "_relearn/authorName.gotmpl" site.Home -}}
+{{- $person := dict "@type" "Organization" "name" $author -}}
+{{- $iso := "2006-01-02T15:04:05-07:00" -}}
+{{- $license := "https://creativecommons.org/licenses/by/4.0/" -}}
+{{- $image := printf "%s/images/social/karnak.png" $base -}}
+
+{{- if .IsHome -}}
+  {{- $org := dict
+      "@context" "https://schema.org"
+      "@type"    "Organization"
+      "@id"      $orgID
+      "name"     "Karnak"
+      "url"      (printf "%s/" $base)
+      "logo"     (dict
+        "@type" "ImageObject"
+        "url"   (printf "%s/images/logo.svg" $base)
+      )
+      "sameAs"   (slice
+        "https://github.com/nroduit/karnak"
+        "https://github.com/nroduit/karnak/discussions"
+      )
+  -}}
+
+  {{- /* The search page is client-side, but the query it reads from the URL is a
+         stable entry point, so it is worth advertising as a SearchAction. */ -}}
+  {{- $website := dict
+      "@context"   "https://schema.org"
+      "@type"      "WebSite"
+      "@id"        $siteID
+      "name"       "Karnak Documentation"
+      "url"        (printf "%s/" $base)
+      "inLanguage" (site.Language.Locale | default "en")
+      "publisher"  (dict "@id" $orgID)
+      "license"    $license
+      "about"      (dict "@id" $appID)
+      "potentialAction" (dict
+        "@type"  "SearchAction"
+        "target" (dict
+          "@type"       "EntryPoint"
+          "urlTemplate" (printf "%ssearch/?search-by={search_term_string}" (absLangURL ""))
+        )
+        "query-input" "required name=search_term_string"
+      )
+  -}}
+
+  {{- $versions := partialCached "_karnak/versions.gotmpl" site.Home -}}
+  {{- $current := "" -}}
+  {{- range where $versions "isLine" false }}{{ if eq .state "current" }}{{ $current = .id }}{{ end }}{{ end -}}
+
+  {{- $app := dict
+      "@context"               "https://schema.org"
+      "@type"                  "SoftwareApplication"
+      "@id"                    $appID
+      "name"                   "Karnak"
+      "alternateName"          "Karnak DICOM gateway"
+      "applicationCategory"    (slice "MedicalApplication" "HealthApplication")
+      "applicationSubCategory" "DICOM de-identification gateway"
+      "operatingSystem"        "Docker, Linux, Windows, macOS"
+      "url"                    (printf "%s/" $base)
+      "downloadUrl"            (printf "%s/en/installation/" $base)
+      "installUrl"             (printf "%s/en/installation/" $base)
+      "softwareHelp"           (dict "@id" $siteID)
+      "releaseNotes"           "https://github.com/nroduit/karnak/releases"
+      "description"            (.Description | default site.Home.Params.description)
+      "isAccessibleForFree"    true
+      "image"                  $image
+      "license"                "https://github.com/nroduit/karnak/blob/master/LICENSE"
+      "softwareLicense"        "EPL-2.0 OR Apache-2.0"
+      "sameAs"                 "https://github.com/nroduit/karnak"
+      "publisher"              (dict "@id" $orgID)
+      "author"                 $person
+      "offers" (dict
+        "@type"         "Offer"
+        "price"         "0"
+        "priceCurrency" "USD"
+      )
+      "isRelatedTo" (dict
+        "@type" "SoftwareApplication"
+        "name"  "Weasis"
+        "url"   "https://weasis.org/"
+      )
+  -}}
+  {{- with $current }}{{ $app = merge $app (dict "softwareVersion" .) }}{{ end -}}
+  {{- /* What Karnak is for, stated where a machine will read it: the de-identification
+         profiles implement the DICOM standard's confidentiality profile, and the
+         gateway speaks both classic DICOM and DICOMweb. */ -}}
+  {{- $app = merge $app (dict "featureList" (slice
+      "DICOM de-identification following PS3.15 Annex E confidentiality profiles"
+      "Pseudonymization from DICOM fields, CSV import or an external service"
+      "Tag morphing and DICOM attribute normalization with YAML profiles"
+      "Burned-in annotation removal with masks or OCR"
+      "Forwarding to DICOM C-STORE and DICOMweb STOW-RS destinations"
+      "Conformance reports and monitoring of forwarded studies"
+  )) -}}
+
+  <script type="application/ld+json">{{ $org     | jsonify | safeJS}}</script>
+  <script type="application/ld+json">{{ $website | jsonify | safeJS}}</script>
+  <script type="application/ld+json">{{ $app     | jsonify | safeJS}}</script>
+{{- end -}}
+
+{{- /* The page itself, as an article or as a listing. Only real content pages:
+       the theme's own pages have no place in a knowledge graph. No
+       BreadcrumbList — the theme already marks up the visible breadcrumb with
+       microdata, and a second trail would give a crawler two answers to the
+       same question. */ -}}
+{{- if and (in (slice "page" "section") .Kind) .Title (not (partial "_relearn/pageIsSpecial.gotmpl" .)) -}}
+  {{- $page := dict
+      "@context"   "https://schema.org"
+      "@type"      (cond (eq .Kind "section") "CollectionPage" "TechArticle")
+      "@id"        (printf "%s#page" .Permalink)
+      "url"        .Permalink
+      "name"       (.Title | plainify)
+      "headline"   (.Title | plainify)
+      "inLanguage" (.Language.Locale | default "en")
+      "isPartOf"   (dict "@id" $siteID)
+      "about"      (dict "@id" $appID)
+      "publisher"  (dict "@id" $orgID)
+      "license"    $license
+  -}}
+  {{- with .Description }}{{ $page = merge $page (dict "description" (. | plainify)) }}{{ end -}}
+  {{- with .Keywords }}{{ $page = merge $page (dict "keywords" (delimit . ", ")) }}{{ end -}}
+  {{- if not .Lastmod.IsZero }}{{ $page = merge $page (dict "dateModified" (.Lastmod.Format $iso)) }}{{ end -}}
+  {{- with .FirstSection }}{{ if ne . $ }}{{ $page = merge $page (dict "articleSection" (.Title | plainify)) }}{{ end }}{{ end -}}
+  {{- with .Params.since }}{{ $page = merge $page (dict "softwareVersion" (printf "%s or later" .)) }}{{ end -}}
+  {{- if eq .Kind "section" -}}
+    {{- $parts := slice -}}
+    {{- range .Pages.ByWeight -}}
+      {{- if .Title -}}
+        {{- $part := dict "@type" "WebPage" "name" (.Title | plainify) "url" .Permalink -}}
+        {{- with .Description }}{{ $part = merge $part (dict "description" (. | plainify)) }}{{ end -}}
+        {{- $parts = $parts | append $part -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $parts }}{{ $page = merge $page (dict "hasPart" .) }}{{ end -}}
+  {{- end -}}
+  <script type="application/ld+json">{{ $page | jsonify | safeJS }}</script>
+{{- end -}}
+
+{{- /* HowTo schema: any page with a `howto` block in front matter.
+       Expected shape:
+         howto:
+           name: "..."           (defaults to .Title)
+           description: "..."    (optional)
+           totalTime: "PT5M"     (optional, ISO 8601 duration)
+           steps:
+             - name: "..."
+               text: "..."
+               url:  "#anchor"   (optional)
+*/ -}}
+{{- with .Params.howto -}}
+  {{- $steps := slice -}}
+  {{- range $i, $s := .steps -}}
+    {{- $step := dict
+        "@type"    "HowToStep"
+        "position" (add $i 1)
+        "name"     (.name | default (printf "Step %d" (add $i 1)))
+        "text"     .text
+    -}}
+    {{- with .url }}{{ $step = merge $step (dict "url" (absURL .)) }}{{ end -}}
+    {{- $steps = $steps | append $step -}}
+  {{- end -}}
+  {{- $howto := dict
+      "@context"    "https://schema.org"
+      "@type"       "HowTo"
+      "@id"         (printf "%s#howto" $.Permalink)
+      "name"        (.name | default $.Title)
+      "about"       (dict "@id" $appID)
+      "step"        $steps
+  -}}
+  {{- with .description }}{{ $howto = merge $howto (dict "description" .) }}{{ end -}}
+  {{- with .totalTime   }}{{ $howto = merge $howto (dict "totalTime"   .) }}{{ end -}}
+  <script type="application/ld+json">{{ $howto | jsonify | safeJS }}</script>
+{{- end -}}
+{{- end -}}

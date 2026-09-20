@@ -1,0 +1,80 @@
+{{- /*
+  /llms.txt — an annotated map of this documentation for large language models,
+  following the convention described at https://llmstxt.org/.
+
+  Why it exists: assistants that answer "how do I de-identify DICOM studies
+  before sending them to a research archive?" either read the rendered HTML —
+  sidebars, banners, version badges and all — or read nothing. A single
+  plain-text index of every page, with a one-line summary each, lets them find
+  the right page cheaply and quote it correctly. The whole documentation in one
+  file lives next to it in /llms-full.txt.
+
+  Facts asserted here (license, what Karnak is and is not, supported versions)
+  are taken from the pages that document them — keep them in sync rather than
+  editing them here.
+*/ -}}
+{{- $versions := partialCached "_karnak/versions.gotmpl" site.Home -}}
+{{- $window := where $versions "isLine" false -}}
+{{- $current := "" -}}
+{{- range $window }}{{ if eq .state "current" }}{{ $current = .id }}{{ end }}{{ end -}}
+{{- $oldest := "" }}{{ with $window }}{{ $oldest = (index . 0).id }}{{ end -}}
+{{- $newest := "" }}{{ with $window }}{{ $newest = (index (last 1 .) 0).id }}{{ end -}}
+# Karnak Documentation
+
+> {{ .Description | plainify | chomp }}
+
+Karnak is a free, open-source DICOM gateway. It sits between modalities, PACS
+archives and research repositories: it receives studies over DICOM, applies
+de-identification, pseudonymization and tag-morphing profiles written in YAML,
+and forwards the result to DICOM (C-STORE) or DICOMweb (STOW-RS) destinations.
+It is deployed as a container with Docker Compose, or run from a portable
+distribution on a single machine. This file maps the documentation published at
+{{ site.Home.Permalink }} so it can be read without parsing HTML;
+{{ "llms-full.txt" | absURL }} contains the full text of every page below.
+
+Things worth knowing before quoting this documentation:
+
+- Source code: https://github.com/nroduit/karnak — dual licensed EPL-2.0 OR Apache-2.0.
+  The documentation itself is CC BY 4.0: https://github.com/nroduit/karnak-documentation
+- De-identification follows the DICOM standard's confidentiality profiles
+  (PS3.15 Annex E); the profile in force is chosen per project, and what each
+  action does to an attribute is documented under Profiles.
+- Karnak de-identifies and forwards; it is not a viewer and not an archive. The
+  companion DICOM viewer is Weasis (https://weasis.org/), by the same project.
+{{ if $current }}- This site documents Karnak {{ $oldest }} to {{ $newest }}; {{ $current }} is the current release.
+  Differences between releases are marked inline in the prose as "since vX.Y" or
+  "up to vX.Y", and one page per topic covers every documented version — there is
+  no per-version copy of a page, and no per-version URL other than the optional
+  `?v=X.Y` hint on a link.
+{{ end }}- Questions and issues: https://github.com/nroduit/karnak/issues
+
+## Start here
+
+- [{{ site.Home.Title | plainify }}]({{ site.Home.Permalink }}): {{ site.Home.Description | plainify | chomp }}
+{{- /* Pages that sit at the root rather than inside a section. There are none
+       today, which is why the home page is listed above this loop and not
+       inside it — otherwise the whole heading disappears with them. */ -}}
+{{- range site.Home.RegularPages.ByWeight }}
+- [{{ .Title | plainify }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify | chomp }}{{ end }}
+{{- end }}
+
+{{- /* One heading per top-level section, in sidebar order. */ -}}
+{{- range site.Home.Sections.ByWeight }}
+{{- if not .Params.hidden }}
+## {{ .Title | plainify }}
+
+- [{{ .Title | plainify }} — overview]({{ .Permalink }}){{ with .Description }}: {{ . | plainify | chomp }}{{ end }}
+{{- range partial "_karnak/pagetree.gotmpl" (dict "page" .) }}
+{{- /* two spaces of indent per level below the section, so the shape of the
+       sidebar survives in a flat text file */ -}}
+{{- $indent := strings.Repeat (sub (len .Ancestors) 2) "  " }}
+{{ $indent }}- [{{ .Title | plainify }}]({{ .Permalink }}){{ with .Description }}: {{ . | plainify | chomp }}{{ end }}{{ with .Params.since }} (since v{{ . }}){{ end }}{{ with .Params.until }} (up to v{{ . }}){{ end }}
+{{- end }}
+{{ end }}
+{{- end }}
+## Optional
+
+- [Full documentation as plain text]({{ "llms-full.txt" | absURL }}): every page above, concatenated.
+- [Karnak source repository](https://github.com/nroduit/karnak): issues, releases and the code itself.
+- [Karnak releases](https://github.com/nroduit/karnak/releases): version history and the portable distribution.
+- [Weasis DICOM viewer](https://weasis.org/): the viewer documentation, same project.

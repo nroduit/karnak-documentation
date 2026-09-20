@@ -1,8 +1,9 @@
 ---
 archetype: "home"
-title: "Homepage"
-description: "Karnak is an open-source DICOM gateway for de-identification, tag morphing and conformance checks, forwarding studies to DICOM and DICOMweb destinations."
-keywords: [ "dicom gateway", "de-identification", "pseudonymization", "tag morphing", "dicom conformance", "dicom proxy" ]
+title: "Karnak: Open-Source DICOM De-identification Gateway"
+description: "Karnak is a free, open-source DICOM gateway that de-identifies, pseudonymizes and normalizes studies, then forwards them over C-STORE or DICOMweb STOW-RS."
+keywords: [ "dicom de-identification", "dicom anonymization", "dicom gateway", "pseudonymization", "tag morphing", "dicomweb", "open source", "docker" ]
+linkTitle: "Home"
 ---
 
 Karnak is a DICOM gateway for data de-identification and DICOM attribute normalization. It is distributed as a containerized and portable application, making it easy to deploy and use across various environments.
@@ -38,6 +39,13 @@ New to Karnak? [How Karnak works](overview) shows a typical deployment with a re
 *   [**Single Sign-On**](installation/#identity-provider): Delegate the web portal login to an OpenID Connect provider such as Keycloak.
 *   [**Web Interface**](userguide): User-friendly web portal for configuration, profile building and monitoring.
 *   [**Portable Distribution**](userguide/portable): Run Karnak as a portable application without installation.
+
+## Related project
+
+Karnak de-identifies and forwards studies; it is not a viewer and not an
+archive. The companion DICOM viewer from the same project is
+[Weasis](https://weasis.org/), which reads the studies a Karnak destination
+receives — including from a [DICOMweb archive](https://weasis.org/en/basics/customize/dicomweb-archives/).
 
 ## Links
 

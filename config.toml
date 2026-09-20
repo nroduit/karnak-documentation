@@ -22,11 +22,24 @@ languageCode = "en"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= true
 
-# the site's title of this showcase; you should change this ;-)
-title = "Karnak Documentation"
+# Shown after the page title in every <title> tag, so it is kept to the product
+# name alone: "Install Karnak with Docker Compose | Karnak" leaves room for the
+# distinctive part of the title in a search result, where roughly 60 characters
+# are displayed. The full name lives in og:site_name and in the JSON-LD.
+title = "Karnak"
 
 # Robots.txt for web crawlers
 enableRobotsTXT = true
+
+# Every page gets a `lastmod` from its last commit, which feeds <lastmod> in the
+# sitemap and dateModified in the JSON-LD. Without this the sitemap carries no
+# date at all and a crawler has no way to tell what changed.
+enableGitInfo = true
+
+[frontmatter]
+  # `updated:` first, so an editorial claim ("this page changed in a way that
+  # matters") beats the commit date of a typo fix; :git is the fallback.
+  lastmod = ['updated', 'lastmod', ':git', 'date', 'publishDate']
 
 [minify]
 disableCSS = false
@@ -72,7 +85,6 @@ keepWhitespace = false
   linkTitle = ""
   # Author of the site, will be used in meta information
   author.name = "Karnak Team"
-  # Description of the site, will be used in meta information
   showVisitedLinks = true
   externalLinkTarget = '_blank'
   disableBreadcrumb = false
@@ -84,6 +96,9 @@ keepWhitespace = false
   themeVariant = [ "relearn-dark", "relearn-light" ]
   themeVariantAuto = [ "relearn-light", "relearn-dark" ]
   disableSeoHiddenPages = true
+  # Keep internal links, breadcrumbs and og:url free of an `index.html` suffix:
+  # otherwise they disagree with the canonical, which is the bare directory URL.
+  disableExplicitIndexURLs = true
   # this is for the stylesheet genertor to allow for interactivity in mermaid
   # graphs; you usually will not need it and you should remove this for
   # security reasons
@@ -107,9 +122,36 @@ keepWhitespace = false
 [outputs]
   # add JSON to the home page to support lunr search; This is a mandatory setting
   # for the search functionality
+  home = ['html', 'rss', 'print', 'llms', 'llmsfull']
+  section = ['html', 'rss', 'print']
+  page = ['html', 'rss', 'print']
+
+# A per-language `outputs` table REPLACES this one instead of merging into it,
+# so `section` and `page` are repeated below; dropping them would silently take
+# the print and RSS renderings away from every English page.
+[Languages.en.outputs]
+  home = ['html', 'rss', 'print', 'llms', 'llmsfull']
+  section = ['html', 'rss', 'print']
+  page = ['html', 'rss', 'print']
+
+[Languages.fr.outputs]
   home = ['html', 'rss', 'print']
   section = ['html', 'rss', 'print']
   page = ['html', 'rss', 'print']
+
+# The two files land at the site root rather than under /en/ through the `../`
+# in baseName; they are plain text, one per language would make no sense.
+[outputFormats.LLMS]
+  mediaType = "text/plain"
+  baseName = "../llms"
+  isPlainText = true
+  notAlternative = true
+
+[outputFormats.LLMSFULL]
+  mediaType = "text/plain"
+  baseName = "../llms-full"
+  isPlainText = true
+  notAlternative = true
 
 [markup]
   [markup.highlight]
@@ -140,11 +182,22 @@ keepWhitespace = false
 
 [Languages]
 [Languages.en]
-title = "Karnak Documentation"
+title = "Karnak"
 weight = 1
 languageName = "English"
 
 [Languages.fr]
 title = "Documentation"
+# No French content exists yet (`content/` holds only `.en.md`), so the French
+# tree is a shell of empty section pages: served `noindex` by
+# layouts/partials/custom-header.html, and with no sitemap of its own — an empty
+# sitemap is only something for a search engine to fetch and discard. Drop this
+# block on the day a `.fr.md` page exists.
+# `content/` holds only `.en.md`, so this tree is a shell of empty section
+# pages. They are served `noindex` (layouts/partials/custom-header.html) and
+# excluded from the sitemap (layouts/_default/sitemap.xml), which is why
+# /fr/sitemap.xml comes out with zero URLs. Hugo 0.165 offers no supported way
+# to suppress that empty file; it is valid and costs a crawler one fetch.
+# Remove the language, or add French content, to be rid of it.
 weight = 2
 languageName = "Français"

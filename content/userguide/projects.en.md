@@ -1,7 +1,9 @@
 ---
-title: Projects
+title: "Projects and De-identification Secrets"
 weight: 30
-description: Manage projects
+description: "A project links a de-identification profile to the secret used to derive pseudonyms and UIDs. Create and manage projects, and understand what the secret controls."
+linkTitle: "Projects"
+keywords: [ "karnak project", "de-identification secret", "pseudonym key", "profile assignment", "uid generation" ]
 ---
 
 This page lists all projects configured in Karnak and lets you create, edit, and delete them. A project is linked to a profile and contains a secret used for de-identification.
@@ -33,7 +35,7 @@ The project is added to the list and its details appear in the right panel.
 When the list grows, you can organize projects into groups (a single level of folders).  
 Click **Add group** to create one, drag a project onto a group to assign it, and right-click a group or project
 to rename, delete or remove it from its group. Grouping is purely organizational and is
-described in more detail on the [Gateway](../gateway) page.
+described in more detail on the [Gateway](gateway) page.
 
 ### 3. Project list
 
@@ -74,7 +76,7 @@ You can generate a new secret by clicking **Generate Secret**, or type/paste you
 
 
 
-A destination is associated with a project for de-identification, as described in the [Destination configuration](../gateway/destinations/#8-de-identification).
+A destination is associated with a project for de-identification, as described in the [Destination configuration](gateway/destinations/#8-de-identification).
 
 To generate new values like UIDs and pseudonymize some patient information, Karnak uses a hash function seeded with the project secret. This makes the generated values unique per project and deterministic as long as the secret does not change.
 

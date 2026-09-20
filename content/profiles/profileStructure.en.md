@@ -1,7 +1,9 @@
 ---
-title: Profile Structure
+title: "Karnak Profile YAML Structure"
 weight: 10
-description: Understanding the Profile Structure and YAML format
+description: "The YAML format of a de-identification profile: header fields, the profile elements, the order they are evaluated in, and the DICOM Basic Profile."
+linkTitle: "Profile Structure"
+keywords: [ "yaml profile", "profile structure", "dicom basic profile", "profile elements", "de-identification configuration" ]
 ---
 
 The [Profiles](../../userguide/profiles/) page allows you to manage de-identification profiles for your projects in the Karnak interface. This page explains the structure of these profiles and how to create or modify them using YAML files.
@@ -90,7 +92,7 @@ Each segment accepts the `X` wildcard digits (e.g., `(0040,0275).0040XXXX`). Whe
 
 Add optional conditions to control when a profile element applies. The expression is evaluated for each matching tag.
 
-For complete syntax and examples, see the [Conditions](../conditions) page.
+For complete syntax and examples, see the [Conditions](conditions) page.
 
 ## Basic DICOM Profile
 

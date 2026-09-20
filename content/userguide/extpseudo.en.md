@@ -1,17 +1,19 @@
 ---
-title: External pseudonym
+title: "Import Pseudonyms from a CSV File"
 weight: 40
-description: Import and manage pseudonyms from CSV files or manual entry
+description: "Supply your own pseudonyms instead of generated ones: CSV import or manual entry, and how Karnak matches them to patients during transfer."
+linkTitle: "External pseudonym"
+keywords: [ "external pseudonym", "csv import", "patient mapping", "pseudonymization", "de-identification" ]
 ---
 
 This page allows you to create or import pseudonyms that Karnak will use during de-identification. The de-identification process and how pseudonyms are used is detailed in the [Pseudonym chapter](../../profiles/rules/#pseudonymization).
 
-De-identification is activated in the [Destination configuration](../gateway/destinations/#8-de-identification).
+De-identification is activated in the [Destination configuration](gateway/destinations/#8-de-identification).
 
 > [!INFO]
 > Pseudonyms created or imported on this page are stored in a cache with a maximum lifetime of **7 days**.
 > 
-> With the [portable version of Karnak](../portable), the cache is persistent only the time the application is running. Restarting the application will clear the cache.
+> With the [portable version of Karnak](portable), the cache is persistent only the time the application is running. Restarting the application will clear the cache.
 
 {{% annotate src="/userguide/external_pseudonym_main.png" viewbox="0 0 1175 619" alt="External Pseudonym Page" %}}
 1               |    | 620,130 | 20

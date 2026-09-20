@@ -1,8 +1,10 @@
 ---
-title: DICOM Web Tools
+title: "DICOM and DICOMweb Test Tools"
 weight: 70
-description: Tools for testing, managing and diagnosing DICOM and DICOMweb endpoints
+description: "Test connectivity and query endpoints from Karnak: C-ECHO, DICOM worklist, QIDO-RS, WADO and STOW-RS checks, plus the reusable DICOM node configurations."
 images: [ "/images/social/dicomtools.png" ]
+linkTitle: "DICOM Web Tools"
+keywords: [ "c-echo", "dicom worklist", "qido-rs", "wado", "stow-rs", "dicom node", "connectivity test" ]
 ---
 
 The **DICOM Web Tools** module groups the utilities used to test connectivity, query

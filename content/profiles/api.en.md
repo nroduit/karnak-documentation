@@ -1,14 +1,16 @@
 ---
-title: API Actions
+title: "Replace DICOM Tag Values from an External API"
 weight: 45
-description: Definition of the actions related to API calls
+description: "Call an external web service from a profile to replace tag values or shift dates: the request Karnak sends, the response it expects, and how failures are handled."
+linkTitle: "API Actions"
+keywords: [ "external api", "pseudonymization service", "rest api", "dicom tag replacement", "date shift api" ]
 ---
 
 ## Actions with API calls
 
 This profile element uses a call to an API to replace the value of a tag or a group of tags defined by the user.
 
-Another variant of this action regarding shifting dates using values retrieved from an external API is described in [Shift Dates from API](../dates/#shift-from-api-option).
+Another variant of this action regarding shifting dates using values retrieved from an external API is described in [Shift Dates from API](dates/#shift-from-api-option).
 
 ### Parameters
 
@@ -35,7 +37,7 @@ Another variant of this action regarding shifting dates using values retrieved f
 
 The URL and body may require values directly linked to the instance being transferred, such as the Patient ID.
 
-A specific syntax allows this runtime injection. Parts evaluated at runtime must be enclosed in **double brackets**. The syntax uses [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html), with functions and constants defined similarly to [Expressions](../expressions).
+A specific syntax allows this runtime injection. Parts evaluated at runtime must be enclosed in **double brackets**. The syntax uses [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html), with functions and constants defined similarly to [Expressions](expressions).
 
 **URL examples:**
 

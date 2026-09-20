@@ -9,7 +9,10 @@
         {{- $ver := printf "<meta name=\"generator\" content=\"%s %s\">" "Relearn" $ver }}
     {{ $ver | safeHTML }}
     {{- end }}
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+    {{- /* The home page's description is the site-wide fallback: `params.description`
+           is rejected by the theme, and a page with no description of its own would
+           otherwise ship an empty one, which is worse than a generic one. */}}
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Home.Description }}{{ end }}">
     {{- with .Site.Params.author.name }}
     <meta name="author" content="{{ . }}">
     {{- end }}

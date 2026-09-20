@@ -1,7 +1,9 @@
 ---
-title: Help
+title: "Karnak Version and Runtime Information"
 weight: 110
-description: Documentation links and version information
+description: "The Help page gathers links to this documentation and reports the running version and runtime details — the information to quote when reporting an issue."
+linkTitle: "Help"
+keywords: [ "karnak version", "runtime information", "support", "report an issue", "documentation links" ]
 ---
 
 The **Help** page is the last entry in the left-hand menu. It gathers quick links to

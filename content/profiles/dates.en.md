@@ -1,7 +1,9 @@
 ---
-title: Actions on dates
+title: "Shift or Redact DICOM Dates and Times"
 weight: 30
-description: Definition of the actions applied to dates
+description: "Apply date actions to DA, DT and TM attributes: shift by a fixed offset, shift per patient, or remove them, while keeping the studies of one patient consistent."
+linkTitle: "Actions on dates"
+keywords: [ "dicom date shifting", "study date anonymization", "date offset", "da dt tm", "de-identification action" ]
 ---
 
 This profile element applies a specific action to tags containing dates. 
@@ -157,11 +159,11 @@ The **shift_from_api** option applies a shift based on values from an external A
 
 ### Arguments
 
-* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](../api/#url-and-body-arguments)).
+* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
 * `daysPath` (required): JSON path to the number of days for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
 * `secondsPath` (optional): JSON path to the number of seconds for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
 * `method` (optional): HTTP method: `GET` or `POST`. Defaults to `GET`.
-* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](../api/#url-and-body-arguments)).
+* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
 * `authConfig` (optional): Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.
 
 The runtime parameters of `url` and `body` are evaluated against the original values of the instance (before de-identification). If the API cannot be reached, returns an error, or the response holds no integer at `daysPath` (or `secondsPath`), the transfer of the instance is aborted.

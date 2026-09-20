@@ -1,7 +1,9 @@
 ---
-title: Portable distribution
+title: "Run Karnak Without Installing It"
 weight: 120
-description: Run Karnak Gateway as a portable application
+description: "The portable distribution runs the gateway on a single machine with no installation: what it contains, how to start it, and what it is and is not suited for."
+linkTitle: "Portable distribution"
+keywords: [ "portable karnak", "no installation", "standalone gateway", "single machine", "download" ]
 ---
 
 Karnak Gateway can be distributed as a portable application, allowing you to run it without installing it on your system. 
@@ -74,7 +76,7 @@ The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented
 
 ### User guide
 
-For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..). This distribution includes new features in the [Forward Node](../gateway) view that are not covered in the main user guide:
+For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..). This distribution includes new features in the [Forward Node](gateway) view that are not covered in the main user guide:
 
 {{% annotate src="/userguide/portable_main.png" viewbox="0 0 1333 487" alt="Forward node view of the portable distribution" %}}
 A               |    | 1035,190 | 20
@@ -87,7 +89,7 @@ Click the **LOCAL** button {{% badge style="red" %}}A{{% /badge %}} to add a des
 
 ![Portable Local Destination](/userguide/portable_local_dest.png)
 
-This button automatically configures a DICOM destination for local storage. For [other options](../gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
+This button automatically configures a DICOM destination for local storage. For [other options](gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
 
 #### Upload local folder
 

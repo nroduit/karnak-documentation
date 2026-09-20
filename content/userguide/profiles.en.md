@@ -1,8 +1,10 @@
 ---
-title: Profiles
+title: "Manage De-identification Profiles in Karnak"
 weight: 20
-description: Manage the profiles
+description: "Create, import, edit and delete profiles in the Karnak portal and see which projects use them. The DICOM Basic Profile is available out of the box."
 images: [ "/images/social/profiles.png" ]
+linkTitle: "Profiles"
+keywords: [ "manage profiles", "import profile", "dicom basic profile", "de-identification", "karnak portal" ]
 ---
 
 This page lists all profiles configured in Karnak and lets you create, import, edit and
@@ -59,7 +61,7 @@ details on the right.
 Click **Add group** to organize the list into a single level of **groups**: create a
 group, drag a profile onto it to assign it, and right-click a group or a profile to
 **Rename group**, **Delete group** or **Remove from group**. Grouping is purely
-organizational and is described in more detail on the [Gateway](../gateway) page.
+organizational and is described in more detail on the [Gateway](gateway) page.
 
 ## Right panel: editing a profile
 

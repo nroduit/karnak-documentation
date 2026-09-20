@@ -1,9 +1,10 @@
 ---
-title: How Karnak works
+title: "How the Karnak DICOM Gateway Works"
 weight: 3
-description: Deployment workflow and processing pipeline of the Karnak DICOM gateway
-keywords: [ "dicom gateway", "architecture", "workflow", "pipeline", "dicomweb", "stow-rs", "research repository" ]
+description: "A DICOM listener receives studies, a profile de-identifies them per destination, and the result is forwarded by C-STORE or DICOMweb STOW-RS."
+keywords: [ "dicom gateway architecture", "de-identification pipeline", "dicom listener", "c-store", "stow-rs", "research repository" ]
 images: [ "/images/social/overview.png" ]
+linkTitle: "How Karnak works"
 ---
 
 Karnak is a DICOM gateway: it receives studies through a DICOM listener, transforms them

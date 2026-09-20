@@ -18,6 +18,10 @@ hugo serve
 # Production build (matches CI)
 hugo --gc --minify
 
+# Conformity checks on the build output — canonicals, robots, sitemaps, JSON-LD,
+# llms.txt (CI runs this on every deploy; needs a build in public/ first)
+python3 .github/scripts/seo-conformity.py
+
 # Update the theme to its latest upstream
 cd themes/hugo-theme-relearn && git pull origin main && cd ../..
 ```
@@ -43,6 +47,54 @@ CI injects a valid token from the `HUGO_GH_TOKEN` secret.
 - **Static assets** under `static/` are served at the site root; images referenced from Markdown live in `static/images/...` and are linked as `/images/...`.
 - **Theme overrides** sit in `layouts/` and shadow same-path files in `themes/hugo-theme-relearn/layouts/`. Custom shortcodes are in `layouts/shortcodes/`: `latest-download.html` (release-driven download table), `image-gallery.html`, `mkd.html` (inline-include another Markdown file), `since.html` / `until.html` / `version.html` (version markers, see below), `badgeC.html`, `svg.html`, `svg-inline.html`. `layouts/partials/custom-header.html` injects the canonical link, Google consent/analytics, the lightbox assets, and the documentation version filter.
 - **Deployment** — pushes to `main` trigger `.github/workflows/hugo.yaml`, which builds with Hugo extended (`--gc --minify`) and deploys `public/` to GitHub Pages. `/public` and `resources/` are gitignored build artifacts — never commit them.
+
+## Discoverability (search engines and AI assistants)
+
+Most of what makes this site findable is emergent — a few config flags, a few
+template overrides — and it breaks without failing a build. The moving parts:
+
+- `layouts/partials/custom-header.html` decides, per page, which URL it is
+  indexed under and whether it is indexed at all: self-referential canonical plus
+  `max-snippet:-1, max-image-preview:large` for ordinary pages, `noindex` for the
+  printer-friendly rendering, for a documentation-line build, and for the
+  untranslated French tree. It also scales the `<h1>` down for long titles, since
+  the theme's flat 3.25rem was tuned for short ones.
+- `layouts/partials/seo-jsonld.html` emits schema.org JSON-LD as one entity graph:
+  `#organization`, `#website` and `#karnak` are declared once on the home page and
+  referenced by `isPartOf` / `about` / `publisher` from every other page, which is
+  what lets a crawler merge the pages into one picture of one program. Breadcrumbs
+  are deliberately left to the theme's microdata — do not add a second trail.
+- `layouts/robots.txt` welcomes AI crawlers by name and withholds only the search
+  page and the taxonomy stubs. Never disallow by a pattern like `/*/tags/`: the
+  profiles section documents DICOM tags and could own such a path one day.
+- `/llms.txt` and `/llms-full.txt` (`layouts/_default/home.llms.txt`,
+  `home.llmsfull.txt`, helper `layouts/partials/_karnak/pagetree.gotmpl`) follow
+  the convention at <https://llmstxt.org/>. They reach the **site root** through
+  the `../` in their output format's `baseName`, and are enabled for English only
+  in `[Languages.en.outputs]` — which must repeat `section` and `page`, since a
+  per-language `outputs` replaces the whole table instead of merging into it.
+- **Dates.** `enableGitInfo` gives every page a `lastmod` from its last commit,
+  which feeds `<lastmod>` in the sitemap and `dateModified` in the JSON-LD; a page
+  added in the working tree has none until committed. A page can override it with
+  `updated:` in front matter, which also wins in the sitemap and the JSON-LD.
+- **French.** `[Languages.fr]` is declared but `content/` holds only `.en.md`, so
+  /fr/ is a shell of empty section pages. They are served `noindex` and excluded
+  from the sitemap; `/fr/sitemap.xml` is still written, empty, because Hugo 0.165
+  offers no supported way to suppress it. Drop the language, or add French
+  content, to be rid of it — and remove the language condition in
+  `layouts/_default/sitemap.xml` when translations exist.
+- **Titles.** `title` is written for a search result and becomes the `<h1>` and
+  the `<title>`; `linkTitle` keeps the sidebar, the breadcrumb and `{{% children %}}`
+  short. The site title is just `Karnak`, because it is appended to every
+  `<title>` — the long form lives in `og:site_name` and in the JSON-LD.
+- **IndexNow** (`.github/workflows/hugo.yaml`) submits changed URLs to Bing and
+  Yandex on every push to `main`; ownership is proved by `static/<key>.txt`.
+
+Run `python3 .github/scripts/seo-conformity.py` after a build before changing any
+of this; its docstring lists every invariant and why it is there. The script is
+shared with the Weasis documentation site — keep the two copies in step. While
+`hugo serve` is running it owns `public/`, so build somewhere else for a check:
+`hugo --gc --minify -d public-check` and `--root public-check`.
 
 ## Content style
 
@@ -155,7 +207,7 @@ here) so a fix in one site ports to the other with a rename.
 
 ## Editing notes
 
-- `[params.link] errorlevel = 'warning'` in `config.toml` means broken internal links surface as **warnings** during `hugo serve`/build, not failures — watch the dev-server output when changing links. (The content currently has a number of pre-existing broken relative links that show up here.)
+- `[params.link] errorlevel = 'warning'` in `config.toml` means broken internal links surface as **warnings** during `hugo serve`/build, not failures — watch the dev-server output when changing links. Links are resolved **relative to the Markdown file**, not to the published URL: from `content/userguide/projects.en.md`, the gateway section is `gateway`, not `../gateway`. The whole content tree was converted to that form; a link Hugo cannot resolve is emitted verbatim, which still works in a browser but is never checked and never canonicalized.
 - `markup.goldmark.renderer.unsafe = true` is intentional so shortcodes and inline HTML/JS render. `markup.goldmark.parser.attribute.block = true` enables `{ ... }` attribute lists on block elements (headings, images, tables).
 - `markup.highlight.guessSyntax = false`: code fences **must** declare a language, otherwise they render unstyled (this is also what keeps mermaid fences working).
 - External links open in a new tab via `[params] externalLinkTarget = '_blank'` (don't re-add a custom `_markup/render-link.html` override for this).

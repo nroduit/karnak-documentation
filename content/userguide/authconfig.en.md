@@ -1,7 +1,9 @@
 ---
-title: Authentication Config
+title: "Store Credentials for Karnak API Calls"
 weight: 80
-description: Authentication Configuration for API calls
+description: "Register the credentials Karnak uses to call an external service — client secret and endpoint — stored encrypted and reused by profiles."
+linkTitle: "Authentication Config"
+keywords: [ "api authentication", "client secret", "encrypted credentials", "external service", "karnak configuration" ]
 ---
 
 This page allows you to configure authentication credentials for API calls. Since this information is sensitive, it is stored in an encrypted database table.

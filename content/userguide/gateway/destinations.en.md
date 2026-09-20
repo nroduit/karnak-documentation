@@ -1,7 +1,9 @@
 ---
-title: Destinations
+title: "DICOM and DICOMweb Destinations"
 weight: 10
-description: Destinations management in Karnak
+description: "Send studies to a C-STORE or STOW-RS destination: connection settings, the project and pseudonym type applied, filters, and notification of transfer results."
+linkTitle: "Destinations"
+keywords: [ "dicom destination", "c-store", "stow-rs", "dicomweb", "pseudonym type", "transfer notification" ]
 ---
 
 This page allows you to configure destinations for your forward nodes. Destinations define where DICOM instances are sent and how they are processed during transfer.
@@ -116,7 +118,7 @@ Tag morphing allows you to modify specific DICOM tag values defined in a profile
 
 **Prerequisites:**
 
-- A [project must be created](../../projects#1-create-a-project) first
+- A [project must be created](../projects#1-create-a-project) first
 - The project must have an associated profile
 
 **Configuration:**
@@ -141,7 +143,7 @@ De-identification removes or replaces patient-identifying information in DICOM i
 
 **Prerequisites:**
 
-To activate de-identification, you must [create a project](../../projects#1-create-a-project) first.
+To activate de-identification, you must [create a project](../projects#1-create-a-project) first.
 
 **If no project exists:**
 
@@ -163,7 +165,7 @@ Each project is associated with:
 - A de-identification profile
 - A secret key used for pseudonymization and UID generation
 
-See the [Projects](../../projects) page for more information about project configuration.
+See the [Projects](../projects) page for more information about project configuration.
 
 ##### Pseudonym Type
 
@@ -173,18 +175,18 @@ Choose how Karnak should retrieve or generate pseudonyms:
 
 | Type | Description | Use Case |
 |------|-------------|----------|
-| **Pseudonym is already stored in KARNAK** | Queries the internal pseudonym cache | When using [External Pseudonym](../../extpseudo) |
+| **Pseudonym is already stored in KARNAK** | Queries the internal pseudonym cache | When using [External Pseudonym](../extpseudo) |
 | **Pseudonym is in a DICOM tag** | Extracts pseudonym from a specified DICOM tag | When pseudonyms are pre-populated in DICOM data |
 | **Pseudonym from external API** | Retrieves pseudonym via API call | When using external pseudonymization services |
 
 ###### Pseudonym is already stored in KARNAK
 
-This option queries the pseudonym stored in the internal cache as explained in [External Pseudonym](../../extpseudo).
+This option queries the pseudonym stored in the internal cache as explained in [External Pseudonym](../extpseudo).
 
 **Behavior:**
 - Karnak queries its internal cache using the Patient ID and Issuer of Patient ID
 - If a pseudonym is found, it is used for de-identification
-- If no pseudonym is returned, the transfer of the DICOM instance is aborted. Ensure pseudonyms are correctly populated in [External Pseudonym](../../extpseudo).
+- If no pseudonym is returned, the transfer of the DICOM instance is aborted. Ensure pseudonyms are correctly populated in [External Pseudonym](../extpseudo).
 
 ###### Pseudonym is in a DICOM tag
 
@@ -219,7 +221,7 @@ This option makes an API call to retrieve the pseudonym from an external service
 
 The detailed usage of all the fields is explained in the [API Actions page](../../../profiles/api). The behavior is identical to profile API actions.
 
-You can reference an [Authentication Configuration](../../authconfig) to securely manage API credentials for OAuth 2.0.
+You can reference an [Authentication Configuration](../authconfig) to securely manage API credentials for OAuth 2.0.
 
 ##### Issuer of Patient ID by default
 
@@ -227,7 +229,7 @@ This field (labeled *Issuer of Patient ID by default*) provides a default value 
 
 **Usage:**
 
-This value is used when retrieving the pseudonym using the [External Pseudonym](../../extpseudo) cache. The pseudonym is queried based on:
+This value is used when retrieving the pseudonym using the [External Pseudonym](../extpseudo) cache. The pseudonym is queried based on:
 - Patient ID (from DICOM tag `0010,0020`)
 - Issuer of Patient ID (from DICOM tag `0010,0021` or this default value)
 
@@ -241,7 +243,7 @@ the Issuer of Patient ID of the incoming image is **ignored** when building the 
 to look up the pseudonym in the cache.
 
 It is **enabled by default**, so the same Patient ID is matched even when it is registered
-under a different (or missing) issuer in the [External Pseudonym](../../extpseudo) cache
+under a different (or missing) issuer in the [External Pseudonym](../extpseudo) cache
 than in the images you receive. Uncheck it if you need the issuer to be part of the lookup
 key. When this option is checked, the *Issuer of Patient ID by default* field is cleared
 and disabled, since it no longer takes part in the lookup.
@@ -365,4 +367,4 @@ Use for token-based authentication:
 
 If the destination is a Kheops endpoint, it is possible to configure multiple albums by selecting the option "Switching in different KHEOPS albums".
 
-Explanations for configuring Kheops-related parameters can be found in the [Kheops](../../kheops) section.
+Explanations for configuring Kheops-related parameters can be found in the [Kheops](../kheops) section.

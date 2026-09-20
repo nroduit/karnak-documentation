@@ -1,7 +1,9 @@
 ---
-title: Installation
+title: "Install Karnak with Docker Compose"
 weight: 5
-description: Install and run the Karnak DICOM gateway with Docker Compose
+description: "Deploy the Karnak DICOM gateway as a container: the Docker Hub image, the PostgreSQL database and key store it needs, and the first start."
+linkTitle: "Installation"
+keywords: [ "install karnak", "docker compose", "dicom gateway deployment", "postgresql", "container", "docker hub" ]
 ---
 
 Karnak is distributed as a container image on Docker Hub: [`nroduit/karnak`](https://hub.docker.com/r/nroduit/karnak) (multi-arch, `linux/amd64` and `linux/arm64`). It requires two third-party services:

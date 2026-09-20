@@ -1,8 +1,10 @@
 ---
-title: Monitoring
+title: "Monitor DICOM Transfers and Their Status"
 weight: 60
-description: Activity and status of completed or ongoing transfers
+description: "Follow transfers in progress and recent history: filters, transfer statuses, the study hierarchy tree with a detail panel, the dashboard and CSV export."
 images: [ "/images/social/monitoring.png" ]
+linkTitle: "Monitoring"
+keywords: [ "transfer monitoring", "dicom transfer status", "gateway dashboard", "transfer history", "export" ]
 ---
 
 ![monitoring view](/userguide/monitoring_main.png)
@@ -50,7 +52,7 @@ The status of each element is color-coded:
 
 - **OK** (green): the instances were successfully sent.
 - **Excluded** (orange): some instances were not sent because of configuration rules —
-  the [SOP Class filter](../gateway/destinations), destination conditions, or
+  the [SOP Class filter](gateway/destinations), destination conditions, or
   `ExcludeInstance()` in the profile. The badge shows the number of excluded instances;
   expand the series to see one line per reason.
 - **Error** (red): some instances were not sent because of an unexpected error. The
@@ -91,7 +93,7 @@ The toolbar below the tree provides, from left to right:
   required; this cannot be undone).
 
 > [!INFO]
-> **Delete All** also clears the per-series baseline used for [notification](../gateway/destinations#4-notifications)
+> **Delete All** also clears the per-series baseline used for [notification](gateway/destinations#4-notifications)
 > reporting, which is stored alongside the monitoring history. Email reporting simply
 > restarts from zero afterwards: no previously forwarded outcome is re-notified, but a new
 > transfer to a series that existed before the deletion is reported as new. The automatic

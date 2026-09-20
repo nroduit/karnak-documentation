@@ -1,9 +1,28 @@
-{{- /* based on Hugo 0.125.5 sitemap.xml */}}
+{{- /* Based on Hugo's built-in sitemap.xml, with three deliberate differences.
+
+       - Taxonomy listings and the theme's own pages (the search page, the
+         `_relearn` fixtures) are left out. None of them has content: the tag
+         and category terms are empty on this site, and the search page renders
+         nothing without a query. The previous version only filtered the
+         English taxonomy paths by hand, so the French ones were listed; and it
+         filtered on a Scratch value the page sets while it renders, which is
+         not set yet when the sitemap is built.
+
+       - <lastmod> comes from the Git commit that last touched the page
+         (`enableGitInfo` in config.toml), so the freshness signal is the date of
+         the edit rather than the date of the build. Before that was enabled
+         this file carried no date at all.
+
+       - Untranslated languages are skipped entirely. French is declared in
+         config.toml but `content/` holds only `.en.md`, so /fr/ is a shell of
+         empty section pages; they are served `noindex` (custom-header.html) and
+         listing them here would only ask a crawler to fetch nothing. Add the
+         alternates back — and drop this condition — on the day French content
+         exists. */ -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 {{- range .Data.Pages }}
-{{- if and .Title (or (ne (.Scratch.Get "relearnIsHiddenStem") true) (ne .Site.Params.disableSeoHiddenPages true) ) }}
-  {{- if not (or (hasPrefix .RelPermalink "/en/tags") (hasPrefix .RelPermalink "/en/categories")) }}
+  {{- if and .Title .RelPermalink (eq .Language.Lang "en") (ne .Kind "taxonomy") (ne .Kind "term") (not (partial "_relearn/pageIsSpecial.gotmpl" .)) }}
   <url>
     <loc>{{ .Permalink }}</loc>
   {{- if not .Lastmod.IsZero }}
@@ -17,6 +36,5 @@
   {{- end }}
   </url>
   {{- end -}}
-{{- end -}}
 {{- end }}
 </urlset>

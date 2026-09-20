@@ -1,7 +1,9 @@
 ---
-title: Conditions
+title: "Conditions in a De-identification Profile"
 weight: 60
-description: Definition of the conditions applied to profile elements
+description: "Gate a profile element with an expression evaluated against each DICOM instance: the syntax, the attributes and operators available, and worked examples."
+linkTitle: "Conditions"
+keywords: [ "profile condition", "conditional anonymization", "dicom instance expression", "boolean expression", "profile element" ]
 ---
 
 ## Overview

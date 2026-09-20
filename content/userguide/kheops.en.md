@@ -1,7 +1,9 @@
 ---
-title: Kheops
+title: "Send De-identified Studies to a Kheops Album"
 weight: 80
-description: Send DICOM data to a Kheops album
+description: "Configure a Kheops album as a STOW-RS destination: create the album token, set its permissions, and switch between albums from the same forward node."
+linkTitle: "Kheops"
+keywords: [ "kheops", "stow-rs destination", "album token", "dicomweb upload", "de-identified studies" ]
 ---
 
 ## Create a destination album
@@ -31,7 +33,7 @@ Copy the authentication token value to use in the header of your Karnak destinat
 
 ![Copy token](/userguide/kheops_newtoken_2.png)
 
-For complete instructions on creating and configuring a STOW destination in Karnak, see [Destinations](../gateway/destinations/#stow-destination).
+For complete instructions on creating and configuring a STOW destination in Karnak, see [Destinations](gateway/destinations/#stow-destination).
 
 ## Switching to different Kheops albums
 

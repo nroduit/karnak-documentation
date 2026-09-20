@@ -15,16 +15,53 @@
     .cfg-table td code { overflow-wrap: anywhere; }
 </style>
 
+{{- /* The <h1> is the page title, and titles here are written for search
+       results, so they run from 4 to 51 characters. The theme sizes every one
+       of them at a flat 3.25rem, uppercase and on a widened font axis, which
+       was tuned for the short ones: a long title then wraps and towers over the
+       page. So the size is a continuous function of the title's length rather
+       than a set of steps — with steps, two pages one character apart differed
+       by 20%, which is exactly what the reader notices when moving between
+       them. 3.25rem holds up to 24 characters and then falls by 0.032rem per
+       character, to a floor of 1.95rem (reached around 65). The arithmetic is
+       done here rather than in a CSS calc() so that nothing depends on how a
+       minifier treats spaces inside calc. Same rule on the Weasis site. */ -}}
+{{- $titlelen := len (.Title | plainify) -}}
+{{- $over := math.Max 0 (sub $titlelen 24) -}}
+{{- $size := math.Max 1.95 (sub 3.25 (mul $over 0.032)) -}}
+{{- $small := math.Max 1.5 (sub 2.5 (mul $over 0.025)) -}}
+<style>#R-body-inner > .flex-block-wrapper article h1{font-size:{{ printf "%.2f" $size }}rem}@media only screen and (max-width:47.999rem){#R-body-inner > .flex-block-wrapper article h1{font-size:{{ printf "%.2f" $small }}rem}}</style>
+
+{{- /* Which address this page should be indexed under, and whether it should be
+       indexed at all. The branches are mutually exclusive, so exactly one
+       canonical link and at most one robots directive is emitted. */ -}}
+{{- $format := .Store.Get "relearnOutputFormat" | default "html" -}}
 {{- if isset .Params "canonical" -}}
-<link rel="canonical" href="{{ .Params.baseURL }}" />
+<link rel="canonical" href="{{ .Params.canonical }}" />
+{{- else if ne $format "html" -}}
+{{/* the printer-friendly rendering of a page: the same words at a second URL.
+     The theme already points its canonical at the ordinary page; noindex says
+     the same thing without relying on a crawler to follow a canonical chain. */}}
+<meta name="robots" content="noindex, follow" />
 {{- else if site.Params.docline -}}
 {{/* another documentation line: keep it out of the index so it does not compete
      with the current line for the same queries, and credit the live page */}}
 <meta name="robots" content="noindex, follow" />
 <link rel="canonical" href="{{ partial "_karnak/liveURL.gotmpl" . }}" />
+{{- else if ne .Language.Lang "en" -}}
+{{/* French is declared in config.toml but the content is not translated: these
+     pages are empty shells of the English tree. Keep them reachable through the
+     language switcher, keep them out of the index until they say something. */}}
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="{{ .Permalink }}" />
 {{- else -}}
 <link rel="canonical" href="{{ .Permalink }}" />
+{{/* Let search engines and AI answer panels use the whole page: an unbounded
+     text snippet, and a large image preview rather than a thumbnail. */}}
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 {{- end }}
+
+{{- partial "seo-jsonld.html" . }}
 
 <!-- Google Consent Mode with minimal data collection that minimize the need for user consent -->
 <script>
