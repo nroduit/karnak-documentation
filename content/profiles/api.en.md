@@ -1,7 +1,7 @@
 ---
 title: "Replace DICOM Tag Values from an External API"
 weight: 45
-description: "Call an external web service from a profile to replace tag values or shift dates: the request Karnak sends, the response it expects, and how failures are handled."
+description: "Call an external web service from a profile to replace tag values or shift dates: the request Karnak sends, the response it expects, and failure handling."
 linkTitle: "API Actions"
 keywords: [ "external api", "pseudonymization service", "rest api", "dicom tag replacement", "date shift api" ]
 ---

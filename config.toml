@@ -18,7 +18,7 @@ theme = "hugo-theme-relearn"
 
 # the main language of this site; also an automatic pirrrate translation is
 # available in this showcase
-languageCode = "en"
+locale = "en"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= true
 
@@ -92,6 +92,14 @@ keepWhitespace = false
   disableGeneratorVersion = true
   disableNextPrev = false
   disableLandingPageButton = true
+  # The page footer would otherwise show the last commit's git author and
+  # date. Neither says anything useful to a reader of the documentation, and
+  # the author line publishes a committer's name and email address on every
+  # page. The dates that matter are still emitted: `lastmod` continues to
+  # feed <lastmod> in the sitemap and dateModified in the JSON-LD.
+  hideAuthorName = true
+  hideAuthorEmail = true
+  hideAuthorDate = true
   titleSeparator = "|"
   themeVariant = [ "relearn-dark", "relearn-light" ]
   themeVariantAuto = [ "relearn-light", "relearn-dark" ]
@@ -184,7 +192,7 @@ keepWhitespace = false
 [Languages.en]
 title = "Karnak"
 weight = 1
-languageName = "English"
+label = "English"
 
 [Languages.fr]
 title = "Documentation"
@@ -200,4 +208,4 @@ title = "Documentation"
 # to suppress that empty file; it is valid and costs a crawler one fetch.
 # Remove the language, or add French content, to be rid of it.
 weight = 2
-languageName = "Français"
+label = "Français"

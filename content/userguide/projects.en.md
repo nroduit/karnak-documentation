@@ -1,7 +1,7 @@
 ---
 title: "Projects and De-identification Secrets"
 weight: 30
-description: "A project links a de-identification profile to the secret used to derive pseudonyms and UIDs. Create and manage projects, and understand what the secret controls."
+description: "A project links a de-identification profile to the secret used to derive pseudonyms and UIDs. Create and manage projects, and what the secret controls."
 linkTitle: "Projects"
 keywords: [ "karnak project", "de-identification secret", "pseudonym key", "profile assignment", "uid generation" ]
 ---

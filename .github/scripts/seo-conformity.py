@@ -31,7 +31,8 @@ The invariants, roughly in order of how likely each is to break:
   * exactly one canonical link and at most one robots meta per page
   * print renderings are noindex and never canonicalise to themselves
   * every indexable page has a title, a description (warned about below 70 or above
-    165 characters) and an og:image that exists, exactly one <h1>, and no
+    165 characters) and an og:image that exists, exactly one <h1> whose text still
+    fits the two lines its fixed font size was chosen for, and no
     unrendered shortcode left in the output
   * every image a page points at is actually built, including each srcset candidate
   * every JSON-LD block parses, carries @context and @type, and every @id it
@@ -66,6 +67,16 @@ SHORTCUT_PAGES = ()
 # Pages that llms.txt is allowed not to mention. None on this site: the map
 # covers the whole English tree.
 LLMS_COVERAGE_EXEMPT = ()
+
+# The <h1> size is two fixed values in custom-header.html rather than a
+# calculation, so this is what keeps them true. A line of the heading holds
+# about 78 character-rem (the theme's 24 characters at 3.25rem), so at the
+# 2.69rem now set a line takes ~29 characters and two lines take 58 — the
+# longest title on the Weasis site, whose heading size this one shares; the
+# longest here is 51. A longer one wraps to a third line and towers over the
+# page, which is the thing that size was chosen to avoid. Change the values
+# there and this number together, on both sites.
+H1_TWO_LINES = 58
 
 
 class Report:
@@ -299,6 +310,16 @@ def check_pages(site, rep, sitemap_urls):
             h1 = len(re.findall(r"<h1[\s>]", html))
             if h1 != 1:
                 rep.fail("heading", "%d <h1> elements in %s" % (h1, rel))
+            else:
+                heading = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S)
+                if heading:
+                    text = html_unescape(re.sub(r"<[^>]+>", "", heading.group(1))).strip()
+                    if len(text) > H1_TWO_LINES:
+                        rep.warn(
+                            "title/long",
+                            "<h1> of %d characters wraps onto a third line at the "
+                            "size set in custom-header.html: %s" % (len(text), rel),
+                        )
             title = re.search(r"<title>(.*?)</title>", html, re.S)
             if not title or not title.group(1).strip():
                 rep.fail("title", "no <title>: %s" % rel)

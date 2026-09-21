@@ -1,7 +1,7 @@
 ---
 title: "DICOM Conformance Reports by Email"
 weight: 75
-description: "Validate every study sent to a destination against the DICOM standard and receive an HTML report by email: what is checked, how to enable it, and how to read it."
+description: "Validate every study sent to a destination against the DICOM standard and get an HTML report by email: what is checked, how to enable it, how to read it."
 images: [ "/images/social/conformancereport.png" ]
 linkTitle: "Conformance Report"
 keywords: [ "dicom conformance", "validation report", "sop class", "dicom standard", "email report" ]
