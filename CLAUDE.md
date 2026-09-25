@@ -56,17 +56,19 @@ template overrides — and it breaks without failing a build. The moving parts:
 - `layouts/partials/custom-header.html` decides, per page, which URL it is
   indexed under and whether it is indexed at all: self-referential canonical plus
   `max-snippet:-1, max-image-preview:large` for ordinary pages, `noindex` for the
-  printer-friendly rendering, for a documentation-line build, and for the
-  untranslated French tree. It also scales the `<h1>` down for long titles, since
+  printer-friendly rendering, the search page, the tag and category listings,
+  a documentation-line build, and the untranslated French tree. It also scales the `<h1>` down for long titles, since
   the theme's flat 3.25rem was tuned for short ones.
 - `layouts/partials/seo-jsonld.html` emits schema.org JSON-LD as one entity graph:
   `#organization`, `#website` and `#karnak` are declared once on the home page and
   referenced by `isPartOf` / `about` / `publisher` from every other page, which is
   what lets a crawler merge the pages into one picture of one program. Breadcrumbs
   are deliberately left to the theme's microdata — do not add a second trail.
-- `layouts/robots.txt` welcomes AI crawlers by name and withholds only the search
-  page and the taxonomy stubs. Never disallow by a pattern like `/*/tags/`: the
-  profiles section documents DICOM tags and could own such a path one day.
+- `layouts/robots.txt` welcomes AI crawlers by name and withholds nothing. The
+  search page and the taxonomy stubs are served `noindex` by
+  `custom-header.html` instead: disallowing them keeps Google from reading that
+  `noindex` (on weasis.org they stayed indexed that way). Never disallow by a
+  pattern like `/*/tags/`: the profiles section documents DICOM tags.
 - `/llms.txt` and `/llms-full.txt` (`layouts/_default/home.llms.txt`,
   `home.llmsfull.txt`, helper `layouts/partials/_karnak/pagetree.gotmpl`) follow
   the convention at <https://llmstxt.org/>. They reach the **site root** through

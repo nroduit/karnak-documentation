@@ -59,6 +59,14 @@
      with the current line for the same queries, and credit the live page */}}
 <meta name="robots" content="noindex, follow" />
 <link rel="canonical" href="{{ partial "_karnak/liveURL.gotmpl" . }}" />
+{{- else if or (eq .Type "_relearn_searchpage") (in (slice "taxonomy" "term") .Kind) -}}
+{{/* not content: the JavaScript search page, which renders nothing without a
+     query, and the tag and category listings, which no page populates. On
+     weasis.org, the same theme's pages ended up in Google's index in every
+     language while robots.txt blocked them. noindex is what keeps them out, and
+     it only works because robots.txt lets a crawler fetch these pages to read it. */}}
+<meta name="robots" content="noindex, follow" />
+<link rel="canonical" href="{{ .Permalink }}" />
 {{- else if ne .Language.Lang "en" -}}
 {{/* French is declared in config.toml but the content is not translated: these
      pages are empty shells of the English tree. Keep them reachable through the
