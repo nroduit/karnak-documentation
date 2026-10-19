@@ -50,9 +50,16 @@ When selecting a specific transfer syntax, ensure that the destination system su
 > [!INFO]
 > Transcoding may increase processing time and resource usage, especially for large datasets. Use it judiciously based on your workflow needs.
 
-#### 3. Use AETitle Destination
+#### 3. Use Source AETitle
 
-When this option is **checked**, use the destination AETitle as the calling AETitle instead of the Forward Node AETitle during the DICOM association.
+By default, Karnak calls the destination with the **Forward Node AETitle**, so the destination sees every instance as coming from Karnak and the AETitle of the original sender is lost.
+
+When **Use source AETitle** is **checked**, Karnak calls the destination with the AETitle of the source that sent the instances (the calling AETitle received by the forward node). This keeps the original sender visible to the destination, for example to identify the modality in the PACS.
+
+- The destination must accept each source AETitle as a calling AETitle. Restrict the senders with [Sources](../sources) if the destination only knows some of them.
+- Karnak opens separate associations for each source AETitle, so the **Concurrent connections** limit applies per source: with several sources sending at the same time, the destination can receive that many associations from each one.
+
+The option is unchecked by default and is disabled for a [virtual destination](#5-virtual-destination).
 
 #### 4. Notifications
 

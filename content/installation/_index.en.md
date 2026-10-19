@@ -252,7 +252,7 @@ A variable and its `_FILE` counterpart are exclusive: setting both makes the con
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `DICOM_LISTENER_AET` | `KARNAK-GATEWAY` | AE Title of the DICOM listener (calling AE Title used by Karnak toward the destinations) |
+| `DICOM_LISTENER_AET` | `KARNAK-GATEWAY` | AE Title of the DICOM listener. Destinations are called with the Forward Node AE Title, or the source AE Title when [Use source AETitle](../userguide/gateway/destinations#3-use-source-aetitle) is checked |
 | `DICOM_LISTENER_PORT` | `11119` | Listening port inside the container |
 | `DICOM_LISTENER_TLS` | `false` | Accept only DICOM TLS associations |
 | `TLS_KEYSTORE_PATH` / `TLS_KEYSTORE_SECRET` | | Keystore and its password, required when TLS is enabled |
