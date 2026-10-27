@@ -8,8 +8,8 @@ keywords: [ "spring expression language", "spel", "dicom tag expression", "condi
 
 ## Actions on specific tags
 
-This profile element applies an expression to a tag or a group of tags defined by the user. An expression is based on [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html) and returns a value or an action according to a certain condition.
-
+This profile element applies an expression to a tag or a group of tags defined by the user.
+An expression is based on [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html) and returns a value or an action according to a certain condition.
 
 ### Parameters
 
@@ -26,7 +26,8 @@ This profile element requires the following parameters:
 
 ### Expression Context
 
-The expression is contained in the `expr` argument. When executed, it can either:
+The expression is contained in the `expr` argument.
+When executed, it can either:
 
 - Return an action to be executed
 - Return a null value (does nothing and moves to the next profile element)

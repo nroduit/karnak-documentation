@@ -6,7 +6,7 @@ linkTitle: "Actions on dates"
 keywords: [ "dicom date shifting", "study date anonymization", "date offset", "da dt tm", "de-identification action" ]
 ---
 
-This profile element applies a specific action to tags containing dates. 
+This profile element applies a specific action to tags containing dates.
 These actions can only be applied to the following [Value Representations](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_6.2.html): Age String (AS), Date (DA), Date Time (DT), and Time (TM).
 
 ## Parameters
@@ -21,7 +21,8 @@ These actions can only be applied to the following [Value Representations](https
 ### Optional parameters
 
 * `condition`: Defines a condition to evaluate whether this profile element should be applied to the DICOM instance
-* `tags`: List of tags the action should be applied to. If not specified, the action applies to all tags with AS, DA, DT, or TM Value Representation
+* `tags`: List of tags the action should be applied to.
+  If not specified, the action applies to all tags with AS, DA, DT, or TM Value Representation
 * `excludedTags`: List of tags that will be ignored by this action
 
 ## Available Options
@@ -80,7 +81,6 @@ The random operation is deterministic and reproducible based on the patient and 
 
 This example shifts all tags starting with `0008,002` that have AS, DA, DT, or TM Value Representation randomly within a range of 0 to 60 seconds and 50 to 100 days:
 
-
 ```yaml
   - name: "Shift Range Date"
     codename: "action.on.dates"
@@ -92,6 +92,7 @@ This example shifts all tags starting with `0008,002` that have AS, DA, DT, or T
     tags:
       - "0008,002X"
 ```
+
 ## Date Format Option
 
 The **date_format** option removes date precision by deleting specific date components.
@@ -108,7 +109,6 @@ This action can only be applied to Date (DA) and Date Time (DT) Value Representa
 
 This example removes the day from all tags starting with `0008,003` that have DA or DT Value Representation:
 
-
 ```yaml
   - name: "Date format"
     codename: "action.on.dates"
@@ -120,7 +120,6 @@ This example removes the day from all tags starting with `0008,003` that have DA
 ```
 
 For example, if the value contained in the tag is `20230512`, the output value will be `20230501`.
-
 
 ## Shift By Tag Option
 
@@ -142,7 +141,6 @@ The referenced tags are read from the original values of the instance (before de
 
 This example shifts all tags starting with `0010` that have AS, DA, DT, or TM Value Representation by the number of days stored in the private tag `(0015,0011)`:
 
-
 ```yaml
 - name: "Shift Date By Tag"
   codename: "action.on.dates"
@@ -159,14 +157,21 @@ The **shift_from_api** option applies a shift based on values from an external A
 
 ### Arguments
 
-* `url` (required): URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
-* `daysPath` (required): JSON path to the number of days for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
-* `secondsPath` (optional): JSON path to the number of seconds for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.
-* `method` (optional): HTTP method: `GET` or `POST`. Defaults to `GET`.
-* `body` (optional): Request body for POST requests in JSON format. Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
-* `authConfig` (optional): Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.
+* `url` (required): URL of the API to query.
+  Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
+* `daysPath` (required): JSON path to the number of days for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax.
+  Empty string means the entire response value will be used.
+* `secondsPath` (optional): JSON path to the number of seconds for the shift operation, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax.
+  Empty string means the entire response value will be used.
+* `method` (optional): HTTP method: `GET` or `POST`.
+  Defaults to `GET`.
+* `body` (optional): Request body for POST requests in JSON format.
+  Can contain runtime parameters (see [URL and Body Arguments](api/#url-and-body-arguments)).
+* `authConfig` (optional): Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call.
+  No authentication used if not specified.
 
-The runtime parameters of `url` and `body` are evaluated against the original values of the instance (before de-identification). If the API cannot be reached, returns an error, or the response holds no integer at `daysPath` (or `secondsPath`), the transfer of the instance is aborted.
+The runtime parameters of `url` and `body` are evaluated against the original values of the instance (before de-identification).
+If the API cannot be reached, returns an error, or the response holds no integer at `daysPath` (or `secondsPath`), the transfer of the instance is aborted.
 
 ### Example
 
@@ -212,7 +217,7 @@ profileElements:
     excludedTags:
       - "0008,0030"
       - "0008,0032"
-      
+
   - name: "Date Format"
     codename: "action.on.dates"
     arguments:
@@ -236,5 +241,3 @@ profileElements:
   - name: "DICOM basic profile"
     codename: "basic.dicom.profile"
 ```
-
-

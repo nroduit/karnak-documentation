@@ -33,11 +33,14 @@ Another variant of this action regarding shifting dates using values retrieved f
 | **body** | Optional | Request body for POST requests in JSON format (mandatory when `method` is `POST`). Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                          |
 | **authConfig** | Optional | Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.                                                                                                                        |
 | **defaultValue** | Optional | Fallback value used when an error occurs during the API call (e.g., Unauthorized, value not found, authConfig not found). If not specified, the transfer will be aborted with an error displayed in monitoring. When specified, the default value is used and transfer continues. |
+
 ### URL and Body Arguments
 
 The URL and body may require values directly linked to the instance being transferred, such as the Patient ID.
 
-A specific syntax allows this runtime injection. Parts evaluated at runtime must be enclosed in **double brackets**. The syntax uses [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html), with functions and constants defined similarly to [Expressions](expressions).
+A specific syntax allows this runtime injection.
+Parts evaluated at runtime must be enclosed in **double brackets**.
+The syntax uses [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html), with functions and constants defined similarly to [Expressions](expressions).
 
 **URL examples:**
 
@@ -53,21 +56,25 @@ http://example.com/{{getString(#Tag.ClinicalTrialSponsorName)}}/patient/{{getStr
 
 In the body, hence the JSON format, the expression must be enclosed in double quotes if the expected value is a String.
 
-The expressions are evaluated against the **original** values of the instance, before any profile element modified it (for example `getString(#Tag.PatientID)` returns the Patient ID received by Karnak, not the pseudonymized one). An expression that evaluates to null is replaced by an empty string.
+The expressions are evaluated against the **original** values of the instance, before any profile element modified it (for example `getString(#Tag.PatientID)` returns the Patient ID received by Karnak, not the pseudonymized one).
+An expression that evaluates to null is replaced by an empty string.
 
 ### Response Caching
 
-The responses of the API are cached by URL, body and authentication configuration, so that the same call is not repeated for every instance of the same patient. The cache lifetime is defined by the `cache-api.ttl` property of `application.yml` (15 minutes by default).
+The responses of the API are cached by URL, body and authentication configuration, so that the same call is not repeated for every instance of the same patient.
+The cache lifetime is defined by the `cache-api.ttl` property of `application.yml` (15 minutes by default).
 
 ## Examples
 
 ###  Example 1: Replace Patient ID with API response
 
-The profile element below replaces the value of the Patient ID tag with the value retrieved from the url, it extracts the String value from the response at the specified path. Since it is not specified, the HTTP method is GET.
+The profile element below replaces the value of the Patient ID tag with the value retrieved from the url, it extracts the String value from the response at the specified path.
+Since it is not specified, the HTTP method is GET.
 
 The authConfig argument contains the identifier of the Authentication Configuration used to authenticate the API call.
 
-If an error occurs during the call, this transfer will be aborted. If the defaultValue was specified, it would have been used as the replacement value and the transfer would not have been blocked.
+If an error occurs during the call, this transfer will be aborted.
+If the defaultValue was specified, it would have been used as the replacement value and the transfer would not have been blocked.
 
 ```yaml
   - name: "Replace Patient ID from API call"
@@ -79,6 +86,7 @@ If an error occurs during the call, this transfer will be aborted. If the defaul
     tags:
       - "(0010,0020)"
 ```
+
 ### Example 2: POST request with body and default value
 
 ```yaml

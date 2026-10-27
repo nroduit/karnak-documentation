@@ -48,7 +48,8 @@ This profile element requires the following parameters:
 
 ## Pixel Data Cleaning
 
-Pixel data cleaning applies masks to DICOM images to remove identifying information burned into the pixels, such as patient or institution information. Masks can be defined manually per station name (see [Masks Definition](#masks-definition)) or generated automatically by an external OCR service (see [Automatic Pixel Data De-identification](#automatic-pixel-data-de-identification)).
+Pixel data cleaning applies masks to DICOM images to remove identifying information burned into the pixels, such as patient or institution information.
+Masks can be defined manually per station name (see [Masks Definition](#masks-definition)) or generated automatically by an external OCR service (see [Automatic Pixel Data De-identification](#automatic-pixel-data-de-identification)).
 
 ### Condition for Automatic Application
 
@@ -79,7 +80,8 @@ This profile element requires the following parameters:
 
 ### Using Conditions
 
-The `condition` parameter allows you to apply cleaning selectively. For example, to exclude images from a specific machine that does not add burned-in annotations, you can use the following configuration:
+The `condition` parameter allows you to apply cleaning selectively.
+For example, to exclude images from a specific machine that does not add burned-in annotations, you can use the following configuration:
 
 ```yaml
 profileElements:
@@ -137,7 +139,6 @@ When processing a DICOM instance, Karnak selects the appropriate mask using the 
 4. **Default mask**: If no station match is found, use the mask with `stationName: "*"`
 
 ### Example Configuration
-
 
 ```yaml
 masks:
@@ -210,7 +211,8 @@ masks:
 
 ## Automatic Pixel Data De-identification
 
-Instead of defining mask rectangles by hand for each station name, Karnak can automatically detect and mask sensitive patient data that are *burned into* the DICOM pixel data (text overlays such as patient name, accession number, or dates). When this option is enabled, Karnak sends each eligible image to an external **de-identification image API** that runs OCR, detects sensitive text, and returns the mask areas to apply.
+Instead of defining mask rectangles by hand for each station name, Karnak can automatically detect and mask sensitive patient data that are *burned into* the DICOM pixel data (text overlays such as patient name, accession number, or dates).
+When this option is enabled, Karnak sends each eligible image to an external **de-identification image API** that runs OCR, detects sensitive text, and returns the mask areas to apply.
 
 Automatic mask generation is an option of the [Clean Pixel Data](#pixel-data-cleaning) profile element.
 
@@ -218,8 +220,10 @@ Automatic mask generation is an option of the [Clean Pixel Data](#pixel-data-cle
 
 1. A destination uses a de-identification profile that contains a **Clean Pixel Data** element with automatic mask generation enabled.
 2. For every eligible instance (the [SOP Classes eligible for pixel data cleaning](#condition-for-automatic-application), or any image flagged with **Burned In Annotation (0028,0301)**), Karnak extracts the pixel data and a set of sensitive tag values and sends them to the external API.
-3. The API returns one or more mask areas (rectangles, each with a color). Karnak draws them on the image before forwarding it to the destination.
-4. If the API detects no sensitive data, no mask is applied and the image is forwarded unchanged. If the call fails, the instance is not forwarded (see [Fail-closed Behavior](#fail-closed-behavior)).
+3. The API returns one or more mask areas (rectangles, each with a color).
+   Karnak draws them on the image before forwarding it to the destination.
+4. If the API detects no sensitive data, no mask is applied and the image is forwarded unchanged.
+   If the call fails, the instance is not forwarded (see [Fail-closed Behavior](#fail-closed-behavior)).
 
 The example below shows an ultrasound frame before and after automatic pixel de-identification: the burned-in patient identifiers are detected and masked while the diagnostic image content is preserved.
 
@@ -232,13 +236,15 @@ The example below shows an ultrasound frame before and after automatic pixel de-
 
 ### Sensitive Tags Sent to the API
 
-The values of the following tags are sent so the API can detect them in the image. No pixel data leaves Karnak beyond the single frame being analyzed.
+The values of the following tags are sent so the API can detect them in the image.
+No pixel data leaves Karnak beyond the single frame being analyzed.
 
 `AccessionNumber`, `InstitutionName`, `OperatorsName`, `PatientAge`, `PatientBirthDate`, `PatientID`, `PatientName`, `PatientSex`, `PerformingPhysicianName`, `PerformedProcedureStepID`, `ReferringPhysicianName`, `StudyDate`.
 
 ### Fail-closed Behavior
 
-When automatic mask generation is enabled and the API is **unreachable or returns an error**, Karnak produces **no mask** and the instance is **not forwarded**. This prevents un-masked PHI from leaking to the destination if the service is down.
+When automatic mask generation is enabled and the API is **unreachable or returns an error**, Karnak produces **no mask** and the instance is **not forwarded**.
+This prevents un-masked PHI from leaking to the destination if the service is down.
 
 > [!WARNING]
 > A missing or failing de-identification image API stops eligible instances from being forwarded. Check the Karnak logs for the cause (client error, server error, or unreachable service).
@@ -271,7 +277,8 @@ profileElements:
 
 ### Configuring the External API Endpoint
 
-Karnak calls the de-identification image API at the URL configured by the `OCR_URL` environment variable (default `http://localhost:8000`). It maps to the `ocr.url` property in `application.yml`:
+Karnak calls the de-identification image API at the URL configured by the `OCR_URL` environment variable (default `http://localhost:8000`).
+It maps to the `ocr.url` property in `application.yml`:
 
 ```yaml
 ocr:
@@ -286,7 +293,8 @@ The API contract is documented in the [`deidentification-api.yaml`](https://gith
 
 ### Deploying the External De-identification Service
 
-The de-identification image API is a separate service. Deploy and run it so that it is reachable from Karnak at `OCR_URL`.
+The de-identification image API is a separate service.
+Deploy and run it so that it is reachable from Karnak at `OCR_URL`.
 
 To deploy it alongside the standard installation:
 

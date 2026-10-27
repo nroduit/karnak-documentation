@@ -6,7 +6,8 @@ linkTitle: "Destinations"
 keywords: [ "dicom destination", "c-store", "stow-rs", "dicomweb", "pseudonym type", "transfer notification" ]
 ---
 
-This page allows you to configure destinations for your forward nodes. Destinations define where DICOM instances are sent and how they are processed during transfer.
+This page allows you to configure destinations for your forward nodes.
+Destinations define where DICOM instances are sent and how they are processed during transfer.
 
 > [!INFO]
 > To access this page, first select a forward node from the [Gateway](../) page, then open the **Destinations** tab (it is selected by default).
@@ -36,16 +37,22 @@ These fields define where Karnak should send the DICOM instances.
 - **Description**: An optional label shown in the destination list.
 - **Hostname**: The IP address or hostname of the destination server.
 - **Port**: The network port used by the destination DICOM service (must be between 1 and 65535).
-- **Concurrent connections**: The number of parallel DICOM associations Karnak opens to this destination (between 1 and 50; `1` means a single connection). Increasing this value improves throughput when forwarding large studies, but must stay within the destination PACS's concurrent-association limit.
-- **Condition** (labeled *Condition (Leave blank if no condition)*): An optional field that can contain an expression. If the condition is met, the destination will be activated. See [Conditions](../../../profiles/conditions) for more details.
+- **Concurrent connections**: The number of parallel DICOM associations Karnak opens to this destination (between 1 and 50; `1` means a single connection).
+  Increasing this value improves throughput when forwarding large studies, but must stay within the destination PACS's concurrent-association limit.
+- **Condition** (labeled *Condition (Leave blank if no condition)*): An optional field that can contain an expression.
+  If the condition is met, the destination will be activated.
+  See [Conditions](../../../profiles/conditions) for more details.
 
 #### 2. Transfer Syntax
 
-This field defines the [transfer syntax](http://dicom.nema.org/medical/dicom/current/output/chtml/part05/chapter_10.html) used when sending DICOM instances to this destination. The transfer syntax determines the encoding and compression format of the DICOM data.
+This field defines the [transfer syntax](http://dicom.nema.org/medical/dicom/current/output/chtml/part05/chapter_10.html) used when sending DICOM instances to this destination.
+The transfer syntax determines the encoding and compression format of the DICOM data.
 
 It is recommended to choose "Keep original transfer syntax" unless you have specific requirements for compression or compatibility with the destination system.
 
-When selecting a specific transfer syntax, ensure that the destination system supports it to avoid decompression or compatibility issues. When you select a compressed transfer syntax, the **Transcode only uncompressed** checkbox becomes available and is checked automatically so that instances that are already compressed are not re-encoded; uncheck it only if every instance must be transcoded. The checkbox is disabled for *Keep original transfer syntax* and *Explicit VR - Little Endian*.
+When selecting a specific transfer syntax, ensure that the destination system supports it to avoid decompression or compatibility issues.
+When you select a compressed transfer syntax, the **Transcode only uncompressed** checkbox becomes available and is checked automatically so that instances that are already compressed are not re-encoded; uncheck it only if every instance must be transcoded.
+The checkbox is disabled for *Keep original transfer syntax* and *Explicit VR - Little Endian*.
 
 > [!INFO]
 > Transcoding may increase processing time and resource usage, especially for large datasets. Use it judiciously based on your workflow needs.
@@ -63,13 +70,11 @@ The option is unchecked by default and is disabled for a [virtual destination](#
 
 #### 4. Notifications
 
-Check **Activate notification** to receive automatic email summaries of forwarded
-instances, including success and error reports.
+Check **Activate notification** to receive automatic email summaries of forwarded instances, including success and error reports.
 
 ![Notifications](/userguide/destination_notifications.png)
 
-**Configuration fields** (on screen each label is prefixed with `Notif.:` and shows its
-default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
+**Configuration fields** (on screen each label is prefixed with `Notif.:` and shows its default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
 
 | Field | Description | Default Value |
 |-------|-------------|---------------|
@@ -91,14 +96,11 @@ default inline, e.g. *Notif.: error subject prefix (Default: \*\*ERROR\*\*)*):
 
 #### 5. Virtual Destination
 
-When **Virtual destination (report only, discard DICOM)** is checked, the destination
-does **not** forward anything to a real node. Each study is still received and validated,
-but the only output is the [DICOM conformance report](#6-dicom-conformance-report), which
-is emailed. Delivery settings (transfer syntax, notifications, etc.) do not apply, and the
-conformance report is mandatory and cannot be turned off while the destination is virtual.
+When **Virtual destination (report only, discard DICOM)** is checked, the destination does **not** forward anything to a real node.
+Each study is still received and validated, but the only output is the [DICOM conformance report](#6-dicom-conformance-report), which is emailed.
+Delivery settings (transfer syntax, notifications, etc.) do not apply, and the conformance report is mandatory and cannot be turned off while the destination is virtual.
 
-This is useful to validate DICOM conformance — for testing, validation-only deployments,
-or audit purposes — without sending any data.
+This is useful to validate DICOM conformance — for testing, validation-only deployments, or audit purposes — without sending any data.
 
 > [!INFO]
 > On screen, the **Virtual destination** and **Build DICOM conformance report** options
@@ -107,21 +109,17 @@ or audit purposes — without sending any data.
 
 #### 6. DICOM Conformance Report
 
-Enable **Build DICOM conformance report** to validate every study sent to this
-destination against the DICOM standard and email an HTML report. When enabled, options
-appear to set the report's recipient emails, to also check value content conformity
-(VR rules), to perform deep sequence validation, and to check for identifying data
-burned into the image (this last option runs OCR through the external de-identification
-image service, which must be reachable at `OCR_URL`, `http://localhost:8000` by default).
+Enable **Build DICOM conformance report** to validate every study sent to this destination against the DICOM standard and email an HTML report.
+When enabled, options appear to set the report's recipient emails, to also check value content conformity (VR rules), to perform deep sequence validation, and to check for identifying data burned into the image (this last option runs OCR through the external de-identification image service, which must be reachable at `OCR_URL`, `http://localhost:8000` by default).
 
 ![DICOM conformance report options](/userguide/destination_conformance_st.png)
 
-See the dedicated [Conformance Report](../conformancereport) page for what each option
-does, when the report is sent, and what it contains.
+See the dedicated [Conformance Report](../conformancereport) page for what each option does, when the report is sent, and what it contains.
 
 #### 7. Tag Morphing
 
-Tag morphing allows you to modify specific DICOM tag values defined in a profile. With this mode, it is not mandatory to de-identify patient information like in **De-identification** mode.
+Tag morphing allows you to modify specific DICOM tag values defined in a profile.
+With this mode, it is not mandatory to de-identify patient information like in **De-identification** mode.
 
 **Prerequisites:**
 
@@ -133,8 +131,7 @@ Tag morphing allows you to modify specific DICOM tag values defined in a profile
 1. Select the project from the dropdown
 2. The applied profile and its version are displayed below the selection
 
-If no project exists yet, the same [no-project popup](#8-de-identification) shown for
-de-identification appears, letting you create one or cancel.
+If no project exists yet, the same [no-project popup](#8-de-identification) shown for de-identification appears, letting you create one or cancel.
 
 ![Tag Morphing](/userguide/destination_tagmorphing.png)
 
@@ -143,7 +140,8 @@ de-identification appears, letting you create one or cancel.
 
 #### 8. De-identification
 
-De-identification removes or replaces patient-identifying information in DICOM instances according to configurable rules and profiles. It is not possible to preserve the patient identity in the profile when this option is activated.
+De-identification removes or replaces patient-identifying information in DICOM instances according to configurable rules and profiles.
+It is not possible to preserve the patient identity in the profile when this option is activated.
 
 > [!INFO]
 > **Activate de-identification** and **Activate tag morphing** are mutually exclusive options. Only one can be active at a time.
@@ -166,9 +164,11 @@ Configure de-identification as shown below:
 
 ##### Project Selection
 
-Select the project that defines the de-identification profile to apply. The profile name and version are displayed below the selection.
+Select the project that defines the de-identification profile to apply.
+The profile name and version are displayed below the selection.
 
 Each project is associated with:
+
 - A de-identification profile
 - A secret key used for pseudonymization and UID generation
 
@@ -191,9 +191,11 @@ Choose how Karnak should retrieve or generate pseudonyms:
 This option queries the pseudonym stored in the internal cache as explained in [External Pseudonym](../extpseudo).
 
 **Behavior:**
+
 - Karnak queries its internal cache using the Patient ID and Issuer of Patient ID
 - If a pseudonym is found, it is used for de-identification
-- If no pseudonym is returned, the transfer of the DICOM instance is aborted. Ensure pseudonyms are correctly populated in [External Pseudonym](../extpseudo).
+- If no pseudonym is returned, the transfer of the DICOM instance is aborted.
+  Ensure pseudonyms are correctly populated in [External Pseudonym](../extpseudo).
 
 ###### Pseudonym is in a DICOM tag
 
@@ -213,6 +215,7 @@ This option retrieves the pseudonym from a specified DICOM tag within the instan
 **Example:**
 
 If tag `(0012,0040)` contains `"SITE01-PSN12345"` and you set:
+
 - Delimiter: `-`
 - Position: `1`
 
@@ -226,17 +229,21 @@ This option makes an API call to retrieve the pseudonym from an external service
 
 ![Pseudonym from API](/userguide/pseudonym_api.png)
 
-The detailed usage of all the fields is explained in the [API Actions page](../../../profiles/api). The behavior is identical to profile API actions.
+The detailed usage of all the fields is explained in the [API Actions page](../../../profiles/api).
+The behavior is identical to profile API actions.
 
 You can reference an [Authentication Configuration](../authconfig) to securely manage API credentials for OAuth 2.0.
 
 ##### Issuer of Patient ID by default
 
-This field (labeled *Issuer of Patient ID by default*) provides a default value for the Issuer of Patient ID when it's not present in the DICOM instance. It is only shown when the pseudonym type is **Pseudonym is already stored in KARNAK**.
+This field (labeled *Issuer of Patient ID by default*) provides a default value for the Issuer of Patient ID when it's not present in the DICOM instance.
+It is only shown when the pseudonym type is **Pseudonym is already stored in KARNAK**.
 
 **Usage:**
 
-This value is used when retrieving the pseudonym using the [External Pseudonym](../extpseudo) cache. The pseudonym is queried based on:
+This value is used when retrieving the pseudonym using the [External Pseudonym](../extpseudo) cache.
+The pseudonym is queried based on:
+
 - Patient ID (from DICOM tag `0010,0020`)
 - Issuer of Patient ID (from DICOM tag `0010,0021` or this default value)
 
@@ -244,16 +251,13 @@ The combination of Patient ID and Issuer ensures unique patient identification a
 
 ##### Ignore the Issuer of Patient ID (cache lookup)
 
-This option is only available when the pseudonym type is **Pseudonym is already stored
-in KARNAK**. On screen it is the **Ignore Issuer of Patient ID** checkbox. When checked,
-the Issuer of Patient ID of the incoming image is **ignored** when building the key used
-to look up the pseudonym in the cache.
+This option is only available when the pseudonym type is **Pseudonym is already stored in KARNAK**.
+On screen it is the **Ignore Issuer of Patient ID** checkbox.
+When checked, the Issuer of Patient ID of the incoming image is **ignored** when building the key used to look up the pseudonym in the cache.
 
-It is **enabled by default**, so the same Patient ID is matched even when it is registered
-under a different (or missing) issuer in the [External Pseudonym](../extpseudo) cache
-than in the images you receive. Uncheck it if you need the issuer to be part of the lookup
-key. When this option is checked, the *Issuer of Patient ID by default* field is cleared
-and disabled, since it no longer takes part in the lookup.
+It is **enabled by default**, so the same Patient ID is matched even when it is registered under a different (or missing) issuer in the [External Pseudonym](../extpseudo) cache than in the images you receive.
+Uncheck it if you need the issuer to be part of the lookup key.
+When this option is checked, the *Issuer of Patient ID by default* field is cleared and disabled, since it no longer takes part in the lookup.
 
 #### 9. Authorized SOPs
 
@@ -263,14 +267,17 @@ Filter which DICOM instance types (SOP Classes) are forwarded to this destinatio
 
 **Configuration:**
 
-- **Enabled**: Only instances matching the specified [SOP Classes](http://dicom.nema.org/medical/Dicom/current/output/chtml/part04/sect_B.5.html) are transferred. At least one SOP Class must be selected, otherwise the destination cannot be saved.
+- **Enabled**: Only instances matching the specified [SOP Classes](http://dicom.nema.org/medical/Dicom/current/output/chtml/part04/sect_B.5.html) are transferred.
+  At least one SOP Class must be selected, otherwise the destination cannot be saved.
 - **Disabled**: All SOP Classes are transferred without restriction
 
 #### 10. Enable the Destination
 
-The **Enable destination** checkbox allows you to temporarily disable a destination without deleting it. The state is also visible in the destination list with a green (enabled) or red (disabled) indicator.
+The **Enable destination** checkbox allows you to temporarily disable a destination without deleting it.
+The state is also visible in the destination list with a green (enabled) or red (disabled) indicator.
 
 Use this feature to:
+
 - Temporarily pause forwarding during maintenance
 - Test configurations without affecting production destinations
 - Keep backup destination configurations ready but inactive
@@ -299,7 +306,9 @@ A STOW Destination forwards instances over DICOMweb (STOW-RS) to a web server su
 
 ### Creating a STOW Destination
 
-The URL is required for STOW Destination creation. Most configuration options are identical to [DICOM Destinations](#dicom-destination). Only the differences are detailed below.
+The URL is required for STOW Destination creation.
+Most configuration options are identical to [DICOM Destinations](#dicom-destination).
+Only the differences are detailed below.
 
 ![STOW destination form](/userguide/destination_stow.png)
 
@@ -309,7 +318,8 @@ The URL is required for STOW Destination creation. Most configuration options ar
 
 **URL**: The DICOMweb STOW-RS endpoint where DICOM instances will be sent (e.g., `https://pacs.example.com/dicomweb/studies`).
 
-**Condition**: An optional expression that activates the destination when met. See [Conditions](../../../profiles/conditions) for more details.
+**Condition**: An optional expression that activates the destination when met.
+See [Conditions](../../../profiles/conditions) for more details.
 
 ##### Use HTTP/2
 
@@ -325,6 +335,7 @@ When **Use HTTP/2** is checked, STOW-RS uploads use HTTP/2 instead of HTTP/1.1.
 The **Headers** field contains HTTP headers added to each STOW-RS request.
 
 **Format:** Headers are defined using XML-style key-value tags as shown below:
+
 ```
 <key>Header-Name</key>
 <value>Header-Value</value>
@@ -340,9 +351,7 @@ Click the **Generate Authorization Header** button to automatically generate pro
 > [!WARNING]
 > If a header with `<key>Authorization</key>` already exists, an error will be displayed. The generator will append to existing headers if they don't conflict.
 
-**Supported Authorization Types:** the dialog has an **Authorization Type** selector
-(**Basic Auth** or **OAuth 2**) and a **Generate Headers** button that appends the
-generated header.
+**Supported Authorization Types:** the dialog has an **Authorization Type** selector (**Basic Auth** or **OAuth 2**) and a **Generate Headers** button that appends the generated header.
 
 ###### Basic Auth
 
@@ -351,6 +360,7 @@ Use for simple username/password authentication:
 ![Basic Auth header generator](/userguide/destination_basicauth.png)
 
 **Generated headers:**
+
 ```
 <key>Authorization</key>
 <value>Basic dXNlcm5hbWU6cGFzc3dvcmQ=</value>
@@ -365,6 +375,7 @@ Use for token-based authentication:
 ![OAuth 2 header generator](/userguide/destination_oauth.png)
 
 **Generated headers:**
+
 ```
 <key>Authorization</key>
 <value>Bearer 1234567890</value>

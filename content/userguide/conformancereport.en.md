@@ -7,21 +7,16 @@ linkTitle: "Conformance Report"
 keywords: [ "dicom conformance", "validation report", "sop class", "dicom standard", "email report" ]
 ---
 
-Karnak can validate every study sent to a destination against the **DICOM standard** and
-email an HTML **conformance report**. This helps detect silent conformance problems —
-unsupported SOP classes, malformed values, inconsistent attributes across a study —
-before or while data is forwarded.
+Karnak can validate every study sent to a destination against the **DICOM standard** and email an HTML **conformance report**.
+This helps detect silent conformance problems — unsupported SOP classes, malformed values, inconsistent attributes across a study — before or while data is forwarded.
 
-The feature is configured **per destination**. It can be combined with normal forwarding
-(validate *and* send), or used on its own with a
-[virtual destination](gateway/destinations/#5-virtual-destination) that validates and
-reports only, without sending anything.
+The feature is configured **per destination**.
+It can be combined with normal forwarding (validate *and* send), or used on its own with a [virtual destination](gateway/destinations/#5-virtual-destination) that validates and reports only, without sending anything.
 
 ## Enabling the report
 
-Conformance reporting is enabled in the destination editor. See the
-[Destinations](gateway/destinations/#6-dicom-conformance-report) page for the exact
-location of the settings.
+Conformance reporting is enabled in the destination editor.
+See the [Destinations](gateway/destinations/#6-dicom-conformance-report) page for the exact location of the settings.
 
 ![DICOM conformance report options](/userguide/destination_conformance_st.png)
 
@@ -33,8 +28,7 @@ location of the settings.
 | **Deep sequence validation (SR, functional groups)** | Recurse the checks through every sequence level (e.g. the SR content tree or enhanced multiframe functional groups) instead of only the first one. The recursion is bounded by a defined depth limit (`conformance-report.max-sequence-depth`, **8** by default). Off by default, as deeper recursion increases memory use. |
 | **Check for identifying data burned into the image** | Run OCR on each forwarded image through the external [de-identification image service](../../profiles/masks/#automatic-pixel-data-de-identification) and list, in the report, which patient-identifying DICOM tag values are still visible in the pixel data. The OCR runs on the image **actually sent** (after any masking), so it verifies that no identifying text leaves Karnak; to audit the *incoming* image instead, enable it on a virtual destination. Off by default. Requires the service to be reachable at `OCR_URL` (default `http://localhost:8000`); when it is not, the images are reported as *not analyzed* and the rest of the report is unaffected. |
 
-The report is delivered by email, so Karnak's outgoing mail server must be configured, as
-for the destination [notifications](gateway/destinations/#4-notifications).
+The report is delivered by email, so Karnak's outgoing mail server must be configured, as for the destination [notifications](gateway/destinations/#4-notifications).
 
 > [!INFO]
 > A [virtual destination](gateway/destinations/#5-virtual-destination) is report-only:
@@ -43,15 +37,10 @@ for the destination [notifications](gateway/destinations/#4-notifications).
 
 ## When the report is sent
 
-Reports are generated **per study**. Karnak accumulates the validation results of every
-instance of a study as they are processed, and emails one report once the study's
-transfer **goes idle** — i.e. no new instance has arrived for that study within the idle
-timeout (5 minutes by default). A study is also flushed if it exceeds a maximum lifetime
-(4 hours by default), to guard against studies that never complete, and pending reports
-are flushed when Karnak shuts down. Studies are grouped per *source forward node,
-destination and Study Instance UID* — independently of the DICOM associations used — so a
-source sending to several destinations gets one report per destination, and instances
-arriving after a study's report was sent produce a small follow-up report.
+Reports are generated **per study**.
+Karnak accumulates the validation results of every instance of a study as they are processed, and emails one report once the study's transfer **goes idle** — i.e. no new instance has arrived for that study within the idle timeout (5 minutes by default).
+A study is also flushed if it exceeds a maximum lifetime (4 hours by default), to guard against studies that never complete, and pending reports are flushed when Karnak shuts down.
+Studies are grouped per *source forward node, destination and Study Instance UID* — independently of the DICOM associations used — so a source sending to several destinations gets one report per destination, and instances arriving after a study's report was sent produce a small follow-up report.
 
 > [!INFO]
 > If a study has no recipient email — neither a conformance report list nor a fallback
@@ -68,40 +57,27 @@ These timings are tunable by the administrator with the following settings:
 
 ## How the report is built
 
-Each instance is validated against the **IOD** of its SOP Class. An *Information Object
-Definition (IOD)* is the part of the DICOM standard that specifies, for a given object
-type (e.g. an MR Image, a CT Image, a Structured Report), which **modules** and
-**attributes** the object must contain and how strict each one is.
+Each instance is validated against the **IOD** of its SOP Class.
+An *Information Object Definition (IOD)* is the part of the DICOM standard that specifies, for a given object type (e.g. an MR Image, a CT Image, a Structured Report), which **modules** and **attributes** the object must contain and how strict each one is.
 
-The checks use a bundled, machine-readable copy of the DICOM standard extracted by the
-[Innolitics `dicom-standard`](https://github.com/innolitics/dicom-standard) project
-(the list of SOP Classes, their modules, and every attribute with its VR, value
-multiplicity and Type), complemented by a curated rule set maintained in Karnak for the
-parts the standard only expresses as prose (enumerated values and a subset of
-machine-evaluable conditions).
+The checks use a bundled, machine-readable copy of the DICOM standard extracted by the [Innolitics `dicom-standard`](https://github.com/innolitics/dicom-standard) project (the list of SOP Classes, their modules, and every attribute with its VR, value multiplicity and Type), complemented by a curated rule set maintained in Karnak for the parts the standard only expresses as prose (enumerated values and a subset of machine-evaluable conditions).
 
 ### IOD structure (modules, tags, VR, Type)
 
 For the instance's SOP Class, Karnak resolves the applicable modules and checks:
 
-- **Module presence** — a mandatory (usage *M*) module whose required attributes are all
-  absent is reported as missing.
+- **Module presence** — a mandatory (usage *M*) module whose required attributes are all absent is reported as missing.
 - **Attribute Type** — each attribute's requirement is enforced:
   - **Type 1** — must be present **and** carry a value (present-but-empty is an error).
   - **Type 2** — must be present, but may be empty.
   - **Type 3** — optional.
-- **VR (Value Representation)** — the encoded VR must match the one the standard defines
-  for the attribute.
-- **VM (Value Multiplicity)** — the number of values must fall within the range the
-  standard allows.
+- **VR (Value Representation)** — the encoded VR must match the one the standard defines for the attribute.
+- **VM (Value Multiplicity)** — the number of values must fall within the range the standard allows.
 
 ### Conditional requirements (Type 1C / 2C)
 
-Some attributes are **conditionally** required (Type *1C* / *2C*, or attributes inside a
-usage-*C* module) — mandatory only when a condition holds (for example, "required if the
-image is a localizer"). Karnak evaluates these **when possible**: when a curated,
-machine-evaluable condition resolves to *true* for the instance, the attribute is treated
-as mandatory (1C is checked like Type 1, 2C like Type 2).
+Some attributes are **conditionally** required (Type *1C* / *2C*, or attributes inside a usage-*C* module) — mandatory only when a condition holds (for example, "required if the image is a localizer").
+Karnak evaluates these **when possible**: when a curated, machine-evaluable condition resolves to *true* for the instance, the attribute is treated as mandatory (1C is checked like Type 1, 2C like Type 2).
 
 > [!INFO]
 > **Limitation.** In the standard, these conditions are free text and many are clinical
@@ -113,9 +89,8 @@ as mandatory (1C is checked like Type 1, 2C like Type 2).
 
 ### Private tags
 
-Private data elements are checked for **block structure** only (PS3.5 §7.8): every private
-data element must belong to a block reserved by a **non-empty Private Creator** element. A
-private element with no reserving creator, or an empty Private Creator, is reported.
+Private data elements are checked for **block structure** only (PS3.5 §7.8): every private data element must belong to a block reserved by a **non-empty Private Creator** element.
+A private element with no reserving creator, or an empty Private Creator, is reported.
 
 > [!INFO]
 > **Limitation.** Private *values* are not interpreted or validated — Karnak does not carry
@@ -124,10 +99,8 @@ private element with no reserving creator, or an empty Private Creator, is repor
 
 ### Other checks
 
-Beyond the IOD structure, Karnak runs a set of **value-level and cross-attribute checks**
-modeled on those of David Clunie's [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html)
-verifier. The table lists what each one verifies and the severity it raises; a few are
-*optional* (value-conformity option) or *deep* (deep-sequence option), as noted.
+Beyond the IOD structure, Karnak runs a set of **value-level and cross-attribute checks** modeled on those of David Clunie's [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html) verifier.
+The table lists what each one verifies and the severity it raises; a few are *optional* (value-conformity option) or *deep* (deep-sequence option), as noted.
 
 | Check | What it verifies | Severity |
 |-------|------------------|:--------:|
@@ -158,43 +131,27 @@ verifier. The table lists what each one verifies and the severity it raises; a f
 
 ### Scope notes
 
-- **VR** is not checked for *Implicit VR Little Endian* datasets, where the VR comes from
-  the dictionary (the check would be circular).
-- By default only the top level and the first sequence level are validated; enabling
-  [Deep sequence validation](#enabling-the-report) walks deeper, bounded by the
-  `conformance-report.max-sequence-depth` limit. Two enhanced multi-frame checks
-  (Dimension Index Values count, and a functional group present in both the Shared and a
-  Per-frame group) require this option, because they read per-frame functional groups.
-- Deep validation checks the **encoding** and the **structural rules** of nested attributes;
-  it does **not** verify SR-specific semantics (template/TID conformance, content-item
-  value-type rules, parent/child relationships) or whole-slide tile relationships.
-- SOP Classes the bundled standard does not define (unknown or retired) are flagged, and
-  their IOD module checks are skipped.
+- **VR** is not checked for *Implicit VR Little Endian* datasets, where the VR comes from the dictionary (the check would be circular).
+- By default only the top level and the first sequence level are validated; enabling [Deep sequence validation](#enabling-the-report) walks deeper, bounded by the `conformance-report.max-sequence-depth` limit.
+  Two enhanced multi-frame checks (Dimension Index Values count, and a functional group present in both the Shared and a Per-frame group) require this option, because they read per-frame functional groups.
+- Deep validation checks the **encoding** and the **structural rules** of nested attributes; it does **not** verify SR-specific semantics (template/TID conformance, content-item value-type rules, parent/child relationships) or whole-slide tile relationships.
+- SOP Classes the bundled standard does not define (unknown or retired) are flagged, and their IOD module checks are skipped.
 
 ## What the report contains
 
 The HTML email summarizes, for the study:
 
-- **Study and patient context** — patient ID and name, study date, description and
-  accession number, source AE Title, and whether the data was de-identified.
-- **Counts** — number of series, instances, and failed instances, plus the totals of
-  **errors**, **warnings** and **informational** findings, and an overall **pass/fail**.
+- **Study and patient context** — patient ID and name, study date, description and accession number, source AE Title, and whether the data was de-identified.
+- **Counts** — number of series, instances, and failed instances, plus the totals of **errors**, **warnings** and **informational** findings, and an overall **pass/fail**.
 - **Composition** — the modalities, SOP Class UIDs and transfer syntaxes encountered.
 - **Per-series summary** — each series with its modality, SOP classes and instance count.
-- **Findings** — conformance findings grouped by SOP class (with an example instance and
-  a count), and study-level **consistency findings** for attributes that should be
-  identical across the study but are not.
-- **Identifying data on image** — only when *Check for identifying data burned into the
-  image* is enabled: the patient-identifying tags whose value was found burned into the
-  pixel data, with the number of images affected; otherwise how many images were
-  analyzed, or could not be analyzed because the de-identification image service was
-  unreachable.
+- **Findings** — conformance findings grouped by SOP class (with an example instance and a count), and study-level **consistency findings** for attributes that should be identical across the study but are not.
+- **Identifying data on image** — only when *Check for identifying data burned into the image* is enabled: the patient-identifying tags whose value was found burned into the pixel data, with the number of images affected; otherwise how many images were analyzed, or could not be analyzed because the de-identification image service was unreachable.
 
 ## Examples
 
-The reports below are real, de-identified examples — three studies that fail conformance
-and one that passes — that illustrate the kinds of findings the validator produces. Each
-opens in a new tab as the actual HTML email.
+The reports below are real, de-identified examples — three studies that fail conformance and one that passes — that illustrate the kinds of findings the validator produces.
+Each opens in a new tab as the actual HTML email.
 
 > [!INFO]
 > In every example the patient *name* shows as *(hidden — destination not de-identified)*.
@@ -208,13 +165,10 @@ opens in a new tab as the actual HTML email.
 >
 > <a href="/conformance/karnak-report1.html" target="_blank">View report 1</a>
 
-A multi-frame ultrasound study that trips several unrelated rules at once. The errors are a
-**missing mandatory module** (the required *Cine* attributes are all absent) and two
-**pixel-geometry** violations (a *Pixel Aspect Ratio* of 1:1 is encoded when the standard says
-to omit it). The warnings cover three **private blocks used without a Private Creator**, a
-missing Type 2 *Image Type*, a **retired SOP Class**, and a **mis-formatted date**; the
-informational findings flag retired and non-standard (standard-extended) attributes. A spread
-like this usually reflects the acquisition device's encoding conventions.
+A multi-frame ultrasound study that trips several unrelated rules at once.
+The errors are a **missing mandatory module** (the required *Cine* attributes are all absent) and two **pixel-geometry** violations (a *Pixel Aspect Ratio* of 1:1 is encoded when the standard says to omit it).
+The warnings cover three **private blocks used without a Private Creator**, a missing Type 2 *Image Type*, a **retired SOP Class**, and a **mis-formatted date**; the informational findings flag retired and non-standard (standard-extended) attributes.
+A spread like this usually reflects the acquisition device's encoding conventions.
 
 ### Example 2 — a passing study
 
@@ -222,14 +176,10 @@ like this usually reflects the acquisition device's encoding conventions.
 >
 > <a href="/conformance/karnak-report2.html" target="_blank">View report 2</a>
 
-This is what a study that meets the standard looks like: with **no errors the overall result is
-PASSED**, even though the report still lists warnings and informational findings. The warnings
-are **implausible zero values** — physics parameters such as *KVP*, *Exposure* and *Patient's
-Weight* recorded as `0` — and a **missing Laterality** on a paired body part; none of these
-breaks the standard, so none fails the study. The informational findings are mostly
-**standard-extended attributes** (present but not part of this object's IOD) plus one retired
-attribute. A "passed with warnings and info" result like this is normal and usually needs no
-action, though the warnings can be worth a look.
+This is what a study that meets the standard looks like: with **no errors the overall result is PASSED**, even though the report still lists warnings and informational findings.
+The warnings are **implausible zero values** — physics parameters such as *KVP*, *Exposure* and *Patient's Weight* recorded as `0` — and a **missing Laterality** on a paired body part; none of these breaks the standard, so none fails the study.
+The informational findings are mostly **standard-extended attributes** (present but not part of this object's IOD) plus one retired attribute.
+A "passed with warnings and info" result like this is normal and usually needs no action, though the warnings can be worth a look.
 
 ### Example 3 — empty Type 1/1C, a VM violation and UID-format problems
 
@@ -237,13 +187,10 @@ action, though the warnings can be worth a look.
 >
 > <a href="/conformance/karnak-report3.html" target="_blank">View report 3</a>
 
-A good illustration that a **single instance can surface several unrelated rule categories at
-once**. The errors span presence (a **missing mandatory module** and four **Type 1 / 1C
-attributes present but empty**), value multiplicity (*Patient Orientation* carrying the **wrong
-number of values**) and an **image-orientation** rule. The warnings add a missing recommended
-attribute and three **UID-format** problems (identifiers that don't follow the DICOM UID
-syntax). When one object trips this many distinct rules, the cause is usually upstream encoding
-rather than the individual values.
+A good illustration that a **single instance can surface several unrelated rule categories at once**.
+The errors span presence (a **missing mandatory module** and four **Type 1 / 1C attributes present but empty**), value multiplicity (*Patient Orientation* carrying the **wrong number of values**) and an **image-orientation** rule.
+The warnings add a missing recommended attribute and three **UID-format** problems (identifiers that don't follow the DICOM UID syntax).
+When one object trips this many distinct rules, the cause is usually upstream encoding rather than the individual values.
 
 ### Example 4 — missing Type 1 attributes inside SR sequences
 
@@ -251,49 +198,25 @@ rather than the individual values.
 >
 > <a href="/conformance/karnak-report4.html" target="_blank">View report 4</a>
 
-A mixed-modality study — a **Basic Text Structured Report** sent alongside a Computed Radiography
-image — whose SR is missing many mandatory elements. Fifteen of the sixteen errors are **Type 1
-attributes missing inside the SR content sequences** (*Graphic Data*, *Concept Code Sequence*,
-*Temporal Range Type*…); the remaining error is an empty Type 1 *LUT Data* in the CR image. The
-warnings note two missing Type 2 attributes, a value-format issue and a missing Laterality, and
-the informational findings list retired and non-standard attributes. A deeply incomplete SR like
-this points to the application that generated it.
+A mixed-modality study — a **Basic Text Structured Report** sent alongside a Computed Radiography image — whose SR is missing many mandatory elements.
+Fifteen of the sixteen errors are **Type 1 attributes missing inside the SR content sequences** (*Graphic Data*, *Concept Code Sequence*, *Temporal Range Type*…); the remaining error is an empty Type 1 *LUT Data* in the CR image.
+The warnings note two missing Type 2 attributes, a value-format issue and a missing Laterality, and the informational findings list retired and non-standard attributes.
+A deeply incomplete SR like this points to the application that generated it.
 
 ## Relation to other DICOM validators
 
-Karnak's conformance report is not meant to replace the established standalone validators —
-it serves a different purpose. It validates **automatically, inside the forwarding pipeline,
-and per study**, so conformance is checked continuously without a separate tool or manual
-step. Because it sees the whole study batch, it can also run **cross-instance consistency**
-checks (single Study Instance UID, consistent Patient ID / Name, Modality ↔ SOP Class
-coherence, Frame of Reference) that single-file tools cannot.
+Karnak's conformance report is not meant to replace the established standalone validators — it serves a different purpose.
+It validates **automatically, inside the forwarding pipeline, and per study**, so conformance is checked continuously without a separate tool or manual step.
+Because it sees the whole study batch, it can also run **cross-instance consistency** checks (single Study Instance UID, consistent Patient ID / Name, Modality ↔ SOP Class coherence, Frame of Reference) that single-file tools cannot.
 
-For the per-object checks, Karnak builds on the same approach as the
-[`pydicom/dicom-validator`](https://github.com/pydicom/dicom-validator): both derive the IOD
-requirements from a **machine-readable copy of the DICOM standard** (Karnak uses the
-[Innolitics `dicom-standard`](https://github.com/innolitics/dicom-standard) extraction) and
-both **evaluate conditional (Type 1C/2C) requirements only when the condition can be
-evaluated**, treating them as optional otherwise — so neither raises false errors on
-clinical, free-text conditions.
+For the per-object checks, Karnak builds on the same approach as the [`pydicom/dicom-validator`](https://github.com/pydicom/dicom-validator): both derive the IOD requirements from a **machine-readable copy of the DICOM standard** (Karnak uses the [Innolitics `dicom-standard`](https://github.com/innolitics/dicom-standard) extraction) and both **evaluate conditional (Type 1C/2C) requirements only when the condition can be evaluated**, treating them as optional otherwise — so neither raises false errors on clinical, free-text conditions.
 
-For the **value-level and cross-attribute checks**, Karnak additionally mirrors a
-substantial subset of [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html): zero/
-implausible values, pixel and image geometry, patient orientation, laterality, coded-entry
-validity, UID reuse and enhanced multi-frame / segmentation consistency (see
-[Other checks](#other-checks)). `dciodvfy` nonetheless remains the more exhaustive
-single-object reference — notably for byte-level encoding and full SR content-tree
-semantics, which Karnak does not attempt.
+For the **value-level and cross-attribute checks**, Karnak additionally mirrors a substantial subset of [`dciodvfy`](https://www.dclunie.com/dicom3tools/dciodvfy.html): zero/ implausible values, pixel and image geometry, patient orientation, laterality, coded-entry validity, UID reuse and enhanced multi-frame / segmentation consistency (see [Other checks](#other-checks)).
+`dciodvfy` nonetheless remains the more exhaustive single-object reference — notably for byte-level encoding and full SR content-tree semantics, which Karnak does not attempt.
 
-For an exhaustive, authoritative check of an individual object, or for interactive/standalone
-validation, the well-known dedicated tools remain the reference and complement Karnak well:
+For an exhaustive, authoritative check of an individual object, or for interactive/standalone validation, the well-known dedicated tools remain the reference and complement Karnak well:
 
-- [**dciodvfy**](https://www.dclunie.com/dicom3tools/dciodvfy.html) (David Clunie's
-  *dicom3tools*) — the long-standing reference single-object validator, with the most
-  thorough encoding and value-level checks.
-- [**dcm4che `dcmvalidate`**](https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmvalidate/README.md)
-  — validates against a supplied XML IOD definition.
-- [**DVTk**](https://www.dvtk.org/) — a toolkit that validates against editable DICOM
-  definition files.
-- [**IHE Gazelle**](https://www.ihe-europe.net/testing-IHE/gazelle) — the IHE testing
-  platform, whose validation services can run several DICOM validators so their results can
-  be compared.
+- [**dciodvfy**](https://www.dclunie.com/dicom3tools/dciodvfy.html) (David Clunie's *dicom3tools*) — the long-standing reference single-object validator, with the most thorough encoding and value-level checks.
+- [**dcm4che `dcmvalidate`**](https://github.com/dcm4che/dcm4che/blob/master/dcm4che-tool/dcm4che-tool-dcmvalidate/README.md) — validates against a supplied XML IOD definition.
+- [**DVTk**](https://www.dvtk.org/) — a toolkit that validates against editable DICOM definition files.
+- [**IHE Gazelle**](https://www.ihe-europe.net/testing-IHE/gazelle) — the IHE testing platform, whose validation services can run several DICOM validators so their results can be compared.

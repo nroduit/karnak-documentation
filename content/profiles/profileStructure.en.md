@@ -6,11 +6,13 @@ linkTitle: "Profile Structure"
 keywords: [ "yaml profile", "profile structure", "dicom basic profile", "profile elements", "de-identification configuration" ]
 ---
 
-The [Profiles](../../userguide/profiles/) page allows you to manage de-identification profiles for your projects in the Karnak interface. This page explains the structure of these profiles and how to create or modify them using YAML files.
+The [Profiles](../../userguide/profiles/) page allows you to manage de-identification profiles for your projects in the Karnak interface.
+This page explains the structure of these profiles and how to create or modify them using YAML files.
 
 ## Overview
 
-A **profile** defines how DICOM attributes should be modified during de-identification or tag morphing. It consists of one or more **profile elements**, each specifying:
+A **profile** defines how DICOM attributes should be modified during de-identification or tag morphing.
+It consists of one or more **profile elements**, each specifying:
 
 - Which DICOM attributes to target
 - What action to apply (e.g., remove, replace, keep)
@@ -27,7 +29,8 @@ A **profile** defines how DICOM attributes should be modified during de-identifi
 
 ## Profile Metadata
 
-Metadata fields help identify and manage your profiles. While optional, we recommend defining at least `name` and `version` for clarity.
+Metadata fields help identify and manage your profiles.
+While optional, we recommend defining at least `name` and `version` for clarity.
 
 | Field | Description | Required |
 |-------|-------------|----------|
@@ -75,7 +78,8 @@ A tag written in one of these formats matches the attribute **wherever it appear
 
 ### Tag Paths (Sequences)
 
-To restrict a tag to a given location, write a dot-separated **path**: the last segment is the tag itself and the preceding segments are the sequences enclosing it. A leading dot anchors the path to the top-level dataset; without it, the named sequences may themselves be nested anywhere.
+To restrict a tag to a given location, write a dot-separated **path**: the last segment is the tag itself and the preceding segments are the sequences enclosing it.
+A leading dot anchors the path to the top-level dataset; without it, the named sequences may themselves be nested anywhere.
 
 | Path | Matches |
 |------|---------|
@@ -86,18 +90,22 @@ To restrict a tag to a given location, write a dot-separated **path**: the last 
 | `**.(0040,0009)` | The tag at any depth except the top level |
 | `(0040,0275).*` | Any tag directly inside an item of (0040,0275) |
 
-Each segment accepts the `X` wildcard digits (e.g., `(0040,0275).0040XXXX`). When several entries of the same element match a tag, a path takes precedence over a plain tag, and the most specific path wins. Paths are accepted by `tags` and `excludedTags` of the elements working on user-defined tags, and by [Add new tags](tags.en.md#add-new-tags) (literal paths only).
+Each segment accepts the `X` wildcard digits (e.g., `(0040,0275).0040XXXX`).
+When several entries of the same element match a tag, a path takes precedence over a plain tag, and the most specific path wins.
+Paths are accepted by `tags` and `excludedTags` of the elements working on user-defined tags, and by [Add new tags](tags.en.md#add-new-tags) (literal paths only).
 
 ### Conditions
 
-Add optional conditions to control when a profile element applies. The expression is evaluated for each matching tag.
+Add optional conditions to control when a profile element applies.
+The expression is evaluated for each matching tag.
 
 For complete syntax and examples, see the [Conditions](conditions) page.
 
 ## Basic DICOM Profile
 
-The [Basic DICOM Profile](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html) is the DICOM standard's reference profile for removing Personally Identifying Information (PII) from DICOM files. 
-The conditions to apply rules for a specific tag depend on its attribute type (Type 1, Type 2, etc.) based on the Information Object Definition (IOD). Karnak automatically determines the attribute type for each tag during de-identification.
+The [Basic DICOM Profile](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html) is the DICOM standard's reference profile for removing Personally Identifying Information (PII) from DICOM files.
+The conditions to apply rules for a specific tag depend on its attribute type (Type 1, Type 2, etc.) based on the Information Object Definition (IOD).
+Karnak automatically determines the attribute type for each tag during de-identification.
 
 > [!IMPORTANT]
 > We strongly recommend including this profile as the foundation for de-identification.

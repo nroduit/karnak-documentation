@@ -6,20 +6,24 @@ linkTitle: "Installation"
 keywords: [ "install karnak", "docker compose", "dicom gateway deployment", "postgresql", "container", "docker hub" ]
 ---
 
-Karnak is distributed as a container image on Docker Hub: [`nroduit/karnak`](https://hub.docker.com/r/nroduit/karnak) (multi-arch, `linux/amd64` and `linux/arm64`). It requires two third-party services:
+Karnak is distributed as a container image on Docker Hub: [`nroduit/karnak`](https://hub.docker.com/r/nroduit/karnak) (multi-arch, `linux/amd64` and `linux/arm64`).
+It requires two third-party services:
 
 * **PostgreSQL** for the persistence of the Karnak configuration (sources, destinations, projects, profiles, monitoring)
 * **Redis** for the cache (pseudonym mappings, API call results)
 
-The recommended way to run Karnak in production is **Docker Compose**. This page describes how to write the `docker-compose.yml` file and the associated configuration from scratch.
+The recommended way to run Karnak in production is **Docker Compose**.
+This page describes how to write the `docker-compose.yml` file and the associated configuration from scratch.
 
 > [!INFO]
 > Karnak is also available as a [portable distribution](../userguide/portable) that runs without Docker, with an embedded database and an in-memory cache. It is intended for a single machine and local use.
 
 ## Prerequisites
 
-* Docker Engine 20.10 or later with the Compose plugin (`docker compose` v2). See the [Docker installation guide](https://docs.docker.com/engine/install/).
-* The commands below target Linux. On Windows or macOS, use Docker Desktop and adapt the shell commands.
+* Docker Engine 20.10 or later with the Compose plugin (`docker compose` v2).
+  See the [Docker installation guide](https://docs.docker.com/engine/install/).
+* The commands below target Linux.
+  On Windows or macOS, use Docker Desktop and adapt the shell commands.
 
 ## 1. Create the project layout
 
@@ -37,7 +41,8 @@ karnak/
 
 ## 2. Generate the secrets
 
-Karnak reads sensitive values from files through the environment variables ending with `_FILE`, which is compatible with Docker secrets. Three secrets are required:
+Karnak reads sensitive values from files through the environment variables ending with `_FILE`, which is compatible with Docker secrets.
+Three secrets are required:
 
 | Secret file | Purpose |
 |-------------|---------|
@@ -149,14 +154,18 @@ networks:
 
 Notes:
 
-* Pin the Karnak image to a release tag (`v2.0.0`). The `latest` tag follows the most recent release and the `master` tag is the development build.
-* Only the ports of the `karnak` service are published. The database and the cache are reachable from Karnak only, through the internal Compose network.
+* Pin the Karnak image to a release tag (`v2.0.0`).
+  The `latest` tag follows the most recent release and the `master` tag is the development build.
+* Only the ports of the `karnak` service are published.
+  The database and the cache are reachable from Karnak only, through the internal Compose network.
 * `DB_PORT` is the port **inside** the Compose network (the default PostgreSQL port), not a port published on the host.
 * Karnak does not need a writable volume: the configuration is stored in PostgreSQL and the logs are written to the standard output (see [Configuring Logs](logs)).
 
 ## 4. Write the karnak.env file
 
-This file holds the gateway options. All variables are optional; the values below are the defaults. Uncomment and adapt what you need.
+This file holds the gateway options.
+All variables are optional; the values below are the defaults.
+Uncomment and adapt what you need.
 
 ```bash
 #  --------------------------------------------------------
@@ -218,7 +227,8 @@ Run the commands from the folder containing `docker-compose.yml`:
 | Stop | `docker compose down` |
 | Stop and delete the data (reset the database) | `docker compose down -v` |
 
-On the first start, Karnak creates the database schema automatically. The database schema is also migrated automatically when you upgrade to a newer image.
+On the first start, Karnak creates the database schema automatically.
+The database schema is also migrated automatically when you upgrade to a newer image.
 
 Once started, with the configuration above:
 
@@ -272,9 +282,11 @@ Email is used by the [destination notifications](../userguide/gateway/destinatio
 
 ### Identity provider
 
-By default, Karnak uses the built-in administrator account. Set `IDP=oidc` to delegate the authentication to an OpenID Connect provider such as Keycloak, and configure it with `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET` (or `OIDC_CLIENT_SECRET_FILE`) and `OIDC_ISSUER_URI`.
+By default, Karnak uses the built-in administrator account.
+Set `IDP=oidc` to delegate the authentication to an OpenID Connect provider such as Keycloak, and configure it with `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET` (or `OIDC_CLIENT_SECRET_FILE`) and `OIDC_ISSUER_URI`.
 
-Karnak reads the user's roles from the `resource_access.karnak.roles` claim of the **access token**, so the provider must be configured to put the roles of the `karnak` client in the access token (in Keycloak: client scope *roles*, with the *Add to access token* mapper enabled). Three roles are recognized; any other role is ignored and logged as a warning:
+Karnak reads the user's roles from the `resource_access.karnak.roles` claim of the **access token**, so the provider must be configured to put the roles of the `karnak` client in the access token (in Keycloak: client scope *roles*, with the *Add to access token* mapper enabled).
+Three roles are recognized; any other role is ignored and logged as a warning:
 
 | Role | Access |
 |------|--------|
@@ -293,7 +305,8 @@ The [Authentication Config](../userguide/authconfig) page is unrelated to the po
 
 ## Run Karnak as a systemd service
 
-To start Karnak automatically at boot, create a systemd unit that drives Docker Compose. The example below assumes the files are in `/opt/karnak`.
+To start Karnak automatically at boot, create a systemd unit that drives Docker Compose.
+The example below assumes the files are in `/opt/karnak`.
 
 ```ini
 # /etc/systemd/system/karnak.service
@@ -324,13 +337,15 @@ sudo systemctl status karnak.service
 
 ## Reverse proxy
 
-The web portal can be served behind a reverse proxy (HTTPS termination). Karnak honors the `X-Forwarded-*` headers, so make sure the proxy forwards them (`X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`) and that WebSocket connections are allowed, as the user interface relies on server push.
+The web portal can be served behind a reverse proxy (HTTPS termination).
+Karnak honors the `X-Forwarded-*` headers, so make sure the proxy forwards them (`X-Forwarded-Proto`, `X-Forwarded-Host`, `X-Forwarded-For`) and that WebSocket connections are allowed, as the user interface relies on server push.
 
 ## Upgrade
 
 1. Back up the database volume (`docker compose exec karnak-db pg_dump -U karnak karnak > karnak.sql`) and the `secrets/` folder.
 2. Change the image tag in `docker-compose.yml` to the new release.
-3. Run `docker compose pull` then `docker compose up -d`. The database schema is migrated automatically at startup.
+3. Run `docker compose pull` then `docker compose up -d`.
+   The database schema is migrated automatically at startup.
 
 ## Build the image yourself
 

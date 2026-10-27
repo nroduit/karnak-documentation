@@ -6,7 +6,8 @@ linkTitle: "Actions on tags"
 keywords: [ "dicom tags", "remove dicom tag", "replace attribute value", "value representation", "de-identification action" ]
 ---
 
-This page describes profile elements that apply actions to DICOM tags. These actions allow you to selectively keep, remove, or add tags during de-identification.
+This page describes profile elements that apply actions to DICOM tags.
+These actions allow you to selectively keep, remove, or add tags during de-identification.
 
 ## Actions on specific tags
 
@@ -32,7 +33,6 @@ This profile element applies an action to a tag or group of tags defined by the 
 
 In this example, all tags starting with 0028 will be removed except (0028,1199) which will be kept.
 
-
 ```yaml
 - name: "Remove tags"
   codename: "action.on.specific.tags"
@@ -51,7 +51,8 @@ In this example, all tags starting with 0028 will be removed except (0028,1199) 
 
 ## Actions on private tags
 
-This profile element applies an action to private tags or groups of private tags defined by the user. This action is only applied if the tag is private (where the group number is odd).
+This profile element applies an action to private tags or groups of private tags defined by the user.
+This action is only applied if the tag is private (where the group number is odd).
 
 ### Required Parameters
 
@@ -73,7 +74,6 @@ This profile element applies an action to private tags or groups of private tags
 
 In this example, all tags starting with 0009 will be kept and all other private tags will be removed.
 
-
 ```yaml
 - name: "Keep private tags starting with 0009"
   codename: "action.on.privatetags"
@@ -88,7 +88,8 @@ In this example, all tags starting with 0009 will be kept and all other private 
 
 ## Replace UIDs
 
-This profile element applies a UID action to a list of tags defined by the user. It is typically used to generate new, consistent UIDs for the UID attributes that the [Basic DICOM profile](profilestructure/#basic-dicom-profile) does not cover, or to remove or empty them.
+This profile element applies a UID action to a list of tags defined by the user.
+It is typically used to generate new, consistent UIDs for the UID attributes that the [Basic DICOM profile](profilestructure/#basic-dicom-profile) does not cover, or to remove or empty them.
 
 ### Required Parameters
 
@@ -121,7 +122,8 @@ In this example, the Frame of Reference UID and every Referenced SOP Instance UI
 
 ## Add new tags
 
-This profile element adds a tag if it is not already present in the instance. This action is ignored if the tag already exists.
+This profile element adds a tag if it is not already present in the instance.
+This action is ignored if the tag already exists.
 
 ### Required Parameters
 
@@ -141,16 +143,20 @@ This profile element adds a tag if it is not already present in the instance. Th
 ### Behavior
 
 **When the tag is not present:**
+
 - The tag will be added by this action
 - Further profile element actions that match this tag won't be applied
 
 **When the tag already exists:**
+
 - The add action is ignored
 - A subsequent profile element action can be applied to that tag
 
 **Adding a tag inside a sequence:**
 
-The tag can be written as a literal path naming every enclosing sequence, e.g. `(0040,0275).(0040,0009)` (wildcards such as `*`, `**` or `X` are not allowed, and the path is always read from the top-level dataset). A missing or empty sequence is created with one item; when the sequence holds several items, each of them receives the attribute. Such an element is applied once all the other profile elements have been applied, so the added value is not modified by them.
+The tag can be written as a literal path naming every enclosing sequence, e.g. `(0040,0275).(0040,0009)` (wildcards such as `*`, `**` or `X` are not allowed, and the path is always read from the top-level dataset).
+A missing or empty sequence is created with one item; when the sequence holds several items, each of them receives the attribute.
+Such an element is applied once all the other profile elements have been applied, so the added value is not modified by them.
 
 > [!INFO]
 > The tag must exist in the DICOM Standard, otherwise the profile validation will fail. The VR is retrieved from the Standard. Every enclosing tag of a path must be a sequence.
@@ -159,7 +165,8 @@ The tag can be written as a literal path naming every enclosing sequence, e.g. `
 
 ### Use Case
 
-This feature is especially useful when applying masks to non-compliant SOPs by using the Burned In Annotation attribute. See the [Cleaning Data Pixel Exceptions](masks/#complete-example-equipment-specific-cleaning) page for a complete example.
+This feature is especially useful when applying masks to non-compliant SOPs by using the Burned In Annotation attribute.
+See the [Cleaning Data Pixel Exceptions](masks/#complete-example-equipment-specific-cleaning) page for a complete example.
 
 ### Example
 
@@ -176,7 +183,8 @@ In this example, we add the optional tag Recognizable Visual Features (0028,0302
 
 ## Add new private tags
 
-This profile element adds a private tag if it is not already present in the instance. This action is ignored if the tag already exists or if there is a collision with a different Private Creator ID.
+This profile element adds a private tag if it is not already present in the instance.
+This action is ignored if the tag already exists or if there is a collision with a different Private Creator ID.
 
 ### Required Parameters
 
@@ -198,10 +206,12 @@ This profile element adds a private tag if it is not already present in the inst
 The `privateCreator` argument is optional but recommended for consistency.
 
 **When the PrivateCreatorID tag does not exist:**
+
 - The `privateCreator` argument must be specified
 - The PrivateCreatorID tag will be created automatically
 
 **When the PrivateCreatorID tag exists:**
+
 - If `privateCreator` is not specified: The tag will be added as part of the existing PrivateCreatorID
 - If `privateCreator` is specified: The existing value is matched against the argument
   - If they match: The new tag is added
@@ -228,10 +238,10 @@ In this example, we add a private tag containing the value "sample-project" link
 ```
 
 **What happens:**
+
 - If the PrivateCreatorID tag (0057,0010) doesn't exist, it's created with the value "KARNAK-PRIVATE" and the tag (0057,1000) is added
 - If (0057,0010) exists with the value "KARNAK-PRIVATE", the tag (0057,1000) is added
 - If (0057,0010) exists with a different value, the tag (0057,1000) is not added to prevent linking it to the wrong PrivateCreatorID
-
 
 ## Complete Profile Examples
 
@@ -286,7 +296,6 @@ This profile demonstrates conditional actions and preserving specific private ta
 > [!INFO]
 > The tag patterns (7053,xx00) and (7053,xx09) are defined in [Philips PET Private Group by DICOM](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/sect_E.3.10.html).
 
-
 ```yaml
 name: "Profile Example"
 version: "1.0"
@@ -309,5 +318,3 @@ profileElements:
   - name: "DICOM basic profile"
     codename: "basic.dicom.profile"
 ```
-
-

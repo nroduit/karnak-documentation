@@ -10,9 +10,7 @@ keywords: [ "transfer monitoring", "dicom transfer status", "gateway dashboard",
 ![monitoring view](/userguide/monitoring_main.png)
 
 The **Monitoring** view tracks transfers in progress and the recent transfer history.
-Instead of a flat, paginated log of individual instances, activity is **aggregated** as
-a **Destination → Study → Series** hierarchy, so you can see at a glance how each study
-was forwarded and drill down only where there are problems.
+Instead of a flat, paginated log of individual instances, activity is **aggregated** as a **Destination → Study → Series** hierarchy, so you can see at a glance how each study was forwarded and drill down only where there are problems.
 
 > [!INFO]
 > **What changed in version 2.0.** The Monitoring module was redesigned. The earlier flat,
@@ -24,8 +22,7 @@ was forwarded and drill down only where there are problems.
 
 A shared **filter bar** at the top applies to two tabs:
 
-- **Activity** — the Destination / Study / Series tree, with the details of any
-  selected element shown on the right.
+- **Activity** — the Destination / Study / Series tree, with the details of any selected element shown on the right.
 - **Dashboard** — per-forward-node activity totals.
 
 > [!INFO]
@@ -51,46 +48,36 @@ The filter bar is shared by both tabs:
 The status of each element is color-coded:
 
 - **OK** (green): the instances were successfully sent.
-- **Excluded** (orange): some instances were not sent because of configuration rules —
-  the [SOP Class filter](gateway/destinations), destination conditions, or
-  `ExcludeInstance()` in the profile. The badge shows the number of excluded instances;
-  expand the series to see one line per reason.
-- **Error** (red): some instances were not sent because of an unexpected error. The
-  badge shows the number of errors; expand the series to see one line per error reason.
+- **Excluded** (orange): some instances were not sent because of configuration rules — the [SOP Class filter](gateway/destinations), destination conditions, or `ExcludeInstance()` in the profile.
+  The badge shows the number of excluded instances; expand the series to see one line per reason.
+- **Error** (red): some instances were not sent because of an unexpected error.
+  The badge shows the number of errors; expand the series to see one line per error reason.
 
 ## Activity tab
 
-The Activity tab is split between the hierarchy tree (left) and the detail panel
-(right).
+The Activity tab is split between the hierarchy tree (left) and the detail panel (right).
 
 ![monitoring view](/userguide/monitoring_details.png)
 
 ### Hierarchy tree
 
-Each row in the tree shows the **Destination / Study / Series** name and the counts of
-**Studies**, **Series**, **Instances**, **Retries** and **Errors**, plus an overall
-**Status** badge. Expand a destination to see its studies, and a study to see its series;
-failing series expose one line per error reason.
+Each row in the tree shows the **Destination / Study / Series** name and the counts of **Studies**, **Series**, **Instances**, **Retries** and **Errors**, plus an overall **Status** badge.
+Expand a destination to see its studies, and a study to see its series; failing series expose one line per error reason.
 
 The outcomes are counted in separate buckets rather than a single error total:
 
 - **Instances** — the number of instances received for that element.
-- **Retries** — instances re-received after already being seen (duplicate re-sends);
-  they are counted here instead of as new work.
+- **Retries** — instances re-received after already being seen (duplicate re-sends); they are counted here instead of as new work.
 - **Errors** — instances that could not be sent because of an unexpected error.
 
-Instances **excluded** by configuration (filters or aborted transfers) are reflected in
-the **Status** badge and reported as a separate **Excluded** count in the detail panel
-and on the dashboard.
+Instances **excluded** by configuration (filters or aborted transfers) are reflected in the **Status** badge and reported as a separate **Excluded** count in the detail panel and on the dashboard.
 
 The toolbar below the tree provides, from left to right:
 
-- **Expand errors** — expand the tree down to every failing series so problems are
-  immediately visible (the button then becomes **Collapse errors**).
+- **Expand errors** — expand the tree down to every failing series so problems are immediately visible (the button then becomes **Collapse errors**).
 - **Export** — see [Export](#export) below.
 - **Refresh** — reload the tree with the latest data.
-- **Delete All** — permanently remove every monitoring entry (a confirmation is
-  required; this cannot be undone).
+- **Delete All** — permanently remove every monitoring entry (a confirmation is required; this cannot be undone).
 
 > [!INFO]
 > **Delete All** also clears the per-series baseline used for [notification](gateway/destinations#4-notifications)
@@ -103,14 +90,9 @@ The toolbar below the tree provides, from left to right:
 
 Select any element in the tree to see its details on the right:
 
-- For a **destination**: the forward AE Title, the destination label, and the
-  **Studies / Series / Instances / Retries / Sent / Errors / Excluded** counts.
-- For a **study**: patient and study attributes shown as **original vs sent
-  (de-identified)** pairs — Patient ID, Study UID, Accession number, Description and
-  Study date — followed by the same **Series / Instances / Retries / Sent / Errors /
-  Excluded** counts.
-- For a **series** or an **error**: the corresponding identifiers, the per-outcome counts
-  and the error reason.
+- For a **destination**: the forward AE Title, the destination label, and the **Studies / Series / Instances / Retries / Sent / Errors / Excluded** counts.
+- For a **study**: patient and study attributes shown as **original vs sent (de-identified)** pairs — Patient ID, Study UID, Accession number, Description and Study date — followed by the same **Series / Instances / Retries / Sent / Errors / Excluded** counts.
+- For a **series** or an **error**: the corresponding identifiers, the per-outcome counts and the error reason.
 
 A **Copy** button copies the whole detail block to the clipboard.
 
@@ -121,7 +103,6 @@ Below are two examples, the first one successfully de-identified and sent at the
   <img src="/userguide/monitoring_details_error.png" alt="Monitoring detail error" style="width:49%; min-width:400px;">
 </div>
 
-
 > [!INFO]
 > When a value was changed by de-identification, the panel shows the **original** value
 > and a second **(de-identified)** line with the value that was actually sent, so you can
@@ -129,21 +110,19 @@ Below are two examples, the first one successfully de-identified and sent at the
 
 ## Dashboard tab
 
-The Dashboard summarizes activity **per forward node** over the selected range. Summary
-cards at the top total the **Studies**, **Series**, **Instances**, **Retries**, **Sent**,
-**Errors**, **Excluded**, **De-identified** and **Tag-morphed**, and a grid breaks the
-same figures down by **Forward AETitle**.
+The Dashboard summarizes activity **per forward node** over the selected range.
+Summary cards at the top total the **Studies**, **Series**, **Instances**, **Retries**, **Sent**, **Errors**, **Excluded**, **De-identified** and **Tag-morphed**, and a grid breaks the same figures down by **Forward AETitle**.
 
 ![Monitoring dashboard tab](/userguide/monitoring_dashboard.png)
 
 ## Export
 
-You can export the activity to a CSV file. The export respects the currently active
-filters, so only the matching transfers are included. One row is written per series, with
-the original and de-identified identifiers, the **Instances / Retries / Sent / Errors /
-Excluded** counts, the outcome reasons and the first/last-seen timestamps.
+You can export the activity to a CSV file.
+The export respects the currently active filters, so only the matching transfers are included.
+One row is written per series, with the original and de-identified identifiers, the **Instances / Retries / Sent / Errors / Excluded** counts, the outcome reasons and the first/last-seen timestamps.
 
-Click **Export** to open the **Export CSV** dialog. The only setting is:
+Click **Export** to open the **Export CSV** dialog.
+The only setting is:
 
 - **Separator**: the single character used to separate fields (a comma by default).
 

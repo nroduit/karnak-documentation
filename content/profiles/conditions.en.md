@@ -8,7 +8,8 @@ keywords: [ "profile condition", "conditional anonymization", "dicom instance ex
 
 ## Overview
 
-A condition is an expression evaluated against a DICOM instance that returns a boolean value (`true` or `false`). Conditions are used in profiles to determine whether specific actions or transformations should be applied to DICOM elements based on the content of the instance.
+A condition is an expression evaluated against a DICOM instance that returns a boolean value (`true` or `false`).
+Conditions are used in profiles to determine whether specific actions or transformations should be applied to DICOM elements based on the content of the instance.
 
 ## Quick Reference
 
@@ -122,7 +123,9 @@ tagIsPresent("0008,1030")
 
 ### Tags Inside Sequences
 
-A condition is evaluated for each visited attribute, including the attributes nested in the items of a sequence. The tag given to a function is looked up from the dataset being visited outwards: inside a sequence item, the item's own value is used when the item holds the tag, otherwise the value of the enclosing dataset (up to the top level). A condition on a study-level tag such as `Modality` therefore holds at every level, while a condition on a tag that only exists inside the items of a sequence is true only while those items are visited.
+A condition is evaluated for each visited attribute, including the attributes nested in the items of a sequence.
+The tag given to a function is looked up from the dataset being visited outwards: inside a sequence item, the item's own value is used when the item holds the tag, otherwise the value of the enclosing dataset (up to the top level).
+A condition on a study-level tag such as `Modality` therefore holds at every level, while a condition on a tag that only exists inside the items of a sequence is true only while those items are visited.
 
 ### Combining Conditions
 
@@ -139,4 +142,3 @@ tagValueEndsWith(#Tag.StudyDescription, "GE") && tagValueContains(#Tag.StationNa
 //Check if the tag study description ends with "GE" or if the station name is "CT1234"
 tagValueEndsWith(#Tag.StudyDescription, "GE") || tagValueContains(#Tag.StationName, "CT1234")
 ```
-

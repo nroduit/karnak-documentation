@@ -6,9 +6,10 @@ linkTitle: "Portable distribution"
 keywords: [ "portable karnak", "no installation", "standalone gateway", "single machine", "download" ]
 ---
 
-Karnak Gateway can be distributed as a portable application, allowing you to run it without installing it on your system. 
+Karnak Gateway can be distributed as a portable application, allowing you to run it without installing it on your system.
 
-The purpose of this distribution is to provide an easy way to use Karnak Gateway for de-identification tasks on a local machine. It is typically used by researchers in collaborative projects that require a consistent method for de-identifying DICOM data with a shared de-identification profile.
+The purpose of this distribution is to provide an easy way to use Karnak Gateway for de-identification tasks on a local machine.
+It is typically used by researchers in collaborative projects that require a consistent method for de-identifying DICOM data with a shared de-identification profile.
 
 > [!WARNING]
 > The portable distribution is intended for personal use only on a single machine. For multiple gateway configurations, when using Karnak as a production service, please use the [standard installation method](../../installation) on a server and adapt the resource allocation accordingly.
@@ -35,8 +36,11 @@ Double-click on **run.sh** (choose *Run in Terminal* if your desktop asks) or ru
 
 What happens at launch:
 
-1. **First launch only**: the launcher asks whether to download the optional OCR service used by the [automatic pixel de-identification](#automatic-pixel-de-identification-service). Answer **Y** to download it (an Internet connection is required), or **n** to skip it. Karnak works without it; only the automatic masking of text burned into the images is unavailable.
-2. Karnak starts, and after a few seconds the web portal opens in your default browser at `http://localhost:8081`. If it does not, open this address yourself.
+1. **First launch only**: the launcher asks whether to download the optional OCR service used by the [automatic pixel de-identification](#automatic-pixel-de-identification-service).
+   Answer **Y** to download it (an Internet connection is required), or **n** to skip it.
+   Karnak works without it; only the automatic masking of text burned into the images is unavailable.
+2. Karnak starts, and after a few seconds the web portal opens in your default browser at `http://localhost:8081`.
+   If it does not, open this address yourself.
 3. Log in with the default credentials:
    - Username: `admin`
    - Password: `karnak`
@@ -57,7 +61,8 @@ To stop Karnak, close the launcher window (or press `Ctrl+C` in the terminal).
 
 ### Configuration (run.cfg)
 
-The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented `NAME=value` line is exported to Karnak. The main settings are:
+The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented `NAME=value` line is exported to Karnak.
+The main settings are:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
@@ -76,7 +81,8 @@ The `run.cfg` file is read by `run.sh` / `run.bat` at startup; every uncommented
 
 ### User guide
 
-For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..). This distribution includes new features in the [Forward Node](gateway) view that are not covered in the main user guide:
+For detailed instructions on how to use Karnak Gateway, please refer to the [Karnak Gateway User Guide](..).
+This distribution includes new features in the [Forward Node](gateway) view that are not covered in the main user guide:
 
 {{% annotate src="/userguide/portable_main.png" viewbox="0 0 1333 487" alt="Forward node view of the portable distribution" %}}
 A               |    | 1035,190 | 20
@@ -89,7 +95,8 @@ Click the **LOCAL** button {{% badge style="red" %}}A{{% /badge %}} to add a des
 
 ![Portable Local Destination](/userguide/portable_local_dest.png)
 
-This button automatically configures a DICOM destination for local storage. For [other options](gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
+This button automatically configures a DICOM destination for local storage.
+For [other options](gateway/destinations) related to de-identification and forwarding rules, refer to the main user guide.
 
 #### Upload local folder
 
@@ -99,17 +106,20 @@ Click the **Upload local folder** button {{% badge style="red" %}}B{{% /badge %}
 
 ### Automatic pixel de-identification service
 
-The portable distribution can run the [automatic pixel data de-identification](../../profiles/masks/#automatic-pixel-data-de-identification) feature, which masks burned-in patient data detected by an external OCR service ([image-ocr-identifier](https://github.com/nroduit/image-ocr-identifier)). This service is **not included** in the portable archive, because it is large and optional.
+The portable distribution can run the [automatic pixel data de-identification](../../profiles/masks/#automatic-pixel-data-de-identification) feature, which masks burned-in patient data detected by an external OCR service ([image-ocr-identifier](https://github.com/nroduit/image-ocr-identifier)).
+This service is **not included** in the portable archive, because it is large and optional.
 
 #### Install the service
 
-The easiest way is to answer **Y** when the launcher asks for it on the first launch: the launcher downloads the release of the service that matches your Karnak version (pinned by `OCR_VERSION` in `run.cfg`) and installs it in the `image-ocr-identifier` folder next to `run.sh` / `run.bat`. Karnak then starts it automatically at every launch.
+The easiest way is to answer **Y** when the launcher asks for it on the first launch: the launcher downloads the release of the service that matches your Karnak version (pinned by `OCR_VERSION` in `run.cfg`) and installs it in the `image-ocr-identifier` folder next to `run.sh` / `run.bat`.
+Karnak then starts it automatically at every launch.
 
 If you answered **n**, you can install it later by setting `OCR_AUTO_INSTALL=always` in `run.cfg` and restarting Karnak, or manually:
 
 1. Open the [releases page](https://github.com/nroduit/image-ocr-identifier/releases) of the service and pick the release named in `OCR_VERSION`.
 2. Download the archive for your system: `image-ocr-identifier-<model>-windows-x86_64.zip`, `image-ocr-identifier-<model>-macos-arm64.tar.gz` or `image-ocr-identifier-<model>-linux-x86_64.tar.gz`, where `<model>` is the value of `OCR_MODEL` (`PP-OCRv5_mobile` by default).
-3. Extract it next to `run.sh` / `run.bat`. The archive contains a single `image-ocr-identifier` folder holding the service executable and its resources.
+3. Extract it next to `run.sh` / `run.bat`.
+   The archive contains a single `image-ocr-identifier` folder holding the service executable and its resources.
 
 After installation the layout looks like:
 
@@ -151,7 +161,8 @@ OCR_SERVICE_NAME=image-ocr-identifier
 | `OCR_URL` | `http://localhost:8000` | Base URL Karnak uses to reach the service. |
 | `OCR_SERVICE_NAME` | `image-ocr-identifier` | Name of the service folder and executable. The service lives in `<app>/<name>/` and its binary is named `<name>` (`<name>.exe` on Windows). |
 
-When enabled, `run.sh` / `run.bat` starts the service on launch; on Linux and macOS, `run.sh` also stops it when Karnak exits (on Windows the service runs in its own minimized window, to be closed with it). If the binary is missing and the download is declined, the step is skipped and a message is logged.
+When enabled, `run.sh` / `run.bat` starts the service on launch; on Linux and macOS, `run.sh` also stops it when Karnak exits (on Windows the service runs in its own minimized window, to be closed with it).
+If the binary is missing and the download is declined, the step is skipped and a message is logged.
 
 > [!INFO]
 > For details about the feature itself — eligible images, sensitive tags, fail-closed behavior, and enabling it in a profile — see [Automatic Pixel Data De-identification](../../profiles/masks/#automatic-pixel-data-de-identification).

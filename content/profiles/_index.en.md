@@ -7,4 +7,3 @@ keywords: [ "de-identification profile", "dicom anonymization rules", "yaml prof
 ---
 
 {{% children description="true" %}}
-

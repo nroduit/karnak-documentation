@@ -7,9 +7,8 @@ linkTitle: "DICOM Web Tools"
 keywords: [ "c-echo", "dicom worklist", "qido-rs", "wado", "stow-rs", "dicom node", "connectivity test" ]
 ---
 
-The **DICOM Web Tools** module groups the utilities used to test connectivity, query
-servers, manage reusable endpoint configurations, and diagnose DICOM and DICOMweb
-nodes. The modules are accessed through tabs at the top of the page:
+The **DICOM Web Tools** module groups the utilities used to test connectivity, query servers, manage reusable endpoint configurations, and diagnose DICOM and DICOMweb nodes.
+The modules are accessed through tabs at the top of the page:
 
 - **DICOM Echo** — test a single DICOM node and probe its capabilities
 - **DICOM Worklist** — query a Modality Worklist server and display the results
@@ -26,8 +25,7 @@ nodes. The modules are accessed through tabs at the top of the page:
 
 ## DICOM Echo
 
-This tool tests DICOM communication with a single Application Entity (AE) and, on
-the same screen, lets you probe what the node accepts.
+This tool tests DICOM communication with a single Application Entity (AE) and, on the same screen, lets you probe what the node accepts.
 
 ### Configuration fields
 
@@ -40,53 +38,44 @@ the same screen, lets you probe what the node accepts.
 
 The **Check DICOM Node** button stays disabled until all fields are valid.
 
-Use **Select DICOM Node** to pick from the stored DICOM nodes (and the gateway
-destinations) instead of typing the values; the Called AE Title, Hostname and Port
-fields are filled automatically.  
+Use **Select DICOM Node** to pick from the stored DICOM nodes (and the gateway destinations) instead of typing the values; the Called AE Title, Hostname and Port fields are filled automatically.
 
 ![DICOM Echo test and result](/userguide/dicomtools_echo_selectnode.png)
 
-First select a **Group** to filter the nodes. All the defined groups are displayed as well as 
-*All Worklist nodes* and *All Workstation nodes*, grouping the nodes by type. 
-The group *Gateway destinations* contains all the nodes configured in the [Forward Nodes destinations](../../userguide/gateway/destinations). 
+First select a **Group** to filter the nodes.
+All the defined groups are displayed as well as *All Worklist nodes* and *All Workstation nodes*, grouping the nodes by type.
+The group *Gateway destinations* contains all the nodes configured in the [Forward Nodes destinations](../../userguide/gateway/destinations).
 Then select the node from the **DICOM node** dropdown.
 
 **Reset Form** clears the form.
 
 ### Running the test
 
-Click **Check DICOM Node** to run the test. The result is shown in a grid; select the
-row to view the details. Each result combines two checks:
+Click **Check DICOM Node** to run the test.
+The result is shown in a grid; select the row to view the details.
+Each result combines two checks:
 
-- **DICOM Echo** — the C-ECHO (verification) result, with the DICOM status, the
-  connection time and the execution time (in milliseconds). A rejected association or
-  a node that does not support verification is reported with the reason.
-- **Check Network** — a low-level reachability check run alongside the echo: hostname
-  (DNS) resolution, ping result, and whether the host is listening on the port.
+- **DICOM Echo** — the C-ECHO (verification) result, with the DICOM status, the connection time and the execution time (in milliseconds).
+  A rejected association or a node that does not support verification is reported with the reason.
+- **Check Network** — a low-level reachability check run alongside the echo: hostname (DNS) resolution, ping result, and whether the host is listening on the port.
 
 ![DICOM Echo test and result](/userguide/dicomtools_echo.png)
 
-Below the current result, a **History** panel lists the previous checks (most recent
-first, with a count in its title). It is stored server-side in the database, so checks run
-earlier — or in another session — remain visible after a page reload; select a row to view
-that check's details. Only the most recent checks are kept (200 by default, tunable by the
-administrator with `application.echo.history.limit`).
+Below the current result, a **History** panel lists the previous checks (most recent first, with a count in its title).
+It is stored server-side in the database, so checks run earlier — or in another session — remain visible after a page reload; select a row to view that check's details.
+Only the most recent checks are kept (200 by default, tunable by the administrator with `application.echo.history.limit`).
 
 ### DICOM Capabilities
 
-From the result grid, the **Probe** button (in the **Capabilities** column) runs a
-non-invasive probe that asks the node which **SOP Classes** and **transfer syntaxes** it accepts — **no image data
-is exchanged**. A dialog opens and lists the accepted SOP classes (grouped by category) with
-the negotiated transfer syntaxes, along with the maximum PDU length and the remote
-implementation (version name and class UID). This is useful to confirm a destination
-will accept the modalities you intend to send before configuring a forwarding pipeline.
+From the result grid, the **Probe** button (in the **Capabilities** column) runs a non-invasive probe that asks the node which **SOP Classes** and **transfer syntaxes** it accepts — **no image data is exchanged**.
+A dialog opens and lists the accepted SOP classes (grouped by category) with the negotiated transfer syntaxes, along with the maximum PDU length and the remote implementation (version name and class UID).
+This is useful to confirm a destination will accept the modalities you intend to send before configuring a forwarding pipeline.
 
 ![DICOM capabilities probe](/userguide/dicomtools_echo_probe.png)
 
 ## DICOM Worklist
 
-This tool retrieves and displays the content of a Modality Worklist (MWL) server to
-test connectivity and data retrieval.
+This tool retrieves and displays the content of a Modality Worklist (MWL) server to test connectivity and data retrieval.
 
 ### Worklist configuration
 
@@ -97,20 +86,20 @@ test connectivity and data retrieval.
 | **Worklist Hostname** | Hostname or IP address of the worklist server | Yes |
 | **Worklist Port** | Port number of the worklist server | Yes |
 
-Optional filter fields narrow the returned entries; if no filter is specified, all
-worklist entries are retrieved. Use **Select Worklist Node** to fill the connection
-fields from a stored worklist node.
+Optional filter fields narrow the returned entries; if no filter is specified, all worklist entries are retrieved.
+Use **Select Worklist Node** to fill the connection fields from a stored worklist node.
 
-Click **Run Query** to execute the query. Results are displayed in a sortable
-table — click a column header to sort by that column. 
+Click **Run Query** to execute the query.
+Results are displayed in a sortable table — click a column header to sort by that column.
 
 ![DICOM Worklist query results](/userguide/dicomtools_worklist.png)
 
-The details of a worklist entry can be displayed by clicking on that row. 
+The details of a worklist entry can be displayed by clicking on that row.
 
 ![DICOM Worklist query results details](/userguide/dicomtools_worklist_result.png)
 
-The full DICOM attributes of the selected worklist entry can be displayed in a dialog by clicking the **View DICOM Details** button. It can also be downloaded as text (**Download Text**) or as a DICOM file (**Download DICOM**).
+The full DICOM attributes of the selected worklist entry can be displayed in a dialog by clicking the **View DICOM Details** button.
+It can also be downloaded as text (**Download Text**) or as a DICOM file (**Download DICOM**).
 
 ![DICOM Worklist dicom details](/userguide/dicomtools_worklist_dicomattr.png)
 
@@ -120,8 +109,7 @@ This tab is the central place to store the DICOM nodes you test or monitor regul
 
 ![DICOM node management](/userguide/dicomtools_managenodes.png)
 
-The grid lists each node with its **Description**, **AE Title**, **Hostname**,
-**Port**, **Node Type** and **Group**, plus per-row **Edit** and **Delete** actions.
+The grid lists each node with its **Description**, **AE Title**, **Hostname**, **Port**, **Node Type** and **Group**, plus per-row **Edit** and **Delete** actions.
 
 > [!INFO]
 > The active **Gateway destinations** appear in this grid as **read-only** rows. They
@@ -143,29 +131,25 @@ Click **Add Node** (or the edit action on a row) to open the editor:
 | **Node Type** | What the node is used for (e.g. workstation) |
 | **Group** | Optional — pick an existing group or type a new one |
 
-The **Group** is an organizational label: it lets you collect related nodes together
-and check them all at once from the **Monitor** tab.
+The **Group** is an organizational label: it lets you collect related nodes together and check them all at once from the **Monitor** tab.
 
 ### Import / Export
 
 ![DICOM node management](/userguide/dicomtools_manage_import.png)
 
-The **Import / Export** button opens a dialog to move node configurations in and out
-of Karnak as CSV:
+The **Import / Export** button opens a dialog to move node configurations in and out of Karnak as CSV:
 
-- **Import** — upload a CSV file. Optionally choose an **Import into group** (leave
-  blank to use the group column from the file). Tick **Replace existing in scope** to
-  delete the nodes currently in the target group before importing. Replacing *without*
-  a target group deletes **every** node (worklist nodes included) and asks for an
-  explicit confirmation first. An import report summarizes how many nodes were imported
-  or removed and lists any skipped rows.
-- **Export** — download the current nodes as `dicom-nodes.csv`. Choose an **Export
-  group** to limit the file to one group, or leave it blank to export every group.
+- **Import** — upload a CSV file.
+  Optionally choose an **Import into group** (leave blank to use the group column from the file).
+  Tick **Replace existing in scope** to delete the nodes currently in the target group before importing.
+  Replacing *without* a target group deletes **every** node (worklist nodes included) and asks for an explicit confirmation first.
+  An import report summarizes how many nodes were imported or removed and lists any skipped rows.
+- **Export** — download the current nodes as `dicom-nodes.csv`.
+  Choose an **Export group** to limit the file to one group, or leave it blank to export every group.
 
 ## DICOMweb
 
-This tool tests a single DICOMweb endpoint and reports its reachability, TLS
-certificate and per-service availability.
+This tool tests a single DICOMweb endpoint and reports its reachability, TLS certificate and per-service availability.
 
 ### Configuration
 
@@ -189,34 +173,27 @@ The probed services are the DICOMweb (PS3.18) RESTful services:
 
 ### Running the check
 
-Click **Check URL** to probe the single endpoint, or **Check group** to probe a whole
-group of managed endpoints (including the gateway STOW-RS destinations) at once. 
-An existing endpoint can be selected in the field **Saved endpoint** if a group (other than 
-*Gateway destinations*) is selected, to test a single endpoint rather than the entire group.  
+Click **Check URL** to probe the single endpoint, or **Check group** to probe a whole group of managed endpoints (including the gateway STOW-RS destinations) at once.
+An existing endpoint can be selected in the field **Saved endpoint** if a group (other than *Gateway destinations*) is selected, to test a single endpoint rather than the entire group.\
 The result panel shows an overall **Reachable / Unreachable** badge followed by the details:
 
 - **TCP** — whether a TCP connection to the host and port succeeded.
-- **HTTP** — the status returned by the `OPTIONS` request, or a note if the endpoint
-  did not respond.
-- **TLS** (HTTPS only) — the negotiated protocol, the certificate subject/issuer, the
-  expiry date and the number of days until expiry, and whether the certificate is
-  trusted. An expired certificate makes the check fail.
+- **HTTP** — the status returned by the `OPTIONS` request, or a note if the endpoint did not respond.
+- **TLS** (HTTPS only) — the negotiated protocol, the certificate subject/issuer, the expiry date and the number of days until expiry, and whether the certificate is trusted.
+  An expired certificate makes the check fail.
 - **Services** — one line per probed service indicating whether it is supported.
-- **Authentication** — for endpoints with an authentication configuration, whether an
-  OAuth 2.0 access token could be obtained.
+- **Authentication** — for endpoints with an authentication configuration, whether an OAuth 2.0 access token could be obtained.
 
 ![DICOMweb endpoint check result](/userguide/dicomweb_main.png)
 
-Click **Save as endpoint** to store the current URL and selected services as a
-reusable endpoint (see [Manage DICOMweb](#manage-dicomweb)).
+Click **Save as endpoint** to store the current URL and selected services as a reusable endpoint (see [Manage DICOMweb](#manage-dicomweb)).
 
 ## Manage DICOMweb
 
 This tab stores the DICOMweb endpoints you test or monitor regularly.
 
-The grid lists each endpoint with its **Description**, **URL**, **Services** and
-**Group**, plus per-row **Edit** and **Delete** actions. As with DICOM nodes, the
-gateway **STOW-RS destinations** appear as read-only rows and belong to the group *Gateway destinations*.
+The grid lists each endpoint with its **Description**, **URL**, **Services** and **Group**, plus per-row **Edit** and **Delete** actions.
+As with DICOM nodes, the gateway **STOW-RS destinations** appear as read-only rows and belong to the group *Gateway destinations*.
 
 ![Manage DICOMweb endpoints](/userguide/dicomweb_manage_main.png)
 
@@ -237,14 +214,11 @@ Click **Add Endpoint** (or the edit action on a row) to open the editor:
 
 ![Import DICOMweb endpoints](/userguide/dicomweb_manage_import.png)
 
-The **Import / Export** button behaves like the DICOM nodes one: import endpoints from
-a CSV (optionally into a chosen group, optionally replacing the existing endpoints in
-scope), or export the current endpoints to `dicomweb-endpoints.csv`.
+The **Import / Export** button behaves like the DICOM nodes one: import endpoints from a CSV (optionally into a chosen group, optionally replacing the existing endpoints in scope), or export the current endpoints to `dicomweb-endpoints.csv`.
 
 ## Monitor
 
-The Monitor tab runs the same checks as the Echo and DICOMweb tools, but against a
-whole **group** at once — ideal for regular health checks of your DICOM infrastructure.
+The Monitor tab runs the same checks as the Echo and DICOMweb tools, but against a whole **group** at once — ideal for regular health checks of your DICOM infrastructure.
 A second row of tabs switches between **DICOM Nodes** and **DICOMweb**.
 
 ### DICOM Nodes
@@ -255,9 +229,8 @@ A second row of tabs switches between **DICOM Nodes** and **DICOMweb**.
 2. Enter the **Calling AE Title** (defaults to `PACSMONITOR`).
 3. Click **Check DICOM Nodes**.
 
-The result grid shows one row per node with its DICOM Echo status, connection and
-execution times, and network reachability. The **Probe** button (in the **Capabilities**
-column) is available on each row to probe a node's accepted SOP classes.
+The result grid shows one row per node with its DICOM Echo status, connection and execution times, and network reachability.
+The **Probe** button (in the **Capabilities** column) is available on each row to probe a node's accepted SOP classes.
 
 ### DICOMweb
 
@@ -266,9 +239,8 @@ column) is available on each row to probe a node's accepted SOP classes.
 1. Optionally pick a **Group** of DICOMweb destinations (leave blank to check all).
 2. Click **Check DICOMweb**.
 
-The result grid shows one row per destination with its reachability, HTTP status and
-TLS certificate state. The gateway STOW-RS destinations are included unless a specific
-managed group is selected.
+The result grid shows one row per destination with its reachability, HTTP status and TLS certificate state.
+The gateway STOW-RS destinations are included unless a specific managed group is selected.
 
 > [!INFO]
 > The Monitor tool helps you spot connectivity, certificate or capability issues
@@ -276,8 +248,7 @@ managed group is selected.
 
 ## Administrator settings
 
-The timeouts used by the Echo, Monitor and DICOMweb checks can be tuned with the following
-application properties (milliseconds):
+The timeouts used by the Echo, Monitor and DICOMweb checks can be tuned with the following application properties (milliseconds):
 
 | Setting | Default | Description |
 |---------|---------|-------------|

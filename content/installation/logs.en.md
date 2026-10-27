@@ -8,7 +8,8 @@ keywords: [ "karnak logs", "logback configuration", "dicom transfer log", "log r
 
 Karnak offers the possibility of injecting your own log configuration to customize how logs are generated and stored.
 
-The logging system used by Karnak is [Logback](http://logback.qos.ch/). For detailed information about Logback configuration, see the [official manual](http://logback.qos.ch/manual/index.html).
+The logging system used by Karnak is [Logback](http://logback.qos.ch/).
+For detailed information about Logback configuration, see the [official manual](http://logback.qos.ch/manual/index.html).
 
 ## Available Variables
 
@@ -28,13 +29,15 @@ The following variables can be used in your custom Logback configuration file to
 | **ProfileName** | Profile name used for de-identification or tag morphing |
 | **ProfileCodenames** | Concatenated list of profile items applied during de-identification or tag morphing |
 
-These variables are set (as [MDC](https://logback.qos.ch/manual/mdc.html) values, used with `%X{name}` in a pattern) while a profile is applied to an instance; the `Deidentify*` / `TagMorphing*` values, `ProjectName`, `ProfileName` and `ProfileCodenames` are available on the `DEBUG` event emitted with the `CLINICAL` marker once the profile has been applied. See the [clinical logs](#clinical-logs) example below.
+These variables are set (as [MDC](https://logback.qos.ch/manual/mdc.html) values, used with `%X{name}` in a pattern) while a profile is applied to an instance; the `Deidentify*` / `TagMorphing*` values, `ProjectName`, `ProfileName` and `ProfileCodenames` are available on the `DEBUG` event emitted with the `CLINICAL` marker once the profile has been applied.
+See the [clinical logs](#clinical-logs) example below.
 
 ## Inject the Logback Configuration File
 
 ### Using Docker
 
-Set the environment variable `LOGBACK_CONFIGURATION_FILE` with the path to your Logback configuration file. This will override the default log configuration.
+Set the environment variable `LOGBACK_CONFIGURATION_FILE` with the path to your Logback configuration file.
+This will override the default log configuration.
 
 **Example:**
 
@@ -74,7 +77,9 @@ The default [logback configuration file](https://github.com/nroduit/karnak/blob/
 
 ### Clinical logs
 
-Each de-identification or tag-morphing operation emits a `DEBUG` event carrying the `CLINICAL` marker and the [variables](#available-variables) above. The default configuration does not write these events to a dedicated file. To keep an audit trail, add an appender filtered on the marker to your custom configuration and enable the `DEBUG` level for the `org.karnak` package:
+Each de-identification or tag-morphing operation emits a `DEBUG` event carrying the `CLINICAL` marker and the [variables](#available-variables) above.
+The default configuration does not write these events to a dedicated file.
+To keep an audit trail, add an appender filtered on the marker to your custom configuration and enable the `DEBUG` level for the `org.karnak` package:
 
 ```xml
 <configuration>
@@ -128,6 +133,3 @@ With Docker, mount a writable volume for the `logs` folder (the image runs as a 
 
 > [!INFO]
 > Clinical logs provide detailed tracking of the de-identification process, including which profiles were applied and how patient data was transformed. This is useful for auditing and compliance purposes.
-
-
-

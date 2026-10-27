@@ -6,7 +6,8 @@ keywords: [ "dicom de-identification", "dicom anonymization", "dicom gateway", "
 linkTitle: "Home"
 ---
 
-Karnak is a DICOM gateway for data de-identification and DICOM attribute normalization. It is distributed as a containerized and portable application, making it easy to deploy and use across various environments.
+Karnak is a DICOM gateway for data de-identification and DICOM attribute normalization.
+It is distributed as a containerized and portable application, making it easy to deploy and use across various environments.
 
 {{< svg "static/images/karnak-gateway.svg" >}}
 
@@ -16,7 +17,8 @@ Karnak receives studies through a DICOM listener and forwards them to DICOM (C-S
 
 ## Get started
 
-New to Karnak? [How Karnak works](overview) shows a typical deployment with a research repository outside the institution and the pipeline each study goes through.
+New to Karnak?
+[How Karnak works](overview) shows a typical deployment with a research repository outside the institution and the pipeline each study goes through.
 
 1. [Install Karnak with Docker Compose](installation) on a server, or [download the portable distribution](userguide/portable) to run it on a single machine without installation.
 2. Create a [forward node with its sources and destinations](userguide/gateway).
@@ -24,30 +26,28 @@ New to Karnak? [How Karnak works](overview) shows a typical deployment with a re
 
 ## Key Features
 
-*   [**DICOM Gateway**](userguide/gateway): Acts as a proxy between DICOM modalities/workstations and PACS/Archives.
-*   [**Flexible Connectivity**](userguide/gateway/destinations): Supports standard DICOM protocols (C-STORE) and DICOMweb (STOW-RS).
-*   [**De-identification**](profiles/rules): Based on the DICOM standard, with configurable actions in YAML profiles.
-*   [**Clean pixels**](profiles/masks/): Remove burned-in annotations with hand-defined masks or automatically through OCR service.
-*   [**Pseudonymization**](userguide/gateway/destinations/#pseudonym-type): Apply pseudonyms from DICOM fields, by importing CSV, or with external web services.
-*   [**Tag Morphing**](userguide/gateway/destinations/#7-tag-morphing): Normalizes DICOM attributes to ensure consistency across your workflow.
-*   [**Conditional Processing**](profiles/conditions/): Apply de-identification and tag morphing rules based on customizable conditions.
-*   [**Conformance Reports**](userguide/conformancereport): Validate each study against the DICOM standard and email a conformance report, with optional report-only (virtual) destinations.
-*   [**Monitoring**](userguide/monitoring): Follow transfers in a destination, study and series tree, compare original and de-identified values, and export the activity as CSV.
-*   [**Notification System**](userguide/gateway/destinations/#4-notifications): Email notifications for successful transfers and errors.
-*   [**Diagnostic Tools**](userguide/dicomtools): Test and probe DICOM nodes and DICOMweb endpoints — echo, capabilities, network and service checks.
-*   [**Project Management**](userguide/projects): Organize de-identification rules and secrets by project.
-*   [**Single Sign-On**](installation/#identity-provider): Delegate the web portal login to an OpenID Connect provider such as Keycloak.
-*   [**Web Interface**](userguide): User-friendly web portal for configuration, profile building and monitoring.
-*   [**Portable Distribution**](userguide/portable): Run Karnak as a portable application without installation.
+* [**DICOM Gateway**](userguide/gateway): Acts as a proxy between DICOM modalities/workstations and PACS/Archives.
+* [**Flexible Connectivity**](userguide/gateway/destinations): Supports standard DICOM protocols (C-STORE) and DICOMweb (STOW-RS).
+* [**De-identification**](profiles/rules): Based on the DICOM standard, with configurable actions in YAML profiles.
+* [**Clean pixels**](profiles/masks/): Remove burned-in annotations with hand-defined masks or automatically through OCR service.
+* [**Pseudonymization**](userguide/gateway/destinations/#pseudonym-type): Apply pseudonyms from DICOM fields, by importing CSV, or with external web services.
+* [**Tag Morphing**](userguide/gateway/destinations/#7-tag-morphing): Normalizes DICOM attributes to ensure consistency across your workflow.
+* [**Conditional Processing**](profiles/conditions/): Apply de-identification and tag morphing rules based on customizable conditions.
+* [**Conformance Reports**](userguide/conformancereport): Validate each study against the DICOM standard and email a conformance report, with optional report-only (virtual) destinations.
+* [**Monitoring**](userguide/monitoring): Follow transfers in a destination, study and series tree, compare original and de-identified values, and export the activity as CSV.
+* [**Notification System**](userguide/gateway/destinations/#4-notifications): Email notifications for successful transfers and errors.
+* [**Diagnostic Tools**](userguide/dicomtools): Test and probe DICOM nodes and DICOMweb endpoints — echo, capabilities, network and service checks.
+* [**Project Management**](userguide/projects): Organize de-identification rules and secrets by project.
+* [**Single Sign-On**](installation/#identity-provider): Delegate the web portal login to an OpenID Connect provider such as Keycloak.
+* [**Web Interface**](userguide): User-friendly web portal for configuration, profile building and monitoring.
+* [**Portable Distribution**](userguide/portable): Run Karnak as a portable application without installation.
 
 ## Related project
 
-Karnak de-identifies and forwards studies; it is not a viewer and not an
-archive. The companion DICOM viewer from the same project is
-[Weasis](https://weasis.org/), which reads the studies a Karnak destination
-receives — including from a [DICOMweb archive](https://weasis.org/en/basics/customize/dicomweb-archives/).
+Karnak de-identifies and forwards studies; it is not a viewer and not an archive.
+The companion DICOM viewer from the same project is [Weasis](https://weasis.org/), which reads the studies a Karnak destination receives — including from a [DICOMweb archive](https://weasis.org/en/basics/customize/dicomweb-archives/).
 
 ## Links
 
-*   [Source code on GitHub](https://github.com/nroduit/karnak)
-*   [Container image on Docker Hub](https://hub.docker.com/r/nroduit/karnak)
+* [Source code on GitHub](https://github.com/nroduit/karnak)
+* [Container image on Docker Hub](https://hub.docker.com/r/nroduit/karnak)

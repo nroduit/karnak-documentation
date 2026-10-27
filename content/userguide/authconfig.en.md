@@ -6,7 +6,8 @@ linkTitle: "Authentication Config"
 keywords: [ "api authentication", "client secret", "encrypted credentials", "external service", "karnak configuration" ]
 ---
 
-This page allows you to configure authentication credentials for API calls. Since this information is sensitive, it is stored in an encrypted database table.
+This page allows you to configure authentication credentials for API calls.
+Since this information is sensitive, it is stored in an encrypted database table.
 
 {{% annotate src="/userguide/authconfig_main.png" viewbox="0 0 1175 395" alt="Authentication Configuration Page" %}}
 1               |    | 260,30 | 20
@@ -19,6 +20,7 @@ This page allows you to configure authentication credentials for API calls. Sinc
 ### 1. Create an Authentication Configuration
 
 To create a new authentication configuration:
+
 1. Click the **New authentication config** button to open the creation popup.
 2. Enter a unique identifier.
 3. Click **Add**.
@@ -30,10 +32,11 @@ To create a new authentication configuration:
 - The identifier must be unique (an error will appear if a duplicate exists)
 - We recommend avoiding spaces in the identifier for easier reference in profiles
 
-Click **Add** to proceed. The popup closes and an empty, editable configuration form
-appears in the right panel. The configuration is **not** saved yet — fill in the OAuth 2.0
-fields described below and click **Save** to create it. Only then is it persisted and added
-to the list on the left. Click **Cancel** to discard it.
+Click **Add** to proceed.
+The popup closes and an empty, editable configuration form appears in the right panel.
+The configuration is **not** saved yet — fill in the OAuth 2.0 fields described below and click **Save** to create it.
+Only then is it persisted and added to the list on the left.
+Click **Cancel** to discard it.
 
 #### OAuth 2.0
 
@@ -48,8 +51,7 @@ Currently, OAuth 2.0 is the only supported authentication type.
 | **Client Secret**    | OAuth 2.0 client secret                                     |
 | **Client ID**        | OAuth 2.0 client identifier                                 |
 
-Once all required fields are filled, click **Save** to create the configuration and add it
-to the list; click **Cancel** to discard it.
+Once all required fields are filled, click **Save** to create the configuration and add it to the list; click **Cancel** to discard it.
 
 **How it works:**
 
@@ -66,7 +68,8 @@ When an API call references this configuration (via the `authConfig` parameter):
 
 ### 2. Authentication Configuration List
 
-All available authentication configurations are displayed in the left panel. Select a configuration to view its details on the right.
+All available authentication configurations are displayed in the left panel.
+Select a configuration to view its details on the right.
 
 ### 3. Delete Configuration
 
@@ -83,6 +86,7 @@ To delete a configuration:
 
 ### 4. Configuration Details
 
-The details view displays all configuration information in read-only mode. The fields Client Secret and Client ID are masked for security purposes.
+The details view displays all configuration information in read-only mode.
+The fields Client Secret and Client ID are masked for security purposes.
 
 To modify a configuration, you must delete it and create a new one.

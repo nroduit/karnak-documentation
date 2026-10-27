@@ -11,11 +11,13 @@ This page provides technical details about how Karnak performs DICOM de-identifi
 
 ## Overview
 
-Karnak is a gateway that receives DICOM files and forwards them to one or multiple destinations using DICOM or DICOMweb protocols. Each destination can be linked to a project that defines the de-identification method and a secret used to generate deterministic values.
+Karnak is a gateway that receives DICOM files and forwards them to one or multiple destinations using DICOM or DICOMweb protocols.
+Each destination can be linked to a project that defines the de-identification method and a secret used to generate deterministic values.
 
 ## Basic Profile
 
-The [Basic Profile](profilestructure/#basic-dicom-profile) for de-identifying DICOM objects is provided by the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html). This profile defines an exhaustive list of DICOM tags and their related actions for proper de-identification.
+The [Basic Profile](profilestructure/#basic-dicom-profile) for de-identifying DICOM objects is provided by the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html).
+This profile defines an exhaustive list of DICOM tags and their related actions for proper de-identification.
 
 ### De-identification Actions
 
@@ -31,7 +33,8 @@ Five different actions are defined in the DICOM standard:
 
 ### Multiple Actions for IOD Conformance
 
-The [DICOM type](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_7.4.html) is often dependent on the [Information Object Definition (IOD)](http://dicom.nema.org/medical/dicom/current/output/chtml/part04/chapter_6.html) of the instance. To avoid DICOM corruption, multiple actions can be defined for a tag, ensuring that destructive actions like REMOVE won't be applied on Type 1 or Type 2 attributes.
+The [DICOM type](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_7.4.html) is often dependent on the [Information Object Definition (IOD)](http://dicom.nema.org/medical/dicom/current/output/chtml/part04/chapter_6.html) of the instance.
+To avoid DICOM corruption, multiple actions can be defined for a tag, ensuring that destructive actions like REMOVE won't be applied on Type 1 or Type 2 attributes.
 
 **Combined actions:**
 
@@ -45,7 +48,8 @@ The [DICOM type](https://dicom.nema.org/medical/dicom/current/output/chtml/part0
 
 **Action Selection:**
 
-Karnak loads the SOPs and attributes as specified in the DICOM Standard. Based on the tag's type in the current instance, the proper action is set and applied. 
+Karnak loads the SOPs and attributes as specified in the DICOM Standard.
+Based on the tag's type in the current instance, the proper action is set and applied.
 
 > [!INFO]
 > If the tag cannot be identified in the SOP or its type cannot be inferred, the strictest action will be applied (U/D > Z > X).
@@ -85,11 +89,13 @@ For date and time VRs (AS, DA, DT, TM), the **shiftRange()** function generates 
 
 ## Action U: Generate a New UID
 
-For each U action, Karnak hashes the input value using a one-way function to ensure it's not possible to revert to the original UID. The function hashes the input UID and generates a new deterministic UID from the result.
+For each U action, Karnak hashes the input value using a one-way function to ensure it's not possible to revert to the original UID.
+The function hashes the input UID and generates a new deterministic UID from the result.
 
 ### Context and Project Secrets
 
-A DICOM study may be de-identified multiple times using different methods. Karnak ensures deterministic UID generation to maintain data quality and usability.
+A DICOM study may be de-identified multiple times using different methods.
+Karnak ensures deterministic UID generation to maintain data quality and usability.
 
 **Requirements:**
 
@@ -106,7 +112,8 @@ Users can provide their own secret, but it must be exactly 16 bytes, written as 
 
 ### Hash Function
 
-The algorithm used is "Message Authentication Code" (MAC). Karnak uses MAC as a one-way function rather than for message authentication.
+The algorithm used is "Message Authentication Code" (MAC).
+Karnak uses MAC as a one-way function rather than for message authentication.
 
 According to the [Java Mac class documentation](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/javax/crypto/Mac.html):
 
@@ -123,8 +130,9 @@ According to the [Java Mac class documentation](https://docs.oracle.com/en/java/
 
 Karnak generates a new [DICOM UID](https://dicom.nema.org/medical/dicom/current/output/chtml/part05/sect_B.2.html) that starts with the OID root `"2.25"` followed by a decimal representation of a UUID derived from the HMAC hash.
 
-The value after "2.25." is the straight decimal encoding of the UUID as an integer. It must be a direct decimal encoding of the single integer, all 128 bits. See [How do you create an OID?](https://wiki.ihe.net/index.php/Creating_Unique_IDs_-_OID_and_UUID)
-
+The value after "2.25." is the straight decimal encoding of the UUID as an integer.
+It must be a direct decimal encoding of the single integer, all 128 bits.
+See [How do you create an OID?](https://wiki.ihe.net/index.php/Creating_Unique_IDs_-_OID_and_UUID)
 
 #### UUID Generation Algorithm
 
@@ -154,9 +162,10 @@ Karnak implements randomized date shifting that is consistent per patient and pr
 
 ### Algorithm
 
-The random shift uses the HMAC function (defined above) with a configurable range of days or seconds. 
+The random shift uses the HMAC function (defined above) with a configurable range of days or seconds.
 
 **Default values:**
+
 - Minimum: 0 (if not specified)
 - Maximum: User-defined
 
@@ -185,7 +194,8 @@ This section explains how Karnak handles Patient ID generation to prevent data l
 
 ### The Problem
 
-A patient participating in multiple research projects may encounter different de-identification methods. Most patient identifying information is contained in the [Patient Module](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.html).
+A patient participating in multiple research projects may encounter different de-identification methods.
+Most patient identifying information is contained in the [Patient Module](http://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.2.html).
 
 **Risk scenario:**
 
@@ -194,6 +204,7 @@ If the same pseudonym is used across projects with different de-identification p
 #### Example: Data Leakage Risk
 
 In this example, a patient's study falls within the scope of two different projects:
+
 - **Project 1**: Removes the patient birthdate
 - **Project 2**: Keeps the patient birthdate
 
@@ -227,7 +238,8 @@ Because both studies are identified by the **same pseudonym**, reconciling them 
 
 ### The Solution: Project-Specific Patient IDs
 
-Karnak generates a unique Patient ID based on the pseudonym and project-specific characteristics. This prevents reconciliation across projects and eliminates data leakage.
+Karnak generates a unique Patient ID based on the pseudonym and project-specific characteristics.
+This prevents reconciliation across projects and eliminates data leakage.
 
 ```mermaid {align="center" zoom="true"}
 flowchart TB
@@ -276,7 +288,6 @@ The de-identified Patient ID is generated as follows:
 
 Once the profile has been applied, the Patient's Name is always set to the pseudonym.
 
-
 ## Attributes Added by Karnak
 
 Karnak automatically sets certain attributes during de-identification to maintain compliance and traceability.
@@ -304,7 +315,8 @@ The following attributes are set in the [Patient Module](http://dicom.nema.org/m
 
 #### De-identification Method Code Sequence
 
-Each item holds a code from the `DCM` coding scheme. Only the profile elements matching a DICOM de-identification option add an item (each code appears once):
+Each item holds a code from the `DCM` coding scheme.
+Only the profile elements matching a DICOM de-identification option add an item (each code appears once):
 
 | Code Value | Code Meaning | Profile element codename |
 |------------|--------------|--------------------------|

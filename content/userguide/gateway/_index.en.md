@@ -6,7 +6,9 @@ linkTitle: "Gateway"
 keywords: [ "forward node", "dicom application entity", "gateway configuration", "dicom routing", "ae title" ]
 ---
 
-The Gateway page allows you to configure Forward Nodes in Karnak. A Forward Node represents a DICOM Application Entity (AE) that receives DICOM instances and routes them to one or more destinations. See [How Karnak works](../../overview) for the deployment workflow and the pipeline each instance goes through.
+The Gateway page allows you to configure Forward Nodes in Karnak.
+A Forward Node represents a DICOM Application Entity (AE) that receives DICOM instances and routes them to one or more destinations.
+See [How Karnak works](../../overview) for the deployment workflow and the pipeline each instance goes through.
 
 ## Forward Node
 
@@ -23,37 +25,37 @@ This page lists all the forward nodes configured in Karnak and allows you to cre
 
 ### 1. Create a Forward Node
 
-Click the **New forward node** button. A popup will appear:
-  1. Enter a unique value in the **Forward AETitle** field. AE Titles must not exceed 16 characters and cannot contain control characters or a backslash.
+Click the **New forward node** button.
+A popup will appear:
+  1. Enter a unique value in the **Forward AETitle** field.
+     AE Titles must not exceed 16 characters and cannot contain control characters or a backslash.
   2. Click the **Add** button
 
 ![New Forward Node](/userguide/gateway_new_forwardnode.png)
 
-The new forward node appears in the list and is automatically selected. Optionally, add a description and save your changes.
+The new forward node appears in the list and is automatically selected.
+Optionally, add a description and save your changes.
 
 > [!INFO]
 > The Forward AETitle must be unique across all forward nodes in the Karnak instance.
 
 ### 2. Create a group
 
-When the list grows, you can organize forward nodes into **groups** (a single level of
-folders) to keep related nodes together:
+When the list grows, you can organize forward nodes into **groups** (a single level of folders) to keep related nodes together:
 
 - Click **Add group** to create a new group and give it a name.
 - **Drag a forward node onto a group** to assign it to that group.
-- **Right-click a group** to **Rename group** or **Delete group**; deleting a group only
-  removes the folder — the nodes it contained move back out, they are not deleted.
+- **Right-click a group** to **Rename group** or **Delete group**; deleting a group only removes the folder — the nodes it contained move back out, they are not deleted.
 - **Right-click a node** and choose **Remove from group** to take it out of its group.
 
-Groups are purely organizational; they do not change how forward nodes behave. The same
-grouping is available for [Projects](../projects) and [Profiles](../profiles).
-
+Groups are purely organizational; they do not change how forward nodes behave.
+The same grouping is available for [Projects](../projects) and [Profiles](../profiles).
 
 ![Group](/userguide/gateway_group.png)
 
 ### 3. Forward Node List
 
-All configured forward nodes and groups are displayed in the left panel. 
+All configured forward nodes and groups are displayed in the left panel.
 
 Select a forward node from the list to view and manage its configuration in the right panel.
 
@@ -97,20 +99,23 @@ Use the tabs to switch between the [**Destinations**](destinations) and [**Sourc
 
 All destinations or sources associated with the forward node are displayed here.
 
-Click any item in the list (or a **New** button) to open its configuration form. The form
-**replaces** the list panel in place; click **Cancel** to return to the list.
+Click any item in the list (or a **New** button) to open its configuration form.
+The form **replaces** the list panel in place; click **Cancel** to return to the list.
 
 #### 5.4 Actions
 
 The available action buttons depend on the active tab.
 
-**Destinations tab**: 
+**Destinations tab**:
 
-Create a new destination using either the DICOM or DICOM WEB (STOW) protocol. See the [Destinations](destinations) page for detailed configuration instructions. The [portable distribution](../portable) shows an additional **LOCAL** button that creates a destination storing the instances in its local DICOM folder.
+Create a new destination using either the DICOM or DICOM WEB (STOW) protocol.
+See the [Destinations](destinations) page for detailed configuration instructions.
+The [portable distribution](../portable) shows an additional **LOCAL** button that creates a destination storing the instances in its local DICOM folder.
 
-**Sources tab**: 
+**Sources tab**:
 
-Create a new source to control which DICOM nodes can send data to this forward node. See the [Sources](sources) page for detailed configuration instructions.
+Create a new source to control which DICOM nodes can send data to this forward node.
+See the [Sources](sources) page for detailed configuration instructions.
 
 ### 6. Forward Node Actions
 
