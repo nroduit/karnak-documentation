@@ -66,7 +66,7 @@ chmod 600 secrets/*
 ```yaml
 services:
   karnak:
-    image: nroduit/karnak:v2.0.0
+    image: nroduit/karnak:v2.0.1
     container_name: karnak
     restart: unless-stopped
     ports:
@@ -154,7 +154,7 @@ networks:
 
 Notes:
 
-* Pin the Karnak image to a release tag (`v2.0.0`).
+* Pin the Karnak image to a release tag (`v2.0.1`).
   The `latest` tag follows the most recent release and the `master` tag is the development build.
 * Only the ports of the `karnak` service are published.
   The database and the cache are reachable from Karnak only, through the internal Compose network.
@@ -360,7 +360,7 @@ mvn clean install -P production
 docker build -t local/karnak:latest -f src/main/docker/Dockerfile .
 ```
 
-Then replace `image: nroduit/karnak:v2.0.0` by `image: local/karnak:latest` in `docker-compose.yml`.
+Then replace `image: nroduit/karnak:v2.0.1` by `image: local/karnak:latest` in `docker-compose.yml`.
 
 ## Other installation pages
 
