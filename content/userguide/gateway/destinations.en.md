@@ -39,6 +39,10 @@ These fields define where Karnak should send the DICOM instances.
 - **Port**: The network port used by the destination DICOM service (must be between 1 and 65535).
 - **Concurrent connections**: The number of parallel DICOM associations Karnak opens to this destination (between 1 and 50; `1` means a single connection).
   Increasing this value improves throughput when forwarding large studies, but must stay within the destination PACS's concurrent-association limit.
+- **C-STORE response timeout (s)** {{< since "2.0.1" >}}: How long Karnak waits for the destination's C-STORE response to each instance (between 1 and 3600 seconds).
+  Leave it empty to use the server default, `forward.cstore-response-timeout-seconds` (60 seconds).
+  Without a response within this delay, the source receives *Out of Resources* (A700) and is expected to send the instance again (see [What the source receives](#what-the-source-receives)).
+  Raise it for archives that acknowledge each instance only once it is fully processed, and keep it below the response timeout of the sources.
 - **Condition** (labeled *Condition (Leave blank if no condition)*): An optional field that can contain an expression.
   If the condition is met, the destination will be activated.
   See [Conditions](../../../profiles/conditions) for more details.
@@ -57,13 +61,13 @@ The checkbox is disabled for *Keep original transfer syntax* and *Explicit VR - 
 > [!INFO]
 > Transcoding may increase processing time and resource usage, especially for large datasets. Use it judiciously based on your workflow needs.
 
-#### 3. Use Source AETitle
+#### 3. Use Source AETitle {{< since "2.0.1" >}} {#3-use-source-aetitle}
 
 By default, Karnak calls the destination with the **Forward Node AETitle**, so the destination sees every instance as coming from Karnak and the AETitle of the original sender is lost.
 
 When **Use source AETitle** is **checked**, Karnak calls the destination with the AETitle of the source that sent the instances (the calling AETitle received by the forward node). This keeps the original sender visible to the destination, for example to identify the modality in the PACS.
 
-- The destination must accept each source AETitle as a calling AETitle. Restrict the senders with [Sources](../sources) if the destination only knows some of them.
+- The destination must accept each source AETitle as a calling AETitle. Restrict the senders with [Sources](sources) if the destination only knows some of them.
 - Karnak opens separate associations for each source AETitle, so the **Concurrent connections** limit applies per source: with several sources sending at the same time, the destination can receive that many associations from each one.
 
 The option is unchecked by default and is disabled for a [virtual destination](#5-virtual-destination).
@@ -298,6 +302,20 @@ Three actions are available to manage the destination:
 > [!WARNING]
 > Deleting a destination cannot be undone. All configuration settings will be permanently removed.
 
+## What the source receives {#what-the-source-receives}
+
+Karnak answers the source {{< since "2.0.1" >}} only once the destination has stored the instance or refused it, so a refusal reaches the source instead of being reported as a success.
+
+| Destination outcome | Status returned to the source |
+|---------------------|-------------------------------|
+| Stored (DICOM *Success* or a warning; STOW-RS success, or `409` because the instance is already present) | *Success* (0000H) |
+| DICOM *Out of Resources* (A7xxH), or no C-STORE response within the [C-STORE response timeout](#1-destination-parameters) | *Out of Resources* (A700H): the source is expected to retry later |
+| STOW-RS `408`, `429` or `5xx` | *Out of Resources* (A700H): the source is expected to retry later |
+| Any other refusal (DICOM error status, other HTTP error) | *Processing Failure* (0110H) |
+
+When a forward node has several destinations, a refusal by one destination does not prevent sending the instance to the others; the refusal is reported to the source afterwards.
+The reason of the refusal is listed in the [Monitoring](../monitoring) view.
+
 ---
 
 ## STOW Destination
@@ -320,6 +338,9 @@ Only the differences are detailed below.
 
 **Condition**: An optional expression that activates the destination when met.
 See [Conditions](../../../profiles/conditions) for more details.
+
+Karnak does not follow HTTP redirects {{< since "2.0.1" >}}: a `3xx` response fails the upload.
+Enter the final URL of the endpoint, not an address that redirects to it (for example an SSO login page in front of the archive).
 
 ##### Use HTTP/2
 

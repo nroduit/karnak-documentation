@@ -51,7 +51,7 @@ In the details view you can:
 
 Click **Update** to save your changes.
 
-### 5. Project secret
+### 5. Project secret {#5-project-secret}
 
 The project secret is central to Karnak's de-identification process.\
 It is a 16-byte value written as 32 hexadecimal characters.

@@ -39,4 +39,6 @@ When a DICOM instance is received by the forward node:
   Instances from any other node are refused with the DICOM status *Not Authorized* (0124H) and are listed in the [Monitoring](../monitoring) view as not transferred, with the reason *Source not authorized: <AET>*.
 - **Without sources configured**: All instances are accepted.
 
+An accepted instance is answered only once its destinations have stored or refused it {{< since "2.0.1" >}}; see [What the source receives](destinations#what-the-source-receives).
+
 This provides flexible security control for your DICOM workflow.

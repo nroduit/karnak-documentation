@@ -67,12 +67,16 @@ The checks use a bundled, machine-readable copy of the DICOM standard extracted 
 For the instance's SOP Class, Karnak resolves the applicable modules and checks:
 
 - **Module presence** — a mandatory (usage *M*) module whose required attributes are all absent is reported as missing.
+  An optional (usage *U* or *C*) module is considered present only when one of its **own** attributes is found {{< since "2.0.1" >}}: an attribute shared with another module of the IOD does not bring in its requirements (for example, *Pixel Spacing* does not make the optional *DX Detector* module of an X-Ray fluoroscopy image require *Imager Pixel Spacing*), and neither does a *Number of Frames* of 1 for the *Multi-frame* module.
 - **Attribute Type** — each attribute's requirement is enforced:
   - **Type 1** — must be present **and** carry a value (present-but-empty is an error).
   - **Type 2** — must be present, but may be empty.
   - **Type 3** — optional.
 - **VR (Value Representation)** — the encoded VR must match the one the standard defines for the attribute.
 - **VM (Value Multiplicity)** — the number of values must fall within the range the standard allows.
+- **Functional Group Macros** {{< since "2.0.1" >}} — in enhanced multi-frame objects (e.g. Enhanced CT or MR), the attributes of each Functional Group Macro of the IOD are checked inside the *Shared* or the *Per-frame Functional Groups Sequence*, where the standard places them, instead of at the top level of the dataset.
+  A macro must be carried either in the single Shared item or in every Per-frame item; it is required when its usage is *M*, or *C* with a curated condition that holds, and otherwise only validated when present.
+  A per-frame-only macro (such as *Frame Content*) found in the Shared group is reported.
 
 ### Conditional requirements (Type 1C / 2C)
 
@@ -146,7 +150,22 @@ The HTML email summarizes, for the study:
 - **Composition** — the modalities, SOP Class UIDs and transfer syntaxes encountered.
 - **Per-series summary** — each series with its modality, SOP classes and instance count.
 - **Findings** — conformance findings grouped by SOP class (with an example instance and a count), and study-level **consistency findings** for attributes that should be identical across the study but are not.
+  An identical issue affecting many instances appears once, with an **Instances** count (see [Reading the findings](#reading-the-findings)).
 - **Identifying data on image** — only when *Check for identifying data burned into the image* is enabled: the patient-identifying tags whose value was found burned into the pixel data, with the number of images affected; otherwise how many images were analyzed, or could not be analyzed because the de-identification image service was unreachable.
+
+### Reading the findings {#reading-the-findings}
+
+Each row of the findings table has the following columns:
+
+| Column | Meaning |
+|--------|---------|
+| **Severity** | `ERROR`, `WARNING` or `INFO`. |
+| **Issue** | The category of check (e.g. *Type 1 missing*, *VR mismatch*, *Invalid value*). |
+| **Tag** | The attribute location, e.g. `(0010,0010)`, or `(0040,0275) > (0008,0050)` for an attribute inside a sequence. |
+| **Attribute / Module** | The attribute name, with below it the IOD module(s) defining it for this SOP Class (e.g. *Image Plane*) {{< since "2.0.1" >}}, or the module name alone for a *Module missing* finding. When the attribute belongs to several modules, only those present in the instance are listed; no module is shown for attributes outside the IOD (private, non-standard). |
+| **Expected** | What the standard requires (the Type, VR, VM, or the allowed values). |
+| **Found** | What was actually present. |
+| **Instances** | How many instances of that SOP Class had this finding. |
 
 ## Examples
 

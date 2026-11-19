@@ -28,7 +28,7 @@ Another variant of this action regarding shifting dates using values retrieved f
 | Argument | Type | Description                                                                                                                                                                                                                                                                       |
 |----------|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **url** | Required | URL of the API to query. Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                                                                                  |
-| **responsePath** | Required | JSON path of the value used as replacement, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax. Empty string means the entire response value will be used.                                                                                                |
+| **responsePath** | Required | JSON path of the value used as replacement, using [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) syntax (see [Response Value](#response-value)). Empty string means the entire response value will be used.                                                                                                |
 | **method** | Optional | HTTP method: `GET` or `POST`. Defaults to `GET`.                                                                                                                                                                                                                                  |
 | **body** | Optional | Request body for POST requests in JSON format (mandatory when `method` is `POST`). Can contain runtime parameters (see [URL and Body Arguments](#url-and-body-arguments)).                                                                                                          |
 | **authConfig** | Optional | Identifier of an existing [Authentication Configuration](../../userguide/authconfig) for authenticating the call. No authentication used if not specified.                                                                                                                        |
@@ -59,6 +59,15 @@ In the body, hence the JSON format, the expression must be enclosed in double qu
 The expressions are evaluated against the **original** values of the instance, before any profile element modified it (for example `getString(#Tag.PatientID)` returns the Patient ID received by Karnak, not the pseudonymized one).
 An expression that evaluates to null is replaced by an empty string.
 
+### Response Value {#response-value}
+
+The value found at `responsePath` is converted to text before it replaces the tag value:
+
+- a string is used as its plain text, without JSON quotes (`"P-001"` gives `P-001`);
+- a number or a boolean is used as its plain text as well (`42` gives `42`) {{< since "2.0.1" >}};
+- an object or an array is used as its JSON text;
+- a missing value or `null` is treated as an error: the `defaultValue` is used when it is set, otherwise the transfer is aborted.
+
 ### Response Caching
 
 The responses of the API are cached by URL, body and authentication configuration, so that the same call is not repeated for every instance of the same patient.
@@ -68,7 +77,7 @@ The cache lifetime is defined by the `cache-api.ttl` property of `application.ym
 
 ###  Example 1: Replace Patient ID with API response
 
-The profile element below replaces the value of the Patient ID tag with the value retrieved from the url, it extracts the String value from the response at the specified path.
+The profile element below replaces the value of the Patient ID tag with the value retrieved from the url, it extracts the value from the response at the specified path.
 Since it is not specified, the HTTP method is GET.
 
 The authConfig argument contains the identifier of the Authentication Configuration used to authenticate the API call.

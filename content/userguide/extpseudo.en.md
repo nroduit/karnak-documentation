@@ -32,6 +32,9 @@ This allows Karnak to properly handle cases where:
 - A patient participates in multiple clinical studies with different pseudonyms
 - Potential pseudonym collisions occur between projects
 
+The page can also be opened with a project already selected {{< since "2.0.1" >}}, by adding its UUID to the address: `/extid?projectUuid=<uuid>`.
+An unknown or malformed UUID is ignored and no project is selected.
+
 ### 2. Upload a CSV file
 
 You can upload a CSV file containing external pseudonyms by:

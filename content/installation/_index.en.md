@@ -286,7 +286,7 @@ By default, Karnak uses the built-in administrator account.
 Set `IDP=oidc` to delegate the authentication to an OpenID Connect provider such as Keycloak, and configure it with `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET` (or `OIDC_CLIENT_SECRET_FILE`) and `OIDC_ISSUER_URI`.
 
 Karnak reads the user's roles from the `resource_access.karnak.roles` claim of the **access token**, so the provider must be configured to put the roles of the `karnak` client in the access token (in Keycloak: client scope *roles*, with the *Add to access token* mapper enabled).
-Three roles are recognized; any other role is ignored and logged as a warning:
+Three roles give access to the web portal; the `karnak_*` roles of the [REST API](api#roles) are recognized as well, and any other role is ignored and logged as a warning:
 
 | Role | Access |
 |------|--------|
