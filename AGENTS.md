@@ -80,7 +80,7 @@ The moving parts:
 - **French.** `[Languages.fr]` is declared but `content/` holds only `.en.md`, so /fr/ is a shell of empty section pages.
   They are served `noindex` and excluded from the sitemap; `/fr/sitemap.xml` is still written, empty, because Hugo 0.165 offers no supported way to suppress it.
   Drop the language, or add French content, to be rid of it — and remove the language condition in `layouts/_default/sitemap.xml` when translations exist.
-- **Titles.** `title` is written for a search result and becomes the `<h1>` and the `<title>`; `linkTitle` keeps the sidebar, the breadcrumb and `{{% children %}}` short.
+- **Titles.** `title` is written for a search result and becomes the `<h1>` and the `<title>`; `linkTitle` keeps the sidebar, the breadcrumb and `{{% pages %}}` short.
   The site title is just `Karnak`, because it is appended to every `<title>` — the long form lives in `og:site_name` and in the JSON-LD.
 - **IndexNow** (`.github/workflows/hugo.yaml`) submits changed URLs to Bing and Yandex on every push to `main`; ownership is proved by `static/<key>.txt`.
 
@@ -109,7 +109,7 @@ Content is Goldmark Markdown rendered by Hugo with the Relearn theme; a page is 
 
 ### Shortcodes
 
-- Use the Relearn shortcodes (`notice`, `badge`, `button`, `tabs` / `tab`, `expand`, `include`, `children`, `math`, `mermaid` (the pinned 9.1 theme has no `callout`, `pages` or `figure`; a newer local theme warns that `children` is deprecated, which does not apply to the pinned version)) and the project shortcodes in `layouts/shortcodes/` rather than raw HTML or a new shortcode; check the [Relearn documentation](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/) of the pinned theme version before using a parameter, and look at how neighboring pages use it.
+- Use the Relearn shortcodes (`notice`, `badge`, `button`, `tabs` / `tab`, `expand`, `include`, `pages`, `math`, `mermaid`, `callout`, `figure`; `children` is deprecated in favor of `pages`) and the project shortcodes in `layouts/shortcodes/` rather than raw HTML or a new shortcode; check the [Relearn documentation](https://mcshelby.github.io/hugo-theme-relearn/shortcodes/) of the pinned theme version before using a parameter, and look at how neighboring pages use it.
 - `{{% … %}}` renders its inner content as Markdown, `{{< … >}}` passes it as is: keep the delimiter the existing pages use for that shortcode.
 - A paragraph that contains an inline shortcode keeps its line layout: inner content can be whitespace-sensitive (`launch` turns it into a URL), so never join, split or re-indent the lines of a shortcode call or of its inner content.
 - A block shortcode (`highlight`, `notice`, `tabs`, `expand`, …) opens and closes on lines of its own, separated from the surrounding text by blank lines; its inner content follows the Markdown rules only when the shortcode renders Markdown.

@@ -6,4 +6,4 @@ linkTitle: "Profiles"
 keywords: [ "de-identification profile", "dicom anonymization rules", "yaml profile", "profile elements", "dicom confidentiality profile" ]
 ---
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}

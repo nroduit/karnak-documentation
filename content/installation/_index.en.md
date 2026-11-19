@@ -364,4 +364,4 @@ Then replace `image: nroduit/karnak:v2.0.0` by `image: local/karnak:latest` in `
 
 ## Other installation pages
 
-{{% children description="true" %}}
+{{% pages description="true" display="tree" %}}
