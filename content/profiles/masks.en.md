@@ -241,6 +241,10 @@ No pixel data leaves Karnak beyond the single frame being analyzed.
 
 `AccessionNumber`, `InstitutionName`, `OperatorsName`, `PatientAge`, `PatientBirthDate`, `PatientID`, `PatientName`, `PatientSex`, `PerformingPhysicianName`, `PerformedProcedureStepID`, `ReferringPhysicianName`, `StudyDate`.
 
+{{% version since="2.0.2" %}}
+The built-in `Dicom Basic Profile` enables this option {{< since "2.0.2" >}}, so every project using it relies on the external service.
+{{% /version %}}
+
 ### Fail-closed Behavior
 
 When automatic mask generation is enabled and the API is **unreachable or returns an error**, Karnak produces **no mask** and the instance is **not forwarded**.
@@ -283,11 +287,15 @@ It maps to the `ocr.url` property in `application.yml`:
 ```yaml
 ocr:
   url: ${OCR_URL:http://localhost:8000}
+  connect-timeout-ms: ${OCR_CONNECT_TIMEOUT_MS:5000}
+  read-timeout-ms: ${OCR_READ_TIMEOUT_MS:60000}
 ```
 
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `OCR_URL` | `http://localhost:8000` | Base URL of the de-identification image API. |
+| `OCR_CONNECT_TIMEOUT_MS` {{< since "2.0.2" >}} | `5000` | Time allowed to open the connection to the API, in milliseconds. |
+| `OCR_READ_TIMEOUT_MS` {{< since "2.0.2" >}} | `60000` | Time allowed for the API to answer one image, in milliseconds. When exceeded, the instance is not forwarded, as when the API is unreachable. Raise it if the API runs on a slow CPU-only host. |
 
 The API contract is documented in the [`deidentification-api.yaml`](https://github.com/nroduit/karnak/blob/master/src/main/resources/deidentification-api.yaml) specification.
 

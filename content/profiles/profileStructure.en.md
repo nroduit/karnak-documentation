@@ -125,19 +125,30 @@ Reference it by codename in your profile:
   codename: "basic.dicom.profile"
 ```
 
-### Complete Example
+### Complete Example {#complete-example}
 
-Below is a minimal but complete profile that applies only the Basic DICOM Profile:
+Below is the suggested profile: it masks the text burned into the images with the automatic [Clean Pixel Data](masks#automatic-pixel-data-de-identification) option, then applies the Basic DICOM Profile.
 
 ```yaml
-name: "Dicom Basic Profile"
+name: "Basic Profile with Clean Pixel Data"
 version: "1.0"
-minimumKarnakVersion: "0.9.2"
+minimumKarnakVersion: "2.0.0"
 defaultIssuerOfPatientID:
 profileElements:
+  - name: "Clean pixel data"
+    codename: "clean.pixel.data"
+    arguments:
+      automaticMasksGeneration: "true"
+
   - name: "DICOM basic profile"
     codename: "basic.dicom.profile"
 ```
+
+It requires the external de-identification image API; without it, keep only the `basic.dicom.profile` element.
+
+{{% version since="2.0.2" %}}
+The built-in `Dicom Basic Profile` contains the same elements {{< since "2.0.2" >}}, so a new installation can use it without importing this one.
+{{% /version %}}
 
 > [!INFO]
 > This profile should be placed at the end of your profile elements to ensure all other rules are applied first. The profile editor automatically moves it to the last position, and it can appear only once in a profile (as can the Clean Pixel Data and Defacing elements).

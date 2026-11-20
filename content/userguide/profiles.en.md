@@ -14,6 +14,16 @@ The `Dicom Basic Profile` is available by default and cannot be edited or delete
 It is the reference de-identification profile based on the [DICOM standard](http://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_E.html).
 For more details, see [De-identification Process](../../profiles/rules)
 
+> [!TIP]
+> The suggested profile for de-identification also removes the text burned into the images: before the DICOM basic profile, it applies a **Clean Pixel Data** element whose masks are generated automatically by the external OCR service.
+> Import the [suggested profile](../../profiles/profilestructure#complete-example) as a new profile and assign it to your projects.
+> The OCR service must be deployed and reachable, otherwise images that may contain burned-in text (ultrasound, secondary capture, or flagged `BurnedInAnnotation`) are not forwarded; see [Automatic Pixel Data De-identification](../../profiles/masks#automatic-pixel-data-de-identification).
+
+{{% version since="2.0.2" %}}
+The built-in `Dicom Basic Profile` is the suggested profile {{< since "2.0.2" >}}, so a new installation does not need to import it.
+An installation upgraded from an earlier version keeps its previous built-in profile, which contains only the DICOM basic profile.
+{{% /version %}}
+
 ![profile page](/userguide/profile_main.png)
 
 The page has two areas:
